@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31515.178
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KZMaker.Core", "KZMaker.Core\KZMaker.Core.csproj", "{63555C52-FA50-4FBA-A04F-90C3F0146805}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KZMaker.WPF", "KZMaker.WPF\KZMaker.WPF.csproj", "{0B945849-7269-4F66-BF4D-255AAA06B0D2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{63555C52-FA50-4FBA-A04F-90C3F0146805}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{63555C52-FA50-4FBA-A04F-90C3F0146805}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{63555C52-FA50-4FBA-A04F-90C3F0146805}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{63555C52-FA50-4FBA-A04F-90C3F0146805}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0B945849-7269-4F66-BF4D-255AAA06B0D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0B945849-7269-4F66-BF4D-255AAA06B0D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0B945849-7269-4F66-BF4D-255AAA06B0D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0B945849-7269-4F66-BF4D-255AAA06B0D2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D35FF7AA-C8E3-4640-A32F-A53CC8515A14}
+	EndGlobalSection
+EndGlobal
