@@ -6,7 +6,6 @@
 
   <ItemGroup>
     <PackageReference Include="MvvmCross" Version="8.0.2" />
-    <PackageReference Include="MvvmCross.Core" Version="5.7.0" />
     <PackageReference Include="System.Drawing.Common" Version="5.0.2" />
   </ItemGroup>
 

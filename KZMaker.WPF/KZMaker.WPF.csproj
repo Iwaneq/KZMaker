@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Fonts\Rubik-Regular.ttf" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="5.0.0" />
     <PackageReference Include="MvvmCross" Version="8.0.2" />
     <PackageReference Include="MvvmCross.Platforms.Wpf" Version="8.0.2" />
@@ -17,6 +21,12 @@
 
   <ItemGroup>
     <ProjectReference Include="..\KZMaker.Core\KZMaker.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Fonts\Rubik-Regular.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
 </Project>

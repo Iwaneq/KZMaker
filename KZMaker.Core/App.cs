@@ -18,9 +18,7 @@ namespace KZMaker.Core
 
         public override void Initialize()
         {
-            RegisterAppStart<HomeViewModel>();
-
-            base.Initialize();
+            RegisterAppStart<MainViewModel>();
         }
     }
 }

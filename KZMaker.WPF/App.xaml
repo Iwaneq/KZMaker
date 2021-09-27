@@ -4,5 +4,15 @@
              xmlns:local="clr-namespace:KZMaker.WPF"
              xmlns:views="clr-namespace:MvvmCross.Platforms.Wpf.Views;assembly=MvvmCross.Platforms.Wpf"
              StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <ResourceDictionary>
 
+            <ResourceDictionary.MergedDictionaries>
+
+                <ResourceDictionary Source="Styles/Common.xaml"/>
+                
+            </ResourceDictionary.MergedDictionaries>
+            
+        </ResourceDictionary>
+    </Application.Resources>
 </views:MvxApplication>
