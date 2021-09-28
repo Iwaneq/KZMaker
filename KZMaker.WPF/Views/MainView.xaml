@@ -4,10 +4,65 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:KZMaker.WPF.Views"
-             xmlns:views="clr-namespace:MvvmCross.Platforms.Wpf.Views;assembly=MvvmCross.Platforms.Wpf"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Grid Background="Black">
+             xmlns:views="clr-namespace:MvvmCross.Platforms.Wpf.Views;assembly=MvvmCross.Platforms.Wpf" xmlns:controls="clr-namespace:KZMaker.WPF.Controls"
+                  mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800" Foreground="White" FontSize="15">
+    <Grid Background="{StaticResource PrimaryBrush2}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid Background="{StaticResource PrimaryBrush1}"
+                Width="150">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
             
+            <Image Grid.Column="0"
+                   Grid.Row="0"
+                   Source="/Resources/fse.png" 
+                   Width="38" Height="38"
+                   VerticalAlignment="Top"
+                   Margin="5 20 0 0"/>
+            
+            <TextBlock Grid.Column="1"
+                       Grid.Row="0"
+                       Text="KartaZbiórki Maker"
+                       Margin="10 20 0 0"
+                       TextWrapping="WrapWithOverflow"/>
+
+            <Grid Grid.Row="1"
+                  Grid.ColumnSpan="2"
+                  Margin="0 20 0 0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                
+                <controls:NavButton Grid.Row="0"
+                                    ButtonText="Start"
+                                    IconPath="{StaticResource Home_Icon}"/>
+                <controls:NavButton Grid.Row="1"
+                                    ButtonText="Karta"/>
+                <controls:NavButton Grid.Row="2"
+                                    ButtonText="Lista Kart"/>
+                <controls:NavButton Grid.Row="3"
+                                    ButtonText="Drukuj"/>
+                <controls:NavButton Grid.Row="4"
+                                    ButtonText="Ustawienia"/>
+                
+            </Grid>
+            
+        </Grid>
+        
     </Grid>
 </views:MvxWpfView>

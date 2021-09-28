@@ -7,7 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Fonts\Rubik-Regular.ttf" />
+    <None Remove="Fonts\Rubik.ttf" />
+    <None Remove="Resources\fse.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -24,7 +25,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Fonts\Rubik-Regular.ttf">
+    <Resource Include="Fonts\Rubik.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\fse.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
