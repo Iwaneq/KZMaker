@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:KZMaker.WPF"
              xmlns:views="clr-namespace:MvvmCross.Platforms.Wpf.Views;assembly=MvvmCross.Platforms.Wpf"
-             StartupUri="MainWindow.xaml">
+             xmlns:viewModels="clr-namespace:KZMaker.Core.ViewModels;assembly=KZMaker.Core" xmlns:appViews="clr-namespace:KZMaker.WPF.Views"
+                      StartupUri="MainWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
 
@@ -11,9 +12,18 @@
 
                 <ResourceDictionary Source="Resources/Icons.xaml"/>
                 <ResourceDictionary Source="Styles/Common.xaml"/>
-                
+                <ResourceDictionary Source="Styles/Buttons.xaml"/>
+
             </ResourceDictionary.MergedDictionaries>
-            
+
+            <DataTemplate DataType="{x:Type viewModels:HomeViewModel}">
+                <appViews:HomeView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModels:CreateCardViewModel}">
+                <appViews:CreateCardView/>
+            </DataTemplate>
+
         </ResourceDictionary>
+
     </Application.Resources>
 </views:MvxApplication>

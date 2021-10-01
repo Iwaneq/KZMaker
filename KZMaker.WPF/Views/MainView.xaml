@@ -4,7 +4,11 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:KZMaker.WPF.Views"
-             xmlns:views="clr-namespace:MvvmCross.Platforms.Wpf.Views;assembly=MvvmCross.Platforms.Wpf" xmlns:controls="clr-namespace:KZMaker.WPF.Controls"
+             xmlns:views="clr-namespace:MvvmCross.Platforms.Wpf.Views;assembly=MvvmCross.Platforms.Wpf" 
+             xmlns:navigation="clr-namespace:KZMaker.Core.Navigation;assembly=KZMaker.Core"
+             xmlns:extensions="clr-namespace:KZMaker.WPF.Controls.Extensions"
+                  xmlns:mvx="clr-namespace:MvvmCross.Platforms.Wpf.Binding;assembly=MvvmCross.Platforms.Wpf" 
+                  xmlns:viewmodels="clr-namespace:KZMaker.Core.ViewModels;assembly=KZMaker.Core"
                   mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800" Foreground="White" FontSize="15">
     <Grid Background="{StaticResource PrimaryBrush2}">
@@ -12,9 +16,14 @@
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
         <Grid Background="{StaticResource PrimaryBrush1}"
-                Width="150">
+              Width="150"
+              Grid.RowSpan="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto"/>
                 <ColumnDefinition Width="*"/>
@@ -47,22 +56,70 @@
                     <RowDefinition Height="auto"/>
                     <RowDefinition Height="auto"/>
                 </Grid.RowDefinitions>
-                
-                <controls:NavButton Grid.Row="0"
-                                    ButtonText="Start"
-                                    IconPath="{StaticResource Home_Icon}"/>
-                <controls:NavButton Grid.Row="1"
-                                    ButtonText="Karta"/>
-                <controls:NavButton Grid.Row="2"
-                                    ButtonText="Lista Kart"/>
-                <controls:NavButton Grid.Row="3"
-                                    ButtonText="Drukuj"/>
-                <controls:NavButton Grid.Row="4"
-                                    ButtonText="Ustawienia"/>
-                
+
+                <RadioButton Grid.Row="0"
+                             Style="{StaticResource NavButton}"
+                             Content="Start"
+                             extensions:RadioButtonIconExtension.IconPath="{StaticResource Home_Icon}"
+                             IsChecked="True"
+                             mvx:Bi.nd="Command NavigateCommand"
+                             CommandParameter="{x:Static navigation:ViewModelType.Home}"/>
+                <RadioButton Grid.Row="1"
+                             Style="{StaticResource NavButton}"
+                             Content="Karta"
+                             extensions:RadioButtonIconExtension.IconPath="{StaticResource Document_Icon}"
+                             mvx:Bi.nd="Command NavigateCommand"
+                             CommandParameter="{x:Static navigation:ViewModelType.CreateCard}"/>
+                <RadioButton Grid.Row="2"
+                             Style="{StaticResource NavButton}"
+                             Content="Lista Kart"
+                             extensions:RadioButtonIconExtension.IconPath="{StaticResource Folder_Icon}"/>
+                <RadioButton Grid.Row="3"
+                             Style="{StaticResource NavButton}"
+                             Content="Drukuj"
+                             extensions:RadioButtonIconExtension.IconPath="{StaticResource Printer_Icon}"/>
+                <RadioButton Grid.Row="4"
+                             Style="{StaticResource NavButton}"
+                             Content="Ustawienia"
+                             extensions:RadioButtonIconExtension.IconPath="{StaticResource Settings_Icon}"/>
+
             </Grid>
-            
+
         </Grid>
+
+        <StackPanel Grid.Row="0"
+              Grid.Column="1"
+              Height="25"
+              Background="{StaticResource SecondaryBrush1}"
+              MouseLeftButtonDown="Grid_MouseLeftButtonDown"
+                    Orientation="Horizontal"
+                    FlowDirection="RightToLeft">
+            
+            <Button Style="{StaticResource ChromeButton}"
+                    Content="{StaticResource Close_Icon}"
+                    Name="closeButton"
+                    Click="closeButton_Click"
+                    Margin="8 0 8 0"/>
+            
+            <Button Style="{StaticResource ChromeButton}"
+                    Content="{StaticResource Maximize_Icon}"
+                    Name="maximizeButton"
+                    Click="maximizeButton_Click"
+                    Margin="0 0 8 0"/>
+            
+            <Button Style="{StaticResource ChromeButton}"
+                    Content="{StaticResource Minimize_Icon}"
+                    Name="minimizeButton"
+                    Click="minimizeButton_Click"/>
+            
+        </StackPanel>
+
+        <ContentControl Grid.Row="1"
+                        Grid.Column="1"
+                        Content="{Binding Navigator.CurrentViewModel}"
+                        Margin="10">
+            
+        </ContentControl>
         
     </Grid>
 </views:MvxWpfView>

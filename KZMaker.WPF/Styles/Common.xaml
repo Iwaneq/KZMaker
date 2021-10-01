@@ -4,11 +4,15 @@
     <!-- COLORS -->
     <Color x:Key="PrimaryColor1">#212121</Color>
     <Color x:Key="PrimaryColor2">#2E2E2E</Color>
+    <Color x:Key="SecondaryColor1">#1C1C1C</Color>
+    <Color x:Key="SecondaryColor2">#212020</Color>
     <Color x:Key="ActiveColor1">#0099F0</Color>
     
     <!-- BRUSHES -->
     <SolidColorBrush x:Key="PrimaryBrush1" Color="{StaticResource PrimaryColor1}"/>
     <SolidColorBrush x:Key="PrimaryBrush2" Color="{StaticResource PrimaryColor2}"/>
+    <SolidColorBrush x:Key="SecondaryBrush1" Color="{StaticResource SecondaryColor1}"/>
+    <SolidColorBrush x:Key="SecondaryBrush2" Color="{StaticResource SecondaryColor2}"/>
     <SolidColorBrush x:Key="ActiveBrush1" Color="{StaticResource ActiveColor1}"/>
 
 </ResourceDictionary>

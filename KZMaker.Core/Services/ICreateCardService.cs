@@ -1,4 +1,5 @@
-﻿using System;
+﻿using KZMaker.Core.Models;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -9,6 +10,6 @@ namespace KZMaker.Core.Services
 {
     public interface ICreateCardService
     {
-        Task<Bitmap> GenerateCard(string zastep, DateTime date, string place, List<Point> points, List<string> requiredItems);
+        Task<Bitmap> GenerateCard(string zastep, DateTime date, string place, List<Models.Point> points, List<string> requiredItems);
     }
 }
