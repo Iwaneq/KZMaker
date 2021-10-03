@@ -26,7 +26,7 @@ namespace KZMaker.Core.Services
             card = new Bitmap(Path.Combine(Environment.CurrentDirectory, @"Resources\", "karta.png"));
         }
 
-        public async Task<Bitmap> GenerateCard(string zastep, DateTime date, string place, List<Models.Point> points, List<string> requiredItems)
+        public async Task<Bitmap> GenerateCard(string zastep, DateTime date, string place, List<Models.Point> points, List<RequiredItem> requiredItems)
         {
             await Task.Run(() => DrawZastep(zastep));
 
@@ -41,7 +41,7 @@ namespace KZMaker.Core.Services
             return card;
         }
 
-        private static void DrawRequiredItems(List<string> requiredItems)
+        private static void DrawRequiredItems(List<RequiredItem> requiredItems)
         {
             if(requiredItems.Count == 0)
             {
@@ -51,9 +51,9 @@ namespace KZMaker.Core.Services
             Font requiredItemsFont = new Font("Arial", 30, FontStyle.Bold);
 
             string lines = "";
-            foreach(string item in requiredItems)
+            foreach(var item in requiredItems)
             {
-                lines += $"{item}, ";
+                lines += $"{item.Item}, ";
             }
             lines = lines.Substring(0, lines.Length - 2);
 

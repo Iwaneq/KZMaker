@@ -66,7 +66,7 @@
                              CommandParameter="{x:Static navigation:ViewModelType.Home}"/>
                 <RadioButton Grid.Row="1"
                              Style="{StaticResource NavButton}"
-                             Content="Karta"
+                             Content="Stwórz Kartę"
                              extensions:RadioButtonIconExtension.IconPath="{StaticResource Document_Icon}"
                              mvx:Bi.nd="Command NavigateCommand"
                              CommandParameter="{x:Static navigation:ViewModelType.CreateCard}"/>
@@ -76,7 +76,7 @@
                              extensions:RadioButtonIconExtension.IconPath="{StaticResource Folder_Icon}"/>
                 <RadioButton Grid.Row="3"
                              Style="{StaticResource NavButton}"
-                             Content="Drukuj"
+                             Content="Karta"
                              extensions:RadioButtonIconExtension.IconPath="{StaticResource Printer_Icon}"/>
                 <RadioButton Grid.Row="4"
                              Style="{StaticResource NavButton}"

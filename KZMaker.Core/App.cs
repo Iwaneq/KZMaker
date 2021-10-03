@@ -32,7 +32,7 @@ namespace KZMaker.Core
             });
             services.RegisterSingleton<CreateViewModel<CreateCardViewModel>>(() =>
             {
-                return new CreateCardViewModel();
+                return new CreateCardViewModel(services.Resolve<ICreateCardService>());
             });
 
             services.RegisterSingleton<DelegateViewModelFactory>(
@@ -47,60 +47,6 @@ namespace KZMaker.Core
             services.RegisterType<ICreateCardService, CreateCardService>();
 
             RegisterAppStart<MainViewModel>();
-
-            var bitmap = await services.Resolve<ICreateCardService>().GenerateCard("Salamandra", DateTime.Now, "Sołtyków Dolny",
-                new List<Point>()
-                {
-                    new Point()
-                    {
-                        Time = DateTime.Now,
-                        Title = "Pionierka",
-                        ZastepMember ="Jacek"
-                    },
-                    new Point()
-                    {
-                        Time = DateTime.Now,
-                        Title = "Pionierka",
-                        ZastepMember ="Jacek"
-                    },
-                    new Point()
-                    {
-                        Time = DateTime.Now,
-                        Title = "Pionierka",
-                        ZastepMember ="Jacek"
-                    },
-                    new Point()
-                    {
-                        Time = DateTime.Now,
-                        Title = "Pionierka",
-                        ZastepMember ="Jacek"
-                    },new Point()
-                    {
-                        Time = DateTime.Now,
-                        Title = "Pionierka",
-                        ZastepMember ="Jacek"
-                    },
-                    new Point()
-                    {
-                        Time = DateTime.Now,
-                        Title = "Pionierka",
-                        ZastepMember ="Jacek"
-                    },
-                    new Point()
-                    {
-                        Time = DateTime.Now,
-                        Title = "Pionierka",
-                        ZastepMember ="Jacek"
-                    }
-                },
-                new List<string>() 
-                { 
-                    "Nożyczki",
-                    "Jedzenie",
-                    "RĘCE GOTOWE DO PRACY"
-                });
-
-            bitmap.Save("C:\\data\\GraphicsTest\\test.png");
         }
     }
 }

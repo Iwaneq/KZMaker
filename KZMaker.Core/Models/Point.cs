@@ -11,6 +11,11 @@ namespace KZMaker.Core.Models
         public DateTime Time { get; set; }
         public string DisplayTime
         {
+            set
+            {
+                Time = DateTime.Parse(value);
+            }
+
             get
             {
                 string minute = "";

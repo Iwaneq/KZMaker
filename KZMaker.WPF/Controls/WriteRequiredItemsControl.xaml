@@ -1,0 +1,69 @@
+﻿<views:MvxWpfView x:Class="KZMaker.WPF.Controls.WriteRequiredItemsControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:KZMaker.WPF.Controls"
+             xmlns:views="clr-namespace:MvvmCross.Platforms.Wpf.Views;assembly=MvvmCross.Platforms.Wpf"
+                  xmlns:models="clr-namespace:KZMaker.Core.Models;assembly=KZMaker.Core"
+                  xmlns:mvx="clr-namespace:MvvmCross.Platforms.Wpf.Binding;assembly=MvvmCross.Platforms.Wpf"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Border CornerRadius="5"
+            Background="{StaticResource SecondaryBrush2}">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+
+            <ScrollViewer VerticalScrollBarVisibility="Auto"
+                          HorizontalScrollBarVisibility="Hidden">
+                <ListView Background="Transparent" 
+                          ItemsSource="{Binding RequiredItems}"
+                          SelectedItem="{Binding SelectedItem}"
+                          BorderThickness="0">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate DataType="{x:Type models:RequiredItem}">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBox Margin="1 4" Width="150"
+                                         Text="{Binding Item}"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Style.Triggers>
+                                <Trigger Property="IsKeyboardFocused" Value="False">
+                                    <Setter Property="Background" Value="Transparent"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                </ListView>
+            </ScrollViewer>
+
+            <Button Grid.Column="1"
+                    Style="{StaticResource ChromeButton}"
+                    Background="{StaticResource SecondaryBrush1}"
+                    VerticalAlignment="Top"
+                    Margin="5 5"
+                    Padding="5"
+                    Width="25"
+                    Height="25"
+                    Content="{StaticResource Close_Icon}"
+                    mvx:Bi.nd="Command AddNewItemCommand"/>
+            <Button Grid.Column="1"
+                    Style="{StaticResource ChromeButton}"
+                    Background="{StaticResource SecondaryBrush1}"
+                    VerticalAlignment="Top"
+                    Margin="0 38 0 0"
+                    Padding="5"
+                    Width="25"
+                    Height="25"
+                    Content="{StaticResource Minimize_Icon}"
+                    mvx:Bi.nd="Command DeleteSelectedItemCommand"/>
+
+        </Grid>
+    </Border>
+</views:MvxWpfView>

@@ -13,6 +13,7 @@
                 <ResourceDictionary Source="Resources/Icons.xaml"/>
                 <ResourceDictionary Source="Styles/Common.xaml"/>
                 <ResourceDictionary Source="Styles/Buttons.xaml"/>
+                <ResourceDictionary Source="Styles/TextBlocks.xaml"/>
 
             </ResourceDictionary.MergedDictionaries>
 

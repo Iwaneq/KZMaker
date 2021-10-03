@@ -55,17 +55,19 @@
     <Style x:Key="ChromeButton" TargetType="Button">
         <Setter Property="Height" Value="15"/>
         <Setter Property="Width" Value="15"/>
+        <Setter Property="Background" Value="Transparent"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
 
                     <Grid Height="{TemplateBinding Height}"
                           Width="{TemplateBinding Width}"
-                          Background="Transparent">
+                          Background="{TemplateBinding Background}">
                         <Path Data="{TemplateBinding Content}"
-                            Fill="White"
-                            Stretch="Uniform"
-                            x:Name="icon"
+                              Margin="{TemplateBinding Padding}"
+                              Fill="White"
+                              Stretch="Uniform"
+                              x:Name="icon"
                               HorizontalAlignment="Stretch"
                               VerticalAlignment="Stretch"/>
                     </Grid>
@@ -142,5 +144,51 @@
             </Setter.Value>
         </Setter>
     </Style>
-    
+
+    <Style x:Key="CreateCardButton" TargetType="Button">
+        <Setter Property="Height" Value="75"/>
+        <Setter Property="Width" Value="250"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+
+                    <Border Name="mainBorder" 
+                            CornerRadius="10" 
+                            Background="{StaticResource SecondaryBrush2}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Row="0"
+                                           Text="{TemplateBinding Content}"
+                                           Foreground="white"
+                                           FontSize="25"
+                                           Margin="10 7 0 0"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"/>
+
+                            <Path Grid.Column="1"
+                              Data="{TemplateBinding extensions:HomeButtonExtensions.IconPath}"
+                              Fill="White"
+                              Stretch="Uniform"
+                              Height="40"
+                              Width="40"
+                              Margin="10 0 10 0"/>
+
+                        </Grid>
+                    </Border>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="{StaticResource SecondaryBrush1}" TargetName="mainBorder"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
 </ResourceDictionary>

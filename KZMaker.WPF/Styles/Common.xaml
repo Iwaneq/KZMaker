@@ -14,5 +14,40 @@
     <SolidColorBrush x:Key="SecondaryBrush1" Color="{StaticResource SecondaryColor1}"/>
     <SolidColorBrush x:Key="SecondaryBrush2" Color="{StaticResource SecondaryColor2}"/>
     <SolidColorBrush x:Key="ActiveBrush1" Color="{StaticResource ActiveColor1}"/>
+    
+    <!--STYLES-->
+    
+    <!--SCROLL BAR-->
+    <Style TargetType="Thumb">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Border Background="{StaticResource SecondaryBrush1}"
+                            CornerRadius="4"
+                            VerticalAlignment="Stretch"
+                            HorizontalAlignment="Stretch"
+                            Width="Auto" Height="Auto"/>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <Style TargetType="ScrollBar">
+        <Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Width" Value="10"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ScrollBar">
+                    <Track x:Name="PART_Track"
+                           IsDirectionReversed="True">
+                        <Track.Thumb>
+                            <Thumb/>
+                        </Track.Thumb>
+                    </Track>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 
 </ResourceDictionary>

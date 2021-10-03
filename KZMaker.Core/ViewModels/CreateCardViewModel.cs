@@ -1,4 +1,6 @@
-﻿using KZMaker.Core.Models;
+﻿using KZMaker.Core.Commands;
+using KZMaker.Core.Models;
+using KZMaker.Core.Services;
 using MvvmCross.Commands;
 using MvvmCross.ViewModels;
 using System;
@@ -11,6 +13,9 @@ namespace KZMaker.Core.ViewModels
 {
     public class CreateCardViewModel : MvxViewModel
     {
+        public WritePointsViewModel WritePointsViewModel { get; set; }
+        public WriteRequiredItemsViewModel WriteRequiredItemsViewModel { get; set; }
+
         private string _zastep;
 
         public string Zastep
@@ -23,7 +28,7 @@ namespace KZMaker.Core.ViewModels
             }
         }
 
-        private DateTime _date;
+        private DateTime _date = DateTime.Now;
 
         public DateTime Date
         {
@@ -47,32 +52,20 @@ namespace KZMaker.Core.ViewModels
             }
         }
 
-        private List<Point> _points;
 
-        public List<Point> Points
+        public List<Point> Points => WritePointsViewModel.Points;
+
+        public List<RequiredItem> RequiredItems => WriteRequiredItemsViewModel.RequiredItems.ToList();
+
+        public IMvxCommand GenerateCardCommand { get; set; }
+
+        public CreateCardViewModel(ICreateCardService createCardService)
         {
-            get { return _points; }
-            set 
-            {
-                _points = value;
-                RaisePropertyChanged(() => Points);
-            }
+            WritePointsViewModel = new WritePointsViewModel();
+            WriteRequiredItemsViewModel = new WriteRequiredItemsViewModel();
+
+            GenerateCardCommand = new GenerateCardCommand(createCardService, this);
         }
-
-        private List<string> _requiredItems;
-
-        public List<string> RequiredItems
-        {
-            get { return _requiredItems; }
-            set 
-            { 
-                _requiredItems = value;
-                RaisePropertyChanged(() => RequiredItems);
-            }
-        }
-
-        public IMvxCommand PrintCardCommand { get; set; }
-        public IMvxCommand SaveCardCommand { get; set; }
 
     }
 }
