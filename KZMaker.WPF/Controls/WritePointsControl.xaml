@@ -7,6 +7,7 @@
              xmlns:views="clr-namespace:MvvmCross.Platforms.Wpf.Views;assembly=MvvmCross.Platforms.Wpf"
                   xmlns:models="clr-namespace:KZMaker.Core.Models;assembly=KZMaker.Core"
                   xmlns:viewModels="clr-namespace:KZMaker.Core.ViewModels;assembly=KZMaker.Core"
+                  xmlns:mvx="clr-namespace:MvvmCross.Platforms.Wpf.Binding;assembly=MvvmCross.Platforms.Wpf"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Border CornerRadius="5"
@@ -20,6 +21,7 @@
             <ScrollViewer VerticalScrollBarVisibility="Auto">
                 <ListView Background="Transparent" 
                          ItemsSource="{Binding Points}"
+                          SelectedItem="{Binding SelectedItem}"
                           BorderThickness="0">
                     <ListBox.ItemTemplate>
                         <DataTemplate DataType="{x:Type models:Point}">
@@ -44,7 +46,8 @@
                     Padding="5"
                     Width="25"
                     Height="25"
-                    Content="{StaticResource Close_Icon}"/>
+                    Content="{StaticResource Close_Icon}"
+                    mvx:Bi.nd="Command AddNewItemCommand"/>
             <Button Grid.Column="1"
                     Style="{StaticResource ChromeButton}"
                     Background="{StaticResource SecondaryBrush1}"
@@ -53,7 +56,8 @@
                     Padding="5"
                     Width="25"
                     Height="25"
-                    Content="{StaticResource Minimize_Icon}"/>
+                    Content="{StaticResource Minimize_Icon}"
+                    mvx:Bi.nd="Command DeleteSelectedItemCommand"/>
 
         </Grid>
     </Border>

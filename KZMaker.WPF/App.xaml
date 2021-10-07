@@ -23,6 +23,12 @@
             <DataTemplate DataType="{x:Type viewModels:CreateCardViewModel}">
                 <appViews:CreateCardView/>
             </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModels:SaveCardViewModel}">
+                <appViews:SaveCardView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModels:CardListViewModel}">
+                <appViews:CardListView/>
+            </DataTemplate>
 
         </ResourceDictionary>
 

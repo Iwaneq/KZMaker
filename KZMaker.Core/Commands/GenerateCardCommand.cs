@@ -1,4 +1,5 @@
-﻿using KZMaker.Core.Services;
+﻿using KZMaker.Core.Navigation;
+using KZMaker.Core.Services;
 using KZMaker.Core.ViewModels;
 using MvvmCross.Commands;
 using System;
@@ -13,12 +14,19 @@ namespace KZMaker.Core.Commands
     {
         private readonly ICreateCardService _createCardService;
         private readonly CreateCardViewModel _viewModel;
+        private readonly SaveCardViewModel _saveViewModel;
+        private readonly INavigator _navigator;
         public event EventHandler CanExecuteChanged;
 
-        public GenerateCardCommand(ICreateCardService createCardService, CreateCardViewModel viewModel)
+        public GenerateCardCommand(ICreateCardService createCardService,
+            CreateCardViewModel viewModel,
+            SaveCardViewModel saveViewModel, 
+            INavigator navigator)
         {
             _createCardService = createCardService;
             _viewModel = viewModel;
+            _saveViewModel = saveViewModel;
+            _navigator = navigator;
         }
 
         public bool CanExecute()
@@ -33,18 +41,15 @@ namespace KZMaker.Core.Commands
 
         public async void Execute()
         {
-            //Generate card
-            var bitmap = await _createCardService.GenerateCard(_viewModel.Zastep,
-                _viewModel.Date,
-                _viewModel.Place,
-                _viewModel.Points,
-                _viewModel.RequiredItems);
-
-            //Send data to SaveCardViewModel
-            bitmap.Save("C:\\data\\GraphicsTest\\test.png");
+            await GenerateCard();
         }
 
         public async void Execute(object parameter)
+        {
+            await GenerateCard();
+        }
+
+        private async Task GenerateCard()
         {
             //Generate card
             var bitmap = await _createCardService.GenerateCard(_viewModel.Zastep,
@@ -54,7 +59,9 @@ namespace KZMaker.Core.Commands
                 _viewModel.RequiredItems);
 
             //Send data to SaveCardViewModel
-            bitmap.Save("C:\\data\\GraphicsTest\\test.png");
+            _saveViewModel.UpdateCard(bitmap, _viewModel.FileName);
+
+            _navigator.Navigate(ViewModelType.SaveCard);
         }
 
         public void RaiseCanExecuteChanged()

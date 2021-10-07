@@ -41,40 +41,41 @@
                 <TextBlock Grid.Row="0" 
                            Text="Zastęp"/>
                 <TextBox Grid.Row="1"
-                         Text="{Binding Zastep}"
+                         Text="{Binding Zastep, UpdateSourceTrigger=PropertyChanged}"
                          Margin="0 5 0 0"
                          HorizontalAlignment="Left"/>
 
                 <TextBlock Grid.Row="2"
-                           Margin="0 20 0 0"
+                           Margin="0 35 0 0"
                            Text="Datum"/>
                 <DatePicker Grid.Row="3"
-                         Text="{Binding Date}"
-                         Margin="0 5 0 0"/>
+                            SelectedDate="{Binding Date, UpdateSourceTrigger=PropertyChanged}"
+                         Margin="-5 5 0 0"/>
 
                 <TextBlock Grid.Row="2"
                            Grid.Column="1"
-                           Margin="100 20 0 0"
+                           Margin="100 35 0 0"
                            Text="Miejsce"/>
                 <TextBox Grid.Row="3"
                          Grid.Column="1"
                          Margin="100 5 0 0"
-                         Text="{Binding Place}"/>
+                         Text="{Binding Place, UpdateSourceTrigger=PropertyChanged}"/>
 
                 <TextBlock Grid.Row="4"
                            Grid.Column="0"
                            Margin="0 35 0 0"
                            Text="Co robimy?"/>
 
-                <controls:WritePointsControl Height="150"
+                <controls:WritePointsControl Height="158"
                                              Grid.Row="5"
                                              Grid.ColumnSpan="2"
+                                             Margin="0 15 0 0"
                                              DataContext="{Binding WritePointsViewModel}"/>
 
             </Grid>
 
             <Grid Grid.Column="1"
-                  Margin="10 0 0 0">
+                  Margin="35 0 0 0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto"/>
                     <RowDefinition Height="auto"/>
@@ -88,13 +89,13 @@
                            Margin="5 0 0 0"/>
                 <controls:WriteRequiredItemsControl Grid.Row="1"
                                                     HorizontalAlignment="Stretch"
-                                                    Height="115"
+                                                    Height="113"
                                                     Margin="5 5 0 0"
                                                     DataContext="{Binding WriteRequiredItemsViewModel}"/>
 
                 <TextBlock Grid.Row="2" 
                            Text="Co dalej?"
-                           Margin="5 15 0 0"/>
+                           Margin="5 32 0 0"/>
 
                 <Button Grid.Row="3" Style="{StaticResource CreateCardButton}"
                         Content="Generuj kartę"
@@ -102,6 +103,16 @@
                         Height="75"
                         extensions:HomeButtonExtensions.IconPath="{StaticResource Document_Icon}"
                         mvx:Bi.nd="Command GenerateCardCommand"/>
+                
+                <Button
+                        Grid.Row="4" 
+                        Style="{StaticResource CreateCardButton}"
+                        HorizontalAlignment="Right"
+                        Margin="0 10 0 0"
+                        Content="Zapisz Szkic Karty"
+                        FontSize="20"
+                        extensions:HomeButtonExtensions.IconPath="{StaticResource Save_Icon}"
+                        mvx:Bi.nd="Command SaveDraftCommand"/>
 
 
             </Grid>

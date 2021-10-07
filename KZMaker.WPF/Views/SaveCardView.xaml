@@ -1,0 +1,61 @@
+﻿<views:MvxWpfView x:Class="KZMaker.WPF.Views.SaveCardView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:KZMaker.WPF.Views"
+             xmlns:extenstions="clr-namespace:KZMaker.WPF.Controls.Extensions"
+             xmlns:views="clr-namespace:MvvmCross.Platforms.Wpf.Views;assembly=MvvmCross.Platforms.Wpf"
+                  xmlns:converters="clr-namespace:KZMaker.WPF.Converters"
+                  xmlns:mvx="clr-namespace:MvvmCross.Platforms.Wpf.Binding;assembly=MvvmCross.Platforms.Wpf"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800" Foreground="White" FontSize="18">
+    <UserControl.Resources>
+        <converters:WPFImageSourceConverter x:Key="ImageSourceConverter"/>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Text="Wydrukuj Kartę" Margin="0 0 0 25"/>
+
+        <Image Grid.Row="1" Grid.Column="0"
+               RenderOptions.BitmapScalingMode="HighQuality"
+               Source="{Binding Card, Converter={StaticResource ImageSourceConverter}}"
+               Margin="5"
+               Stretch="Uniform"/>
+
+        <Grid Grid.Column="1"
+              Grid.Row="1"
+              HorizontalAlignment="Center"
+              VerticalAlignment="Center">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+
+            <Button Grid.Row="0"
+                    Style="{StaticResource CreateCardButton}"
+                    HorizontalAlignment="Right"
+                    Content="Drukuj"
+                    extenstions:HomeButtonExtensions.IconPath="{StaticResource Printer_Icon}"/>
+
+            <Button
+                Grid.Row="2" 
+                Style="{StaticResource CreateCardButton}"
+                HorizontalAlignment="Right"
+                Margin="0 50 0 0"
+                Content="Zapisz Kartę"
+                extenstions:HomeButtonExtensions.IconPath="{StaticResource Save_Icon}"
+                mvx:Bi.nd="Command SaveCardCommand"/>
+        </Grid>
+
+    </Grid>
+</views:MvxWpfView>

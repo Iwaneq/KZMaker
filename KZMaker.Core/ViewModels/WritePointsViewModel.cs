@@ -1,4 +1,5 @@
 ﻿using KZMaker.Core.Models;
+using MvvmCross.Commands;
 using MvvmCross.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ namespace KZMaker.Core.ViewModels
 {
     public class WritePointsViewModel : MvxViewModel
     {
-        private List<Point> _points = new List<Point>() 
+        private MvxObservableCollection<Point> _points = new MvxObservableCollection<Point>() 
         {
             new Point()
             {
@@ -56,7 +57,7 @@ namespace KZMaker.Core.ViewModels
             }
         };
 
-        public List<Point> Points
+        public MvxObservableCollection<Point> Points
         {
             get { return _points; }
             set 
@@ -64,6 +65,37 @@ namespace KZMaker.Core.ViewModels
                 _points = value;
                 RaisePropertyChanged(() => Points);
             }
+        }
+
+        private Point _selectedItem;
+
+        public Point SelectedItem
+        {
+            get { return _selectedItem; }
+            set
+            {
+                _selectedItem = value;
+                RaisePropertyChanged(() => SelectedItem);
+            }
+        }
+
+
+        public IMvxCommand AddNewItemCommand { get; set; }
+        public IMvxCommand DeleteSelectedItemCommand { get; set; }
+
+        public WritePointsViewModel()
+        {
+            AddNewItemCommand = new MvxCommand(AddNewItem);
+            DeleteSelectedItemCommand = new MvxCommand(DeleteSelectedItem);
+        }
+
+        private void AddNewItem()
+        {
+            Points.Add(new Point());
+        }
+        private void DeleteSelectedItem()
+        {
+            Points.Remove(SelectedItem);
         }
 
     }

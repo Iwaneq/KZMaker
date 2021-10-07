@@ -12,7 +12,9 @@ namespace KZMaker.Core.Navigation
     public enum ViewModelType
     {
         Home,
-        CreateCard
+        CreateCard,
+        SaveCard,
+        CardList
     }
 
     public interface INavigator

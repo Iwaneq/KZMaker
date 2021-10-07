@@ -1,5 +1,6 @@
 ﻿using KZMaker.Core.Commands;
 using KZMaker.Core.Models;
+using KZMaker.Core.Navigation;
 using KZMaker.Core.Services;
 using MvvmCross.Commands;
 using MvvmCross.ViewModels;
@@ -28,7 +29,7 @@ namespace KZMaker.Core.ViewModels
             }
         }
 
-        private DateTime _date = DateTime.Now;
+        private DateTime _date;
 
         public DateTime Date
         {
@@ -37,8 +38,11 @@ namespace KZMaker.Core.ViewModels
             {
                 _date = value;
                 RaisePropertyChanged(() => Date);
+                RaisePropertyChanged(() => FileName);
             }
         }
+
+        public string FileName => $"{Date.Day}{Date.ToString("MMMM")}{Date.Year}";
 
         private string _place;
 
@@ -53,18 +57,22 @@ namespace KZMaker.Core.ViewModels
         }
 
 
-        public List<Point> Points => WritePointsViewModel.Points;
+        public List<Point> Points => WritePointsViewModel.Points.ToList();
 
         public List<RequiredItem> RequiredItems => WriteRequiredItemsViewModel.RequiredItems.ToList();
 
         public IMvxCommand GenerateCardCommand { get; set; }
+        public IMvxCommand SaveDraftCommand { get; set; }
 
-        public CreateCardViewModel(ICreateCardService createCardService)
+        public CreateCardViewModel(ICreateCardService createCardService, SaveCardViewModel saveViewModel, INavigator navigator, ISaveCardService saveCardService)
         {
             WritePointsViewModel = new WritePointsViewModel();
             WriteRequiredItemsViewModel = new WriteRequiredItemsViewModel();
 
-            GenerateCardCommand = new GenerateCardCommand(createCardService, this);
+            GenerateCardCommand = new GenerateCardCommand(createCardService, this, saveViewModel, navigator);
+            SaveDraftCommand = new SaveDraftCommand(this, saveCardService);
+
+            Date = DateTime.Now;
         }
 
     }

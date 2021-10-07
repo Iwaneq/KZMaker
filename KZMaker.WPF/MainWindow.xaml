@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:KZMaker.WPF"
         xmlns:views="clr-namespace:MvvmCross.Platforms.Wpf.Views;assembly=MvvmCross.Platforms.Wpf"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800" MinHeight="450" MinWidth="800"
+        Title="MainWindow" Height="475" Width="865" MinHeight="475" MinWidth="865"
         FontFamily="/Fonts/#Rubik"
         WindowStyle="None"
         AllowsTransparency="True"

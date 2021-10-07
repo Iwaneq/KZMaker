@@ -148,6 +148,7 @@
     <Style x:Key="CreateCardButton" TargetType="Button">
         <Setter Property="Height" Value="75"/>
         <Setter Property="Width" Value="250"/>
+        <Setter Property="FontSize" Value="25"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
@@ -164,7 +165,7 @@
                             <TextBlock Grid.Row="0"
                                            Text="{TemplateBinding Content}"
                                            Foreground="white"
-                                           FontSize="25"
+                                           FontSize="{TemplateBinding FontSize}"
                                            Margin="10 7 0 0"
                                        HorizontalAlignment="Center"
                                        VerticalAlignment="Center"/>

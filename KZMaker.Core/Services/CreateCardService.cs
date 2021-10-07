@@ -28,15 +28,15 @@ namespace KZMaker.Core.Services
 
         public async Task<Bitmap> GenerateCard(string zastep, DateTime date, string place, List<Models.Point> points, List<RequiredItem> requiredItems)
         {
-            await Task.Run(() => DrawZastep(zastep));
+            if(!string.IsNullOrEmpty(zastep)) await Task.Run(() => DrawZastep(zastep));
 
             await Task.Run(() => DrawDate(date));
 
-            await Task.Run(() => DrawPlace(place));
+            if (!string.IsNullOrEmpty(place)) await Task.Run(() => DrawPlace(place));
 
-            await Task.Run(() => DrawPoints(points));
+            if (points.Count != 0) await Task.Run(() => DrawPoints(points));
 
-            await Task.Run(() => DrawRequiredItems(requiredItems));
+            if (requiredItems.Count != 0) await Task.Run(() => DrawRequiredItems(requiredItems));
 
             return card;
         }

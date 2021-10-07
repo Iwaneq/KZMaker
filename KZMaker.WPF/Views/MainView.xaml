@@ -9,8 +9,12 @@
              xmlns:extensions="clr-namespace:KZMaker.WPF.Controls.Extensions"
                   xmlns:mvx="clr-namespace:MvvmCross.Platforms.Wpf.Binding;assembly=MvvmCross.Platforms.Wpf" 
                   xmlns:viewmodels="clr-namespace:KZMaker.Core.ViewModels;assembly=KZMaker.Core"
+                  xmlns:converters="clr-namespace:KZMaker.WPF.Converters"
                   mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800" Foreground="White" FontSize="15">
+    <UserControl.Resources>
+        <converters:CurrentViewModelConverter x:Key="ViewModelConverter"/>
+    </UserControl.Resources>
     <Grid Background="{StaticResource PrimaryBrush2}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto"/>
@@ -61,23 +65,30 @@
                              Style="{StaticResource NavButton}"
                              Content="Start"
                              extensions:RadioButtonIconExtension.IconPath="{StaticResource Home_Icon}"
-                             IsChecked="True"
+                             IsChecked="{Binding Navigator.CurrentViewModel, Converter={StaticResource ViewModelConverter}, ConverterParameter={x:Type viewmodels:HomeViewModel}}"
                              mvx:Bi.nd="Command NavigateCommand"
                              CommandParameter="{x:Static navigation:ViewModelType.Home}"/>
                 <RadioButton Grid.Row="1"
                              Style="{StaticResource NavButton}"
                              Content="Stwórz Kartę"
                              extensions:RadioButtonIconExtension.IconPath="{StaticResource Document_Icon}"
+                             IsChecked="{Binding Navigator.CurrentViewModel, Converter={StaticResource ViewModelConverter}, ConverterParameter={x:Type viewmodels:CreateCardViewModel}}"
                              mvx:Bi.nd="Command NavigateCommand"
                              CommandParameter="{x:Static navigation:ViewModelType.CreateCard}"/>
                 <RadioButton Grid.Row="2"
                              Style="{StaticResource NavButton}"
                              Content="Lista Kart"
-                             extensions:RadioButtonIconExtension.IconPath="{StaticResource Folder_Icon}"/>
+                             extensions:RadioButtonIconExtension.IconPath="{StaticResource Folder_Icon}"
+                             IsChecked="{Binding Navigator.CurrentViewModel, Converter={StaticResource ViewModelConverter}, ConverterParameter={x:Type viewmodels:CardListViewModel}}"
+                             mvx:Bi.nd="Command NavigateCommand"
+                             CommandParameter="{x:Static navigation:ViewModelType.CardList}"/>
                 <RadioButton Grid.Row="3"
                              Style="{StaticResource NavButton}"
                              Content="Karta"
-                             extensions:RadioButtonIconExtension.IconPath="{StaticResource Printer_Icon}"/>
+                             extensions:RadioButtonIconExtension.IconPath="{StaticResource Printer_Icon}"
+                             IsChecked="{Binding Navigator.CurrentViewModel, Converter={StaticResource ViewModelConverter}, ConverterParameter={x:Type viewmodels:SaveCardViewModel}}"
+                             mvx:Bi.nd="Command NavigateCommand"
+                             CommandParameter="{x:Static navigation:ViewModelType.SaveCard}"/>
                 <RadioButton Grid.Row="4"
                              Style="{StaticResource NavButton}"
                              Content="Ustawienia"
