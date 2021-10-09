@@ -52,7 +52,7 @@ namespace KZMaker.Core.Commands
 
         private void SaveCard()
         {
-            _saveCardService.SaveCard(_card, _fileName);
+            _saveCardService.SaveCard(_card, _fileName, "");
         }
 
         public void RaiseCanExecuteChanged()

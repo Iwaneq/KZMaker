@@ -11,17 +11,17 @@ namespace KZMaker.Core.Services
 {
     public class SaveCardService : ISaveCardService
     {
-        private string _savingPath;
+        public string SavingPath { get; set; }
         public SaveCardService()
         {
-            _savingPath = App.GetSettings().SavingPath;
+            SavingPath = App.GetSettings().SavingPath;
         }
 
-        public void SaveCard(Bitmap card, string fileName)
+        public void SaveCard(Bitmap card, string fileName, string savingPath)
         {
             CheckIfDirectoryExists();
 
-            card.Save(_savingPath + $"\\{fileName}.png");
+            card.Save(Path.Combine(savingPath, $"{fileName}.png"));
         }
 
         public void SaveDraft(string zastep, DateTime date, string place, List<Models.Point> points, List<RequiredItem> requiredItems, string fileName)
@@ -49,14 +49,14 @@ namespace KZMaker.Core.Services
             }
             lines = lines.Substring(0, lines.Length - 1);
 
-            File.WriteAllText(_savingPath + $"\\{fileName}.txt", lines);
+            File.WriteAllText(SavingPath + $"\\{fileName}.txt", lines);
         }
 
         private void CheckIfDirectoryExists()
         {
-            if (!Directory.Exists(_savingPath))
+            if (!Directory.Exists(SavingPath))
             {
-                Directory.CreateDirectory(_savingPath);
+                Directory.CreateDirectory(SavingPath);
             }
         }
     }

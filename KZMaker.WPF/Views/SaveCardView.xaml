@@ -54,7 +54,8 @@
                 Margin="0 50 0 0"
                 Content="Zapisz Kartę"
                 extenstions:HomeButtonExtensions.IconPath="{StaticResource Save_Icon}"
-                mvx:Bi.nd="Command SaveCardCommand"/>
+                mvx:Bi.nd="Command SaveCardCommand"
+                CommandParameter="{Binding}"/>
         </Grid>
 
     </Grid>

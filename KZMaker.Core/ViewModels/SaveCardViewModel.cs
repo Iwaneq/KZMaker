@@ -42,24 +42,18 @@ namespace KZMaker.Core.ViewModels
 
         public IMvxCommand SaveCardCommand { get; set; }
 
-        public SaveCardViewModel(ISaveCardService saveCardService)
+        public SaveCardViewModel(ISaveCardService saveCardService, ISaveCardCommand saveCardCommand)
         {
             Card = new Bitmap(Path.Combine(Environment.CurrentDirectory, @"Resources\", "karta.png"));
 
             _saveCardService = saveCardService;
-
-            SaveCardCommand = new MvxCommand(SaveCard);
+            SaveCardCommand = saveCardCommand;
         }
 
         public void UpdateCard(Bitmap card, string fileName)
         {
             Card = card;
             FileName = fileName;
-        }
-
-        private void SaveCard()
-        {
-            _saveCardService.SaveCard(Card, FileName);
         }
     }
 }
