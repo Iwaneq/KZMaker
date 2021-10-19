@@ -11,51 +11,7 @@ namespace KZMaker.Core.ViewModels
 {
     public class WritePointsViewModel : MvxViewModel
     {
-        private MvxObservableCollection<Point> _points = new MvxObservableCollection<Point>() 
-        {
-            new Point()
-            {
-                Time = DateTime.Now,
-                Title = "Pionierka",
-                ZastepMember ="Jacek"
-            },
-            new Point()
-            {
-                Time = DateTime.Now,
-                Title = "Pionierka",
-                ZastepMember ="Jacek"
-            },
-            new Point()
-            {
-                Time = DateTime.Now,
-                Title = "Pionierka",
-                ZastepMember ="Jacek"
-            },
-            new Point()
-            {
-                Time = DateTime.Now,
-                Title = "Pionierka",
-                ZastepMember ="Jacek"
-            },
-            new Point()
-            {
-                Time = DateTime.Now,
-                Title = "Pionierka",
-                ZastepMember ="Jacek"
-            },
-            new Point()
-            {
-                Time = DateTime.Now,
-                Title = "Pionierka",
-                ZastepMember ="Jacek"
-            },
-            new Point()
-            {
-                Time = DateTime.Now,
-                Title = "Pionierka",
-                ZastepMember ="Jacek"
-            }
-        };
+        private MvxObservableCollection<Point> _points = new MvxObservableCollection<Point>(){};
 
         public MvxObservableCollection<Point> Points
         {

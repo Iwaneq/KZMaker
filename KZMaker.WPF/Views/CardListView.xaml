@@ -4,10 +4,61 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:KZMaker.WPF.Views"
-             xmlns:views="clr-namespace:MvvmCross.Platforms.Wpf.Views;assembly=MvvmCross.Platforms.Wpf"
-             mc:Ignorable="d" 
+             xmlns:views="clr-namespace:MvvmCross.Platforms.Wpf.Views;assembly=MvvmCross.Platforms.Wpf" xmlns:controls="clr-namespace:KZMaker.WPF.Controls"
+                  xmlns:models="clr-namespace:KZMaker.Core.Models;assembly=KZMaker.Core" xmlns:converters="clr-namespace:KZMaker.WPF.Converters"
+                  mc:Ignorable="d" 
+                  xmlns:mvx="clr-namespace:MvvmCross.Platforms.Wpf.Binding;assembly=MvvmCross.Platforms.Wpf"
              d:DesignHeight="450" d:DesignWidth="800" Foreground="White" FontSize="18">
     <Grid>
-        <TextBlock Text="Lista Kart"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Text="Lista Kart"/>
+
+        <ScrollViewer Grid.Row="1"
+                      HorizontalScrollBarVisibility="Disabled"
+                      VerticalScrollBarVisibility="Auto"
+                      Margin="0 5 0 0"
+                      Name="ScrollViewer">
+
+            <ListBox Background="Transparent"
+                    ItemsSource="{Binding CardFiles}"
+                     BorderThickness="0"
+                      FlowDirection="LeftToRight"
+                     Width="{Binding ElementName=ScrollViewer, Path=ActualWidth}"
+                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                     Name="ListBox">
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Horizontal" 
+                                   HorizontalAlignment="Left" VerticalAlignment="Top"
+                                   Width="{Binding ElementName=ListBox, Path=ActualWidth}"/>
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+                <ListBox.ItemTemplate>
+                    <DataTemplate DataType="{x:Type models:CardFile}">
+                        <controls:BigCardFileView Height="200"
+                                                  Width="150"/>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="ListBoxItem">
+                        <Setter Property="Focusable" Value="False"/>
+                        <Setter Property="BorderThickness" Value="0"/>
+                        <Setter Property="Background" Value="Transparent" />
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                    <ContentPresenter Margin="2" />
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ListBox.ItemContainerStyle>
+            </ListBox>
+            
+        </ScrollViewer>
     </Grid>
 </views:MvxWpfView>

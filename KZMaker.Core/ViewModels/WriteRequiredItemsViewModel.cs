@@ -11,12 +11,7 @@ namespace KZMaker.Core.ViewModels
 {
     public class WriteRequiredItemsViewModel : MvxViewModel
     {
-        private MvxObservableCollection<RequiredItem> _requiredItems = new MvxObservableCollection<RequiredItem>()
-        {
-            new RequiredItem() { Item = "nożyczki" },
-            new RequiredItem() { Item = "nożyczki" },
-            new RequiredItem() { Item = "nożyczki" }
-        };
+        private MvxObservableCollection<RequiredItem> _requiredItems = new MvxObservableCollection<RequiredItem>(){};
 
         public MvxObservableCollection<RequiredItem> RequiredItems
         {

@@ -1,4 +1,5 @@
-﻿using KZMaker.Core.Services;
+﻿using KZMaker.Core.Exceptions;
+using KZMaker.Core.Services;
 using Microsoft.Win32;
 using Ookii.Dialogs.Wpf;
 using System;
@@ -27,7 +28,7 @@ namespace KZMaker.WPF.Services
                 return folderBrowser.SelectedPath;
             }
 
-            return "";
+            throw new GetPathFailedException("Saving Path");
         }
 
         public string GetSavingPath()
@@ -40,7 +41,42 @@ namespace KZMaker.WPF.Services
                 return folderBrowser.SelectedPath;
             }
 
-            return "";
+            throw new GetPathFailedException("Saving Path");
+        }
+
+        public string GetFile(string ext, string startDirectory)
+        {
+            VistaOpenFileDialog fileDialog = SetupBasicFileDialog(ext);
+            fileDialog.InitialDirectory = startDirectory;
+
+            if(fileDialog.ShowDialog() == true)
+            {
+                return fileDialog.FileName;
+            }
+
+            throw new GetPathFailedException("Load Path");
+        }
+
+        public VistaOpenFileDialog SetupBasicFileDialog(string ext)
+        {
+            VistaOpenFileDialog fileDialog = new VistaOpenFileDialog();
+            fileDialog.DefaultExt = ext;
+            fileDialog.Multiselect = false;
+            fileDialog.Title = "Wybierz plik";
+
+            return fileDialog;
+        }
+
+        public string GetFile(string ext)
+        {
+            VistaOpenFileDialog fileDialog = SetupBasicFileDialog(ext);
+
+            if (fileDialog.ShowDialog() == true)
+            {
+                return fileDialog.FileName;
+            }
+
+            throw new GetPathFailedException("Load Path");
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using KZMaker.Core.Commands;
+using MvvmCross.Commands;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,5 +13,12 @@ namespace KZMaker.Core.Models
         public DateTime Date { get; set; }
         public string FileName { get; set; }
         public string Path { get; set; }
+
+        public IMvxCommand<CardFile> LoadCardCommand { get; set; }
+
+        public CardFile(LoadCardCommand loadCardCommand)
+        {
+            LoadCardCommand = loadCardCommand;
+        }
     }
 }

@@ -28,7 +28,9 @@ namespace KZMaker.Core.Services
 
         public async Task<Bitmap> GenerateCard(string zastep, DateTime date, string place, List<Models.Point> points, List<RequiredItem> requiredItems)
         {
-            if(!string.IsNullOrEmpty(zastep)) await Task.Run(() => DrawZastep(zastep));
+            card = new Bitmap(Path.Combine(Environment.CurrentDirectory, @"Resources\", "karta.png"));
+
+            if (!string.IsNullOrEmpty(zastep)) await Task.Run(() => DrawZastep(zastep));
 
             await Task.Run(() => DrawDate(date));
 

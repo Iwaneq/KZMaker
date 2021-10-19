@@ -112,7 +112,8 @@
                         Content="Zapisz Szkic Karty"
                         FontSize="20"
                         extensions:HomeButtonExtensions.IconPath="{StaticResource Save_Icon}"
-                        mvx:Bi.nd="Command SaveDraftCommand"/>
+                        mvx:Bi.nd="Command SaveDraftCommand"
+                        CommandParameter="{Binding}"/>
 
 
             </Grid>

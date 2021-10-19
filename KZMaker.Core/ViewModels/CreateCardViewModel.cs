@@ -57,23 +57,39 @@ namespace KZMaker.Core.ViewModels
         }
 
 
-        public List<Point> Points => WritePointsViewModel.Points.ToList();
+        public MvxObservableCollection<Point> Points 
+        {
+            get { return WritePointsViewModel.Points; }
+            set
+            {
+                
+            }
+        }
 
-        public List<RequiredItem> RequiredItems => WriteRequiredItemsViewModel.RequiredItems.ToList();
+        public MvxObservableCollection<RequiredItem> RequiredItems => WriteRequiredItemsViewModel.RequiredItems;
 
         public IMvxCommand GenerateCardCommand { get; set; }
-        public IMvxCommand SaveDraftCommand { get; set; }
+        public ISaveBrowsedDraftCommand SaveDraftCommand { get; set; }
 
-        public CreateCardViewModel(ICreateCardService createCardService, SaveCardViewModel saveViewModel, INavigator navigator, ISaveCardService saveCardService)
+        public CreateCardViewModel(ICreateCardService createCardService, SaveCardViewModel saveViewModel, INavigator navigator, ISaveCardService saveCardService, ISaveBrowsedDraftCommand saveDraftCommand)
         {
             WritePointsViewModel = new WritePointsViewModel();
             WriteRequiredItemsViewModel = new WriteRequiredItemsViewModel();
 
             GenerateCardCommand = new GenerateCardCommand(createCardService, this, saveViewModel, navigator);
-            SaveDraftCommand = new SaveDraftCommand(this, saveCardService);
+
+            SaveDraftCommand = saveDraftCommand;
 
             Date = DateTime.Now;
         }
 
+        public void UpdateViewModel(Card card)
+        {
+            Zastep = card.Zastep;
+            Date = card.Date;
+            Place = card.Place;
+            Points.ReplaceWith(card.Points);
+            RequiredItems.ReplaceWith(card.RequiredItems);
+        }
     }
 }

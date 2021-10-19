@@ -55,8 +55,8 @@ namespace KZMaker.Core.Commands
             var bitmap = await _createCardService.GenerateCard(_viewModel.Zastep,
                 _viewModel.Date,
                 _viewModel.Place,
-                _viewModel.Points,
-                _viewModel.RequiredItems);
+                _viewModel.Points.ToList(),
+                _viewModel.RequiredItems.ToList());
 
             //Send data to SaveCardViewModel
             _saveViewModel.UpdateCard(bitmap, _viewModel.FileName);

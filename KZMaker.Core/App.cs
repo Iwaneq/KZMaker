@@ -15,6 +15,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using System.IO;
+using KZMaker.Core.Commands;
+using MvvmCross.Plugin;
 
 namespace KZMaker.Core
 {
@@ -24,6 +26,13 @@ namespace KZMaker.Core
         public App()
         {
 
+        }
+
+        public override void LoadPlugins(IMvxPluginManager pluginManager)
+        {
+            pluginManager.EnsurePluginLoaded<MvvmCross.Plugin.MethodBinding.Plugin>();
+
+            base.LoadPlugins(pluginManager);
         }
 
         public static AppSettings GetSettings()
@@ -40,7 +49,9 @@ namespace KZMaker.Core
             services.RegisterSingleton<CreateViewModel<HomeViewModel>>(() => 
             {
                 return new HomeViewModel(
-                    services.Resolve<INavigator>());
+                    services.Resolve<INavigator>(),
+                    services.Resolve<ILoadCardsService>(),
+                    services.Resolve<ILoadBrowsedCardCommand>());
             });
             services.RegisterSingleton<CreateViewModel<CreateCardViewModel>>(() =>
             {
@@ -68,6 +79,12 @@ namespace KZMaker.Core
 
             services.RegisterType<ICreateCardService, CreateCardService>();
             services.RegisterType<ISaveCardService, SaveCardService>();
+            services.RegisterType<ILoadCardsService, LoadCardsService>();
+
+            services.RegisterSingleton<LoadCardCommand>(() =>
+            {
+                return services.IoCConstruct<LoadCardCommand>();
+            });
 
             services.RegisterSingleton<CreateCardViewModel>(() =>
             {

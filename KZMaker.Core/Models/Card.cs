@@ -10,6 +10,7 @@ namespace KZMaker.Core.Models
     {
         public string Zastep { get; set; }
         public DateTime Date { get; set; }
+        public string Place { get; set; }
         public List<Point> Points { get; set; }
         public List<RequiredItem> RequiredItems { get; set; }
     }

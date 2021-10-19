@@ -4,6 +4,7 @@ using KZMaker.WPF.Services;
 using Microsoft.Extensions.Logging;
 using MvvmCross;
 using MvvmCross.IoC;
+using MvvmCross.Platforms.Wpf.Binding;
 using MvvmCross.Platforms.Wpf.Core;
 using Serilog;
 using Serilog.Extensions.Logging;
@@ -20,10 +21,13 @@ namespace KZMaker.WPF
         protected override void InitializeFirstChance(IMvxIoCProvider iocProvider)
         {
             Mvx.IoCProvider.RegisterType<IMessageBoxService, MessageBoxService>();
-            Mvx.IoCProvider.RegisterType<ISaveCardCommand, WPF.Commands.SaveCardCommand>();
+            Mvx.IoCProvider.RegisterType<ISaveCardCommand, Commands.SaveCardCommand>();
+            Mvx.IoCProvider.RegisterType<ISaveBrowsedDraftCommand, Commands.SaveBrowsedDraftCommand>();
+            Mvx.IoCProvider.RegisterType<ILoadBrowsedCardCommand, Commands.LoadBrowsedCardCommand>();
 
             base.InitializeFirstChance(iocProvider);
         }
+
         protected override ILoggerFactory CreateLogFactory()
         {
             Log.Logger = new LoggerConfiguration()

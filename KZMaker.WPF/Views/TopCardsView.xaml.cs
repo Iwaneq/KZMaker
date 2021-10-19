@@ -1,9 +1,4 @@
-﻿using KZMaker.Core.ViewModels;
-using KZMaker.WPF.Services;
-using MvvmCross.Platforms.Wpf.Presenters.Attributes;
-using MvvmCross.Platforms.Wpf.Views;
-using MvvmCross.ViewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,11 +15,12 @@ using System.Windows.Shapes;
 
 namespace KZMaker.WPF.Views
 {
-    [MvxContentPresentation]
-    [MvxViewFor(typeof(SaveCardViewModel))]
-    public partial class SaveCardView : MvxWpfView
+    /// <summary>
+    /// Logika interakcji dla klasy TopCardsView.xaml
+    /// </summary>
+    public partial class TopCardsView : UserControl
     {
-        public SaveCardView()
+        public TopCardsView()
         {
             InitializeComponent();
         }

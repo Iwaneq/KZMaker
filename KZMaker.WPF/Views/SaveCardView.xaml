@@ -8,6 +8,7 @@
              xmlns:views="clr-namespace:MvvmCross.Platforms.Wpf.Views;assembly=MvvmCross.Platforms.Wpf"
                   xmlns:converters="clr-namespace:KZMaker.WPF.Converters"
                   xmlns:mvx="clr-namespace:MvvmCross.Platforms.Wpf.Binding;assembly=MvvmCross.Platforms.Wpf"
+                  xmlns:progress="clr-namespace:KZMaker.WPF.Views.Progress"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800" Foreground="White" FontSize="18">
     <UserControl.Resources>
@@ -33,6 +34,7 @@
 
         <Grid Grid.Column="1"
               Grid.Row="1"
+              Margin="0 -50 0 0"
               HorizontalAlignment="Center"
               VerticalAlignment="Center">
             <Grid.RowDefinitions>
@@ -41,7 +43,13 @@
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
 
-            <Button Grid.Row="0"
+            <progress:ProgressMessageView DataContext="{Binding ProgressMessageViewModel}"
+                                          Grid.Row="0"
+                                          Height="50"
+                                          MaxWidth="250"/>
+
+            <Button Grid.Row="1"
+                    Margin="0 25 0 0"
                     Style="{StaticResource CreateCardButton}"
                     HorizontalAlignment="Right"
                     Content="Drukuj"

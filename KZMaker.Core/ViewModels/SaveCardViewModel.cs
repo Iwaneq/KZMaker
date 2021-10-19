@@ -1,5 +1,6 @@
 ﻿using KZMaker.Core.Commands;
 using KZMaker.Core.Services;
+using KZMaker.Core.ViewModels.Progress;
 using MvvmCross.Commands;
 using MvvmCross.ViewModels;
 using System;
@@ -39,6 +40,19 @@ namespace KZMaker.Core.ViewModels
             }
         }
 
+        private MessageViewModel _progressMessageViewModel;
+
+        public MessageViewModel ProgressMessageViewModel
+        {
+            get { return _progressMessageViewModel; }
+            set 
+            {
+                _progressMessageViewModel = value;
+                RaisePropertyChanged(() => ProgressMessageViewModel);
+            }
+        }
+
+
 
         public IMvxCommand SaveCardCommand { get; set; }
 
@@ -47,6 +61,9 @@ namespace KZMaker.Core.ViewModels
             Card = new Bitmap(Path.Combine(Environment.CurrentDirectory, @"Resources\", "karta.png"));
 
             _saveCardService = saveCardService;
+
+            ProgressMessageViewModel = new MessageViewModel();
+
             SaveCardCommand = saveCardCommand;
         }
 
@@ -54,6 +71,7 @@ namespace KZMaker.Core.ViewModels
         {
             Card = card;
             FileName = fileName;
+            ProgressMessageViewModel.Message = "";
         }
     }
 }

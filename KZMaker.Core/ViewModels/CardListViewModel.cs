@@ -1,4 +1,6 @@
-﻿using MvvmCross.ViewModels;
+﻿using KZMaker.Core.Models;
+using KZMaker.Core.Services;
+using MvvmCross.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +11,41 @@ namespace KZMaker.Core.ViewModels
 {
     public class CardListViewModel : MvxViewModel
     {
+        private readonly ILoadCardsService _loadCardsService;
+        private string _defaultCardsFolder;
+
+        private MvxObservableCollection<CardFile> cardFiles = new MvxObservableCollection<CardFile>();
+
+        public MvxObservableCollection<CardFile> CardFiles
+        {
+            get { return cardFiles; }
+            set 
+            {
+                cardFiles = value;
+                RaisePropertyChanged(() => CardFiles);
+            }
+        }
+
+        public CardListViewModel(ILoadCardsService loadCardsService)
+        {
+            _loadCardsService = loadCardsService;
+
+            Initialize();
+        }
+
+        public override Task Initialize()
+        {
+            _defaultCardsFolder = App.GetSettings().SavingPath;
+
+            UpdateCardList();
+
+            return base.Initialize();
+        }
+
+        public void UpdateCardList()
+        {
+            CardFiles = _loadCardsService.LoadCards(_defaultCardsFolder);
+        }
 
     }
 }

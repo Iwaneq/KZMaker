@@ -1,4 +1,5 @@
 ﻿using KZMaker.Core.Commands;
+using KZMaker.Core.Exceptions;
 using KZMaker.Core.Services;
 using KZMaker.Core.ViewModels;
 using System;
@@ -57,10 +58,23 @@ namespace KZMaker.WPF.Commands
         public void SaveCard()
         {
             //Get path
-            string path = _messageBoxService.GetSavingPath();
+
+            string path = "";
+
+            try
+            {
+                path = _messageBoxService.GetSavingPath();
+            }
+            catch (GetPathFailedException)
+            {
+                return;
+            }
 
             //Save Card
             _saveCardService.SaveCard(_saveCardViewModel.Card, _saveCardViewModel.FileName, path);
+
+            //Update ProgressMessageViewModel
+            _saveCardViewModel.ProgressMessageViewModel.Message = $"Karta '{_saveCardViewModel.FileName}' została zapisana";
         }
 
         public void UpdateCommand(Bitmap card, string fileName)

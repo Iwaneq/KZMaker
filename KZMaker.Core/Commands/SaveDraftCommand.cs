@@ -44,7 +44,7 @@ namespace KZMaker.Core.Commands
 
         private void SaveDraft()
         {
-            _saveCardService.SaveDraft(_viewModel.Zastep, _viewModel.Date, _viewModel.Place, _viewModel.Points, _viewModel.RequiredItems, _viewModel.FileName);
+            _saveCardService.SaveDraft(_viewModel.Zastep, _viewModel.Date, _viewModel.Place, _viewModel.Points.ToList(), _viewModel.RequiredItems.ToList(), _viewModel.FileName, "");
         }
 
         public void RaiseCanExecuteChanged()

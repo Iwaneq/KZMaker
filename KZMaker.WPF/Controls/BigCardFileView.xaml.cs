@@ -1,8 +1,6 @@
-﻿using KZMaker.Core.ViewModels;
-using KZMaker.WPF.Services;
-using MvvmCross.Platforms.Wpf.Presenters.Attributes;
-using MvvmCross.Platforms.Wpf.Views;
-using MvvmCross.ViewModels;
+﻿using KZMaker.Core.Models;
+using KZMaker.WPF.Controls.Extensions;
+using MvvmCross.Commands;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,15 +16,22 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace KZMaker.WPF.Views
+namespace KZMaker.WPF.Controls
 {
-    [MvxContentPresentation]
-    [MvxViewFor(typeof(SaveCardViewModel))]
-    public partial class SaveCardView : MvxWpfView
+    /// <summary>
+    /// Logika interakcji dla klasy BigCardFileView.xaml
+    /// </summary>
+    public partial class BigCardFileView : CardFileViewBase
     {
-        public SaveCardView()
+        
+        public BigCardFileView()
         {
             InitializeComponent();
+        }
+
+        private void Border_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            LoadFile();
         }
     }
 }

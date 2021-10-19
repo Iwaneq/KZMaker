@@ -10,5 +10,7 @@ namespace KZMaker.Core.Services
     {
         string GetSavingPath(string startDirectory);
         string GetSavingPath();
+        string GetFile(string ext, string startDirectory);
+        string GetFile(string ext);
     }
 }

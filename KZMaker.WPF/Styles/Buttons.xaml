@@ -95,7 +95,7 @@
 
                     <Border Name="mainBorder" 
                             CornerRadius="10" 
-                            Background="{StaticResource SecondaryBrush2}">
+                            Background="{StaticResource SecondaryBrush1}">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
@@ -136,7 +136,7 @@
 
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" Value="{StaticResource SecondaryBrush1}" TargetName="mainBorder"/>
+                            <Setter Property="Background" Value="{StaticResource SecondaryBrush2}" TargetName="mainBorder"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                     
