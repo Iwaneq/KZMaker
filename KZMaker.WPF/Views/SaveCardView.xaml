@@ -53,7 +53,9 @@
                     Style="{StaticResource CreateCardButton}"
                     HorizontalAlignment="Right"
                     Content="Drukuj"
-                    extenstions:HomeButtonExtensions.IconPath="{StaticResource Printer_Icon}"/>
+                    extenstions:HomeButtonExtensions.IconPath="{StaticResource Printer_Icon}"
+                    mvx:Bi.nd="Command PrintCardCommand"
+                    CommandParameter="{Binding Card}"/>
 
             <Button
                 Grid.Row="2" 

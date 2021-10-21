@@ -12,13 +12,13 @@ using System.Threading.Tasks;
 
 namespace KZMaker.WPF.Commands
 {
-    public class SaveCardCommand : ISaveCardCommand
+    public class SaveBrowsedCardCommand : ISaveBrowsedCardCommand
     {
         private SaveCardViewModel _saveCardViewModel;
         private readonly ISaveCardService _saveCardService;
         private readonly IMessageBoxService _messageBoxService;
 
-        public SaveCardCommand(
+        public SaveBrowsedCardCommand(
             ISaveCardService saveCardService, 
             IMessageBoxService messageBoxService)
         {
@@ -57,6 +57,7 @@ namespace KZMaker.WPF.Commands
 
         public void SaveCard()
         {
+            _saveCardViewModel.ProgressMessageViewModel.Message = "";
             //Get path
 
             string path = "";

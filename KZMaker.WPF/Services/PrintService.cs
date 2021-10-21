@@ -1,4 +1,5 @@
-﻿using System;
+﻿using KZMaker.Core.Services;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
@@ -12,9 +13,9 @@ using System.Windows.Media.Imaging;
 
 namespace KZMaker.WPF.Services
 {
-    public class PrintService
+    public class PrintService : IPrintService
     {
-        public void test(Bitmap bitmap)
+        public void PrintBitmap(Bitmap bitmap)
         {
             var visual = new DrawingVisual();
 

@@ -21,9 +21,11 @@ namespace KZMaker.WPF
         protected override void InitializeFirstChance(IMvxIoCProvider iocProvider)
         {
             Mvx.IoCProvider.RegisterType<IMessageBoxService, MessageBoxService>();
-            Mvx.IoCProvider.RegisterType<ISaveCardCommand, Commands.SaveCardCommand>();
+            Mvx.IoCProvider.RegisterType<IPrintService, PrintService>();
+            Mvx.IoCProvider.RegisterType<ISaveCardCommand, Commands.SaveBrowsedCardCommand>();
             Mvx.IoCProvider.RegisterType<ISaveBrowsedDraftCommand, Commands.SaveBrowsedDraftCommand>();
             Mvx.IoCProvider.RegisterType<ILoadBrowsedCardCommand, Commands.LoadBrowsedCardCommand>();
+            Mvx.IoCProvider.RegisterType<IPrintCardCommand, Commands.PrintCardCommand>();
 
             base.InitializeFirstChance(iocProvider);
         }

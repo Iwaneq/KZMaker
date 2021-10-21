@@ -2,6 +2,7 @@
 using KZMaker.Core.Models;
 using KZMaker.Core.Navigation;
 using KZMaker.Core.Services;
+using KZMaker.Core.ViewModels.Progress;
 using MvvmCross.Commands;
 using MvvmCross.ViewModels;
 using System;
@@ -16,6 +17,7 @@ namespace KZMaker.Core.ViewModels
     {
         public WritePointsViewModel WritePointsViewModel { get; set; }
         public WriteRequiredItemsViewModel WriteRequiredItemsViewModel { get; set; }
+        public MessageViewModel ProgressMessageViewModel { get; set; }
 
         private string _zastep;
 
@@ -75,12 +77,18 @@ namespace KZMaker.Core.ViewModels
         {
             WritePointsViewModel = new WritePointsViewModel();
             WriteRequiredItemsViewModel = new WriteRequiredItemsViewModel();
+            ProgressMessageViewModel = new MessageViewModel();
 
             GenerateCardCommand = new GenerateCardCommand(createCardService, this, saveViewModel, navigator);
 
             SaveDraftCommand = saveDraftCommand;
 
             Date = DateTime.Now;
+        }
+
+        public void UpdateProgressMessage(string message)
+        {
+            ProgressMessageViewModel.Message = message;
         }
 
         public void UpdateViewModel(Card card)

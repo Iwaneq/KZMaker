@@ -48,6 +48,8 @@ namespace KZMaker.WPF.Commands
 
         private void SaveDraft()
         {
+            _viewModel.UpdateProgressMessage("");
+
             //Get FileName/Path
             string savingPath = "";
 
@@ -62,6 +64,8 @@ namespace KZMaker.WPF.Commands
 
             //Save draft
             _saveCardService.SaveDraft(_viewModel.Zastep, _viewModel.Date, _viewModel.Place, _viewModel.Points.ToList(), _viewModel.RequiredItems.ToList(), _viewModel.FileName, savingPath);
+
+            _viewModel.UpdateProgressMessage("Zapisano!");
         }
 
         public void RaiseCanExecuteChanged()

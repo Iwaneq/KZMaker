@@ -8,6 +8,7 @@
                   xmlns:viewModels="clr-namespace:KZMaker.Core.ViewModels;assembly=KZMaker.Core"
                   xmlns:extensions="clr-namespace:KZMaker.WPF.Controls.Extensions"
                   xmlns:mvx="clr-namespace:MvvmCross.Platforms.Wpf.Binding;assembly=MvvmCross.Platforms.Wpf"
+                  xmlns:progress="clr-namespace:KZMaker.WPF.Views.Progress"
                   mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800" Foreground="White" FontSize="18">
     <Grid>
@@ -96,6 +97,12 @@
                 <TextBlock Grid.Row="2" 
                            Text="Co dalej?"
                            Margin="5 32 0 0"/>
+
+                <progress:ProgressMessageView Grid.Row="2" 
+                                              DataContext="{Binding ProgressMessageViewModel}"
+                                              HorizontalAlignment="Right"
+                                              VerticalAlignment="Bottom"
+                                              MaxWidth="250"/>
 
                 <Button Grid.Row="3" Style="{StaticResource CreateCardButton}"
                         Content="Generuj kartę"

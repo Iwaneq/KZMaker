@@ -55,8 +55,11 @@ namespace KZMaker.Core.ViewModels
 
 
         public IMvxCommand SaveCardCommand { get; set; }
+        public IPrintCardCommand PrintCardCommand { get; set; }
 
-        public SaveCardViewModel(ISaveCardService saveCardService, ISaveCardCommand saveCardCommand)
+        public SaveCardViewModel(ISaveCardService saveCardService, 
+            ISaveCardCommand saveCardCommand, 
+            IPrintCardCommand printCardCommand)
         {
             Card = new Bitmap(Path.Combine(Environment.CurrentDirectory, @"Resources\", "karta.png"));
 
@@ -65,6 +68,7 @@ namespace KZMaker.Core.ViewModels
             ProgressMessageViewModel = new MessageViewModel();
 
             SaveCardCommand = saveCardCommand;
+            PrintCardCommand = printCardCommand;
         }
 
         public void UpdateCard(Bitmap card, string fileName)
