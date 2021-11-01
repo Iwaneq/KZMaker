@@ -19,7 +19,7 @@
 
   <ItemGroup>
     <None Update="appsettings.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Resources\karta.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -29,5 +29,7 @@
   <ItemGroup>
     <Folder Include="Exceptions\" />
   </ItemGroup>
+
+  <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
 
 </Project>

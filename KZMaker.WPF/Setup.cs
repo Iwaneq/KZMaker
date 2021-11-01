@@ -1,4 +1,5 @@
 ﻿using KZMaker.Core.Commands;
+using KZMaker.Core.ResourceManagement;
 using KZMaker.Core.Services;
 using KZMaker.WPF.Services;
 using Microsoft.Extensions.Logging;
@@ -22,7 +23,8 @@ namespace KZMaker.WPF
         {
             Mvx.IoCProvider.RegisterType<IMessageBoxService, MessageBoxService>();
             Mvx.IoCProvider.RegisterType<IPrintService, PrintService>();
-            Mvx.IoCProvider.RegisterType<ISaveCardCommand, Commands.SaveBrowsedCardCommand>();
+            Mvx.IoCProvider.RegisterType<IResourcesService, ResourcesService>();
+            Mvx.IoCProvider.RegisterType<ISaveBrowsedCardCommand, Commands.SaveBrowsedCardCommand>();
             Mvx.IoCProvider.RegisterType<ISaveBrowsedDraftCommand, Commands.SaveBrowsedDraftCommand>();
             Mvx.IoCProvider.RegisterType<ILoadBrowsedCardCommand, Commands.LoadBrowsedCardCommand>();
             Mvx.IoCProvider.RegisterType<IPrintCardCommand, Commands.PrintCardCommand>();

@@ -10,7 +10,7 @@
                   xmlns:mvx="clr-namespace:MvvmCross.Platforms.Wpf.Binding;assembly=MvvmCross.Platforms.Wpf"
                   xmlns:progress="clr-namespace:KZMaker.WPF.Views.Progress"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800" Foreground="White" FontSize="18">
+             d:DesignHeight="450" d:DesignWidth="800" FontSize="18">
     <UserControl.Resources>
         <converters:WPFImageSourceConverter x:Key="ImageSourceConverter"/>
     </UserControl.Resources>

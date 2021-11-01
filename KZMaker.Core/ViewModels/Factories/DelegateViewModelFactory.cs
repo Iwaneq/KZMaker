@@ -14,16 +14,19 @@ namespace KZMaker.Core.ViewModels.Factories
         private readonly CreateViewModel<CreateCardViewModel> _createCardViewModel;
         private readonly CreateViewModel<SaveCardViewModel> _createSaveCardViewModel;
         private readonly CreateViewModel<CardListViewModel> _createCardListViewModel;
+        private readonly CreateViewModel<SettingsViewModel> _createSettingsViewModel;
 
         public DelegateViewModelFactory(CreateViewModel<HomeViewModel> createHomeViewModel,
             CreateViewModel<CreateCardViewModel> createCardViewModel,
-            CreateViewModel<SaveCardViewModel> createSaveCardViewModel, 
-            CreateViewModel<CardListViewModel> createCardListViewModel)
+            CreateViewModel<SaveCardViewModel> createSaveCardViewModel,
+            CreateViewModel<CardListViewModel> createCardListViewModel, 
+            CreateViewModel<SettingsViewModel> createSettingsViewModel)
         {
             _createHomeViewModel = createHomeViewModel;
             _createCardViewModel = createCardViewModel;
             _createSaveCardViewModel = createSaveCardViewModel;
             _createCardListViewModel = createCardListViewModel;
+            _createSettingsViewModel = createSettingsViewModel;
         }
 
         public MvxViewModel CreateViewModel(ViewModelType type)
@@ -38,6 +41,8 @@ namespace KZMaker.Core.ViewModels.Factories
                     return _createSaveCardViewModel();
                 case ViewModelType.CardList:
                     return _createCardListViewModel();
+                case ViewModelType.Settings:
+                    return _createSettingsViewModel();
                 default:
                     throw new NotImplementedException();
             }

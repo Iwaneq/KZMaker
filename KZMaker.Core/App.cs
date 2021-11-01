@@ -17,15 +17,16 @@ using Microsoft.Extensions.Configuration;
 using System.IO;
 using KZMaker.Core.Commands;
 using MvvmCross.Plugin;
+using KZMaker.Core.ResourceManagement;
 
 namespace KZMaker.Core
 {
     public class App : MvxApplication
     {
-        public AppSettings AppSettings;
+        public static AppSettings AppSettings { get; set; }
         public App()
         {
-
+            
         }
 
         public override void LoadPlugins(IMvxPluginManager pluginManager)
@@ -35,11 +36,11 @@ namespace KZMaker.Core
             base.LoadPlugins(pluginManager);
         }
 
-        public static AppSettings GetSettings()
-        {
-            string settingsString = File.ReadAllText("appsettings.json");
-            return JsonSerializer.Deserialize<AppSettings>(settingsString);
-        }
+        //public static void SaveAppSettings(AppSettings appSettings)
+        //{
+        //    string settingsString = JsonSerializer.Serialize<AppSettings>(appSettings);
+        //    File.WriteAllText("appsettings.json", settingsString);
+        //}
 
         public override async void Initialize()
         {
@@ -65,13 +66,18 @@ namespace KZMaker.Core
             {
                 return services.GetSingleton<CardListViewModel>();
             });
+            services.RegisterSingleton<CreateViewModel<SettingsViewModel>>(() =>
+            {
+                return services.GetSingleton<SettingsViewModel>();
+            });
 
             services.RegisterSingleton<DelegateViewModelFactory>(
                 new DelegateViewModelFactory(
                     services.Resolve<CreateViewModel<HomeViewModel>>(),
                     services.Resolve<CreateViewModel<CreateCardViewModel>>(),
                     services.Resolve<CreateViewModel<SaveCardViewModel>>(),
-                    services.Resolve<CreateViewModel<CardListViewModel>>()));
+                    services.Resolve<CreateViewModel<CardListViewModel>>(),
+                    services.Resolve<CreateViewModel<SettingsViewModel>>()));
 
             services.RegisterSingleton<INavigator>(
                 new Navigator(
@@ -80,6 +86,7 @@ namespace KZMaker.Core
             services.RegisterType<ICreateCardService, CreateCardService>();
             services.RegisterType<ISaveCardService, SaveCardService>();
             services.RegisterType<ILoadCardsService, LoadCardsService>();
+            services.RegisterType<ISettingsService, SettingsService>();
 
             services.RegisterSingleton<LoadCardCommand>(() =>
             {
@@ -98,6 +105,12 @@ namespace KZMaker.Core
             {
                 return services.IoCConstruct<CardListViewModel>();
             });
+            services.RegisterSingleton<SettingsViewModel>(() =>
+            {
+                return services.IoCConstruct<SettingsViewModel>();
+            });
+
+            AppSettings = services.Resolve<ISettingsService>().LoadSettings();
 
             RegisterAppStart<MainViewModel>();
         }

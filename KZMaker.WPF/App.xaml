@@ -14,6 +14,7 @@
                 <ResourceDictionary Source="Styles/Common.xaml"/>
                 <ResourceDictionary Source="Styles/Buttons.xaml"/>
                 <ResourceDictionary Source="Styles/TextBlocks.xaml"/>
+                <ResourceDictionary Source="Styles/Lists.xaml"/>
 
             </ResourceDictionary.MergedDictionaries>
 
@@ -28,6 +29,9 @@
             </DataTemplate>
             <DataTemplate DataType="{x:Type viewModels:CardListViewModel}">
                 <appViews:CardListView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModels:SettingsViewModel}">
+                <appViews:SettingsView/>
             </DataTemplate>
 
         </ResourceDictionary>

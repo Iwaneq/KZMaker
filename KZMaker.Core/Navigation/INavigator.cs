@@ -14,7 +14,8 @@ namespace KZMaker.Core.Navigation
         Home,
         CreateCard,
         SaveCard,
-        CardList
+        CardList,
+        Settings
     }
 
     public interface INavigator

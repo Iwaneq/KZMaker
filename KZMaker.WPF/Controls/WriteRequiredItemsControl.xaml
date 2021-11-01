@@ -1,33 +1,36 @@
-﻿<views:MvxWpfView x:Class="KZMaker.WPF.Controls.WriteRequiredItemsControl"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:KZMaker.WPF.Controls"
-             xmlns:views="clr-namespace:MvvmCross.Platforms.Wpf.Views;assembly=MvvmCross.Platforms.Wpf"
-                  xmlns:models="clr-namespace:KZMaker.Core.Models;assembly=KZMaker.Core"
-                  xmlns:mvx="clr-namespace:MvvmCross.Platforms.Wpf.Binding;assembly=MvvmCross.Platforms.Wpf"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Border CornerRadius="5"
-            Background="{StaticResource SecondaryBrush2}">
+﻿<views:MvxWpfView
+    x:Class="KZMaker.WPF.Controls.WriteRequiredItemsControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:KZMaker.WPF.Controls"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="clr-namespace:KZMaker.Core.Models;assembly=KZMaker.Core"
+    xmlns:mvx="clr-namespace:MvvmCross.Platforms.Wpf.Binding;assembly=MvvmCross.Platforms.Wpf"
+    xmlns:views="clr-namespace:MvvmCross.Platforms.Wpf.Views;assembly=MvvmCross.Platforms.Wpf"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
+    <Border Background="{DynamicResource SecondaryBrush2}" CornerRadius="5">
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition />
+                <ColumnDefinition Width="auto" />
             </Grid.ColumnDefinitions>
 
-            <ScrollViewer VerticalScrollBarVisibility="Auto"
-                          HorizontalScrollBarVisibility="Hidden">
-                <ListView Background="Transparent" 
-                          ItemsSource="{Binding RequiredItems}"
-                          SelectedItem="{Binding SelectedItem}"
-                          BorderThickness="0">
+            <ScrollViewer HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Auto">
+                <ListView
+                    Background="Transparent"
+                    BorderThickness="0"
+                    ItemsSource="{Binding RequiredItems}"
+                    SelectedItem="{Binding SelectedItem}">
                     <ListBox.ItemTemplate>
                         <DataTemplate DataType="{x:Type models:RequiredItem}">
                             <StackPanel Orientation="Horizontal">
-                                <TextBox Margin="1 4" Width="150"
-                                         Text="{Binding Item}"/>
+                                <TextBox
+                                    Width="150"
+                                    Margin="1,4"
+                                    Text="{Binding Item}" />
                             </StackPanel>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
@@ -35,7 +38,7 @@
                         <Style TargetType="ListViewItem">
                             <Style.Triggers>
                                 <Trigger Property="IsKeyboardFocused" Value="False">
-                                    <Setter Property="Background" Value="Transparent"/>
+                                    <Setter Property="Background" Value="Transparent" />
                                 </Trigger>
                             </Style.Triggers>
                         </Style>
@@ -43,26 +46,28 @@
                 </ListView>
             </ScrollViewer>
 
-            <Button Grid.Column="1"
-                    Style="{StaticResource ChromeButton}"
-                    Background="{StaticResource SecondaryBrush1}"
-                    VerticalAlignment="Top"
-                    Margin="5 5"
-                    Padding="5"
-                    Width="25"
-                    Height="25"
-                    Content="{StaticResource Plus_Icon}"
-                    mvx:Bi.nd="Command AddNewItemCommand"/>
-            <Button Grid.Column="1"
-                    Style="{StaticResource ChromeButton}"
-                    Background="{StaticResource SecondaryBrush1}"
-                    VerticalAlignment="Top"
-                    Margin="0 38 0 0"
-                    Padding="5"
-                    Width="25"
-                    Height="25"
-                    Content="{StaticResource Minimize_Icon}"
-                    mvx:Bi.nd="Command DeleteSelectedItemCommand"/>
+            <Button
+                Grid.Column="1"
+                Width="25"
+                Height="25"
+                Margin="5,5"
+                Padding="5"
+                VerticalAlignment="Top"
+                mvx:Bi.nd="Command AddNewItemCommand"
+                Background="{DynamicResource SecondaryBrush1}"
+                Content="{StaticResource Plus_Icon}"
+                Style="{StaticResource ChromeButton}" />
+            <Button
+                Grid.Column="1"
+                Width="25"
+                Height="25"
+                Margin="0,38,0,0"
+                Padding="5"
+                VerticalAlignment="Top"
+                mvx:Bi.nd="Command DeleteSelectedItemCommand"
+                Background="{DynamicResource SecondaryBrush1}"
+                Content="{StaticResource Minimize_Icon}"
+                Style="{StaticResource ChromeButton}" />
 
         </Grid>
     </Border>

@@ -58,7 +58,7 @@ namespace KZMaker.Core.ViewModels
         public IPrintCardCommand PrintCardCommand { get; set; }
 
         public SaveCardViewModel(ISaveCardService saveCardService, 
-            ISaveCardCommand saveCardCommand, 
+            ISaveBrowsedCardCommand saveCardCommand, 
             IPrintCardCommand printCardCommand)
         {
             Card = new Bitmap(Path.Combine(Environment.CurrentDirectory, @"Resources\", "karta.png"));

@@ -18,6 +18,7 @@ namespace KZMaker.WPF.Services
         public void PrintBitmap(Bitmap bitmap)
         {
             var visual = new DrawingVisual();
+            PrintDialog printDialog = new PrintDialog();
 
             using (var memory = new MemoryStream())
             {
@@ -31,13 +32,16 @@ namespace KZMaker.WPF.Services
 
                 using (var dc = visual.RenderOpen())
                 {
-                    dc.DrawImage(bitmapImage, new System.Windows.Rect { Width = bitmapImage.Width, Height = bitmapImage.Height});
+                    dc.DrawImage(bitmapImage, new System.Windows.Rect { Width = printDialog.PrintableAreaWidth, Height = printDialog.PrintableAreaHeight });
                 };
             }
 
             
-            PrintDialog printDialog = new PrintDialog();
-            printDialog.PrintVisual(visual, "Karta zbiórki");
+            if (printDialog.ShowDialog() == true)
+            {
+                printDialog.PrintVisual(visual, "Karta zbiórki");
+            }
+            
         }
     }
 }

@@ -11,7 +11,7 @@
                   xmlns:viewmodels="clr-namespace:KZMaker.Core.ViewModels;assembly=KZMaker.Core"
                   xmlns:converters="clr-namespace:KZMaker.WPF.Converters"
                   mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800" Foreground="White" FontSize="15">
+             d:DesignHeight="450" d:DesignWidth="800" Foreground="{StaticResource FontBrush1}" FontSize="15">
     <UserControl.Resources>
         <converters:CurrentViewModelConverter x:Key="ViewModelConverter"/>
     </UserControl.Resources>
@@ -92,7 +92,10 @@
                 <RadioButton Grid.Row="4"
                              Style="{StaticResource NavButton}"
                              Content="Ustawienia"
-                             extensions:RadioButtonIconExtension.IconPath="{StaticResource Settings_Icon}"/>
+                             extensions:RadioButtonIconExtension.IconPath="{StaticResource Settings_Icon}"
+                             IsChecked="{Binding Navigator.CurrentViewModel, Converter={StaticResource ViewModelConverter}, ConverterParameter={x:Type viewmodels:SettingsViewModel}}"
+                             mvx:Bi.nd="Command NavigateCommand"
+                             CommandParameter="{x:Static navigation:ViewModelType.Settings}"/>
 
             </Grid>
 

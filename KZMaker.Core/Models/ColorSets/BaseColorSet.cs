@@ -5,11 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace KZMaker.Core
+namespace KZMaker.Core.Models.ColorSets
 {
-    public class AppSettings
+    public abstract class BaseColorSet 
     {
-        public string SavingPath { get; set; }
+        public string ThemeName { get; set; }
         public ResourcesModel Resources { get; set; }
     }
 }

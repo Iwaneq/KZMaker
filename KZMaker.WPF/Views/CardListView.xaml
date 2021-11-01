@@ -8,7 +8,7 @@
                   xmlns:models="clr-namespace:KZMaker.Core.Models;assembly=KZMaker.Core" xmlns:converters="clr-namespace:KZMaker.WPF.Converters"
                   mc:Ignorable="d" 
                   xmlns:mvx="clr-namespace:MvvmCross.Platforms.Wpf.Binding;assembly=MvvmCross.Platforms.Wpf"
-             d:DesignHeight="450" d:DesignWidth="800" Foreground="White" FontSize="18">
+             d:DesignHeight="450" d:DesignWidth="800" FontSize="18">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
