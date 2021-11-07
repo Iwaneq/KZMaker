@@ -11,6 +11,6 @@ namespace KZMaker.Core.Models
     {
         public string ColorName { get; set; }
         public string ColorValue { get; set; }
-        public ThemeColor ThemeColorEnum { get; set; }
+        public string ThemeColor { get; set; }
     }
 }

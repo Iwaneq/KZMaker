@@ -19,29 +19,31 @@ namespace KZMaker.Core.ViewModels
             {
                 ColorName = "Biały",
                 ColorValue = "#FFFFFF",
-                ThemeColorEnum = ThemeColor.White
+                ThemeColor = "Light"
             },
             new ThemeColorOptionModel()
             {
                 ColorName = "Czarny",
                 ColorValue = "#272727",
-                ThemeColorEnum = ThemeColor.Black
+                ThemeColor = "Dark"
             },
             new ThemeColorOptionModel()
             {
                 ColorName = "Niebieski",
                 ColorValue = "#004fcf", 
-                ThemeColorEnum = ThemeColor.Blue
+                ThemeColor = "Blue"
             },
             new ThemeColorOptionModel()
             {
                 ColorName = "Zielony",
-                ColorValue = "#337500"
+                ColorValue = "#337500",
+                ThemeColor = "Green"
             },
             new ThemeColorOptionModel()
             {
                 ColorName = "Fioletowy",
-                ColorValue = "#5D00A8"
+                ColorValue = "#5D00A8",
+                ThemeColor = "Purple"
             }
         };
 
@@ -73,9 +75,9 @@ namespace KZMaker.Core.ViewModels
 
         
 
-        public ThemeColor ThemeColor => SelectedColor.ThemeColorEnum;
+        public string ThemeColor => SelectedColor.ThemeColor;
 
-        private string _savingPath = App.AppSettings.SavingPath;
+        private string _savingPath = AppSettings.Default.SavingPath;
 
         public string SavingPath
         {

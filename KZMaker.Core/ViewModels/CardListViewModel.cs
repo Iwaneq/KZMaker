@@ -35,7 +35,7 @@ namespace KZMaker.Core.ViewModels
 
         public override Task Initialize()
         {
-            _defaultCardsFolder = App.AppSettings.SavingPath;
+            _defaultCardsFolder = AppSettings.Default.SavingPath;
 
             UpdateCardList();
 

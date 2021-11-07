@@ -27,7 +27,7 @@ namespace KZMaker.Core.ViewModels
         {
             _loadCardsService = loadCardsService;
 
-            _defaultCardsFolder = App.AppSettings.SavingPath;
+            _defaultCardsFolder = AppSettings.Default.SavingPath;
             UpdateList();
         }
 

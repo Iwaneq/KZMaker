@@ -1,5 +1,4 @@
-﻿using KZMaker.Core.Models.ColorSets;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,7 +17,7 @@ namespace KZMaker.Core.ResourceManagement
 
     public interface IResourcesService
     {
-        void ChangeTheme(BaseColorSet colorSet);
-        void SetTheme(BaseColorSet colorSet);
+        void ChangeTheme(Uri themeUri);
+        void CheckTheme();
     }
 }

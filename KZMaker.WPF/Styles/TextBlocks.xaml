@@ -9,7 +9,7 @@
             <Setter.Value>
                 <ControlTemplate TargetType="TextBox">
 
-                    <Border Background="{StaticResource SecondaryBrush1}" CornerRadius="5">
+                    <Border Background="{DynamicResource SecondaryBrush1}" CornerRadius="5">
                         <ScrollViewer x:Name="PART_ContentHost" />
                     </Border>
 
@@ -20,7 +20,7 @@
 
     <Style TargetType="DatePicker">
         <Setter Property="BorderThickness" Value="0" />
-        <Setter Property="Background" Value="{StaticResource SecondaryBrush1}" />
+        <Setter Property="Background" Value="{DynamicResource SecondaryBrush1}" />
         <Setter Property="Width" Value="150" />
         <Style.Resources>
             <Style TargetType="DatePickerTextBox">
@@ -28,7 +28,7 @@
                     <Setter.Value>
                         <ControlTemplate TargetType="TextBox">
 
-                            <Border Background="{StaticResource SecondaryBrush1}" CornerRadius="5">
+                            <Border Background="{DynamicResource SecondaryBrush1}" CornerRadius="5">
                                 <ScrollViewer x:Name="PART_ContentHost" />
                             </Border>
 

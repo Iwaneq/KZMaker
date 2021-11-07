@@ -45,7 +45,7 @@ namespace KZMaker.Core.Commands
         private void SaveSettings()
         {
             //Save AppSettings
-            _settingsService.UpdateSettings(App.AppSettings, _settingsViewModel.SavingPath, _settingsViewModel.ThemeColor);
+            _settingsService.UpdateSettings(_settingsViewModel.SavingPath, _settingsViewModel.ThemeColor);
         }
 
         public void RaiseCanExecuteChanged()

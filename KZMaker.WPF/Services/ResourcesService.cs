@@ -1,4 +1,4 @@
-﻿using KZMaker.Core.Models.ColorSets;
+﻿using KZMaker.Core;
 using KZMaker.Core.ResourceManagement;
 using System;
 using System.Collections.Generic;
@@ -12,24 +12,38 @@ namespace KZMaker.WPF.Services
 {
     public class ResourcesService : IResourcesService
     {
-        public void ChangeTheme(BaseColorSet colorSet)
+        public ResourceDictionary ThemeDictionary {
+            get
+            {
+                return App.Current.Resources.MergedDictionaries[0];
+            }
+        }
+        public void ChangeTheme(Uri themeUri)
         {
-            SetTheme(colorSet);
-            //SetTheme("#ECECEC", "White", "#C6C5C5", "#ECECEC", "#BF0808", "Green", "Black");
+            ThemeDictionary.MergedDictionaries.Clear();
+            ThemeDictionary.MergedDictionaries.Add(new ResourceDictionary() { Source = themeUri });
         }
 
-        public void SetTheme(BaseColorSet colorSet)
+        public void CheckTheme()
         {
-            var colors = colorSet.Resources;
-            var resources = Application.Current.Resources;
-
-            resources["PrimaryColor1"] = ColorConverter.ConvertFromString(colors.PrimaryColor1);
-            resources["PrimaryColor2"] = ColorConverter.ConvertFromString(colors.PrimaryColor2);
-            resources["SecondaryColor1"] = ColorConverter.ConvertFromString(colors.SecondaryColor1);
-            resources["SecondaryColor2"] = ColorConverter.ConvertFromString(colors.SecondaryColor2);
-            resources["ActiveColor1"] = ColorConverter.ConvertFromString(colors.ActiveColor1);
-            resources["SuccessColor1"] = ColorConverter.ConvertFromString(colors.SuccessColor1);
-            resources["FontColor1"] = ColorConverter.ConvertFromString(colors.FontColor);
+            switch (AppSettings.Default.Theme)
+            {
+                case "Dark":
+                    ChangeTheme(new Uri("Resources/Themes/DarkTheme.xaml", UriKind.Relative));
+                    break;
+                case "Blue":
+                    ChangeTheme(new Uri("Resources/Themes/BlueTheme.xaml", UriKind.Relative));
+                    break;
+                case "Light":
+                    ChangeTheme(new Uri("Resources/Themes/LightTheme.xaml", UriKind.Relative));
+                    break;
+                case "Purple":
+                    ChangeTheme(new Uri("Resources/Themes/PurpleTheme.xaml", UriKind.Relative));
+                    break;
+                case "Green":
+                    ChangeTheme(new Uri("Resources/Themes/GreenTheme.xaml", UriKind.Relative));
+                    break;
+            }
         }
     }
 }

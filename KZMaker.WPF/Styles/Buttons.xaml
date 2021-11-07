@@ -13,7 +13,7 @@
                         Padding="{TemplateBinding Padding}"
                         Background="{DynamicResource SecondaryBrush1}"
                         CornerRadius="5">
-                        <TextBlock Text="{TemplateBinding Content}" TextAlignment="Center" />
+                        <TextBlock Text="{TemplateBinding Content}" TextAlignment="Center" Foreground="{DynamicResource FontBrush1}" />
                     </Border>
 
                     <ControlTemplate.Triggers>
@@ -51,7 +51,7 @@
                         <!--  Text element  -->
                         <TextBlock
                             Margin="3,1,0,0"
-                            Foreground="White"
+                            Foreground="{DynamicResource FontBrush1}"
                             Text="{TemplateBinding Content}" />
                     </BulletDecorator>
 
@@ -104,6 +104,7 @@
                             x:Name="text"
                             Grid.Column="1"
                             Margin="10,0,0,0"
+                            Foreground="{DynamicResource FontBrush1}"
                             VerticalAlignment="Center"
                             Text="{TemplateBinding Content}" />
                     </Grid>
@@ -183,14 +184,14 @@
                                 <TextBlock
                                     Grid.Row="0"
                                     FontSize="15"
-                                    Foreground="{TemplateBinding Foreground}"
+                                    Foreground="{DynamicResource FontBrush1}"
                                     Text="{TemplateBinding Content}" />
 
                                 <TextBlock
                                     Grid.Row="1"
                                     Margin="5,0,0,0"
                                     FontSize="13"
-                                    Foreground="{TemplateBinding Foreground}"
+                                    Foreground="{DynamicResource FontBrush1}"
                                     Text="{TemplateBinding extensions:HomeButtonExtensions.ButtonDescription}"
                                     TextWrapping="WrapWithOverflow" />
 
@@ -242,6 +243,7 @@
                                 Margin="10,7,0,0"
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
+                                Foreground="{DynamicResource FontBrush1}"
                                 FontSize="{TemplateBinding FontSize}"
                                 Text="{TemplateBinding Content}" />
 

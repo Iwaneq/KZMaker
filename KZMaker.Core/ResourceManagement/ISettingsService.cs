@@ -8,8 +8,6 @@ namespace KZMaker.Core.ResourceManagement
 {
     public interface ISettingsService
     {
-        void UpdateSettings(AppSettings appSettings, string savingPath, ThemeColor themeColor);
-        void SaveSettings(AppSettings appSettings);
-        AppSettings LoadSettings();
+        void UpdateSettings(string savingPath, string themeColor);
     }
 }

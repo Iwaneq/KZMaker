@@ -7,8 +7,8 @@
         xmlns:views="clr-namespace:MvvmCross.Platforms.Wpf.Views;assembly=MvvmCross.Platforms.Wpf"
         mc:Ignorable="d"
         Title="MainWindow" Height="475" Width="865" MinHeight="475" MinWidth="865"
-        FontFamily="/Fonts/#Rubik"
         WindowStyle="None"
+        FontFamily="/Fonts/#Rubik"
         AllowsTransparency="True"
         ResizeMode="CanResizeWithGrip"
         BorderThickness="7">

@@ -23,7 +23,6 @@ namespace KZMaker.Core
 {
     public class App : MvxApplication
     {
-        public static AppSettings AppSettings { get; set; }
         public App()
         {
             
@@ -42,7 +41,7 @@ namespace KZMaker.Core
         //    File.WriteAllText("appsettings.json", settingsString);
         //}
 
-        public override async void Initialize()
+        public override void Initialize()
         {
             var services = Mvx.IoCProvider;
 
@@ -109,8 +108,6 @@ namespace KZMaker.Core
             {
                 return services.IoCConstruct<SettingsViewModel>();
             });
-
-            AppSettings = services.Resolve<ISettingsService>().LoadSettings();
 
             RegisterAppStart<MainViewModel>();
         }

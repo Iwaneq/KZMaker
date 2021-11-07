@@ -27,7 +27,7 @@
 
   <ItemGroup>
     <Resource Include="Fonts\Rubik.ttf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\fse.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
