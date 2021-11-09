@@ -12,7 +12,6 @@
         <TextBlock
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
-            Foreground="{StaticResource SuccessBrush1}"
             Text="{Binding Message, FallbackValue='Progress text'}"
             TextAlignment="Center"
             TextWrapping="WrapWithOverflow" />

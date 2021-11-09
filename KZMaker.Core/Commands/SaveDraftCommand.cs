@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace KZMaker.Core.Commands
 {
-    public class SaveDraftCommand : IMvxCommand
+    public class SaveDraftCommand : ISaveDraftCommand
     {
         private readonly CreateCardViewModel _viewModel;
         private readonly ISaveCardService _saveCardService;
@@ -44,7 +44,16 @@ namespace KZMaker.Core.Commands
 
         private void SaveDraft()
         {
-            _saveCardService.SaveDraft(_viewModel.Zastep, _viewModel.Date, _viewModel.Place, _viewModel.Points.ToList(), _viewModel.RequiredItems.ToList(), _viewModel.FileName, "");
+            try
+            {
+                _saveCardService.SaveDraft(_viewModel.Zastep, _viewModel.Date, _viewModel.Place, _viewModel.Points.ToList(), _viewModel.RequiredItems.ToList(), _viewModel.FileName, AppSettings.Default.SavingPath);
+            }
+            catch (Exception ex)
+            {
+                _viewModel.UpdateProgressMessage($"Błąd: {ex.Message}");
+                return;
+            }
+            _viewModel.UpdateProgressMessage("Zapisano!");
         }
 
         public void RaiseCanExecuteChanged()

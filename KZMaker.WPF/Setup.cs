@@ -25,7 +25,7 @@ namespace KZMaker.WPF
             Mvx.IoCProvider.RegisterType<IPrintService, PrintService>();
             Mvx.IoCProvider.RegisterType<IResourcesService, ResourcesService>();
             Mvx.IoCProvider.RegisterType<ISaveBrowsedCardCommand, Commands.SaveBrowsedCardCommand>();
-            Mvx.IoCProvider.RegisterType<ISaveBrowsedDraftCommand, Commands.SaveBrowsedDraftCommand>();
+            Mvx.IoCProvider.RegisterType<ISaveDraftCommand, Commands.SaveBrowsedDraftCommand>();
             Mvx.IoCProvider.RegisterType<ILoadBrowsedCardCommand, Commands.LoadBrowsedCardCommand>();
             Mvx.IoCProvider.RegisterType<IPrintCardCommand, Commands.PrintCardCommand>();
 

@@ -77,10 +77,5 @@ namespace KZMaker.WPF.Commands
             //Update ProgressMessageViewModel
             _saveCardViewModel.ProgressMessageViewModel.Message = $"Karta '{_saveCardViewModel.FileName}' została zapisana";
         }
-
-        public void UpdateCommand(Bitmap card, string fileName)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

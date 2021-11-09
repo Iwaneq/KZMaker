@@ -44,8 +44,23 @@ namespace KZMaker.Core.Commands
 
         private void SaveSettings()
         {
-            //Save AppSettings
-            _settingsService.UpdateSettings(_settingsViewModel.SavingPath, _settingsViewModel.ThemeColor);
+            try
+            {
+                //Save AppSettings
+                _settingsService.UpdateSettings(_settingsViewModel.SavingPath, 
+                    _settingsViewModel.ThemeColor, 
+                    _settingsViewModel.IsSavingManually, 
+                    _settingsViewModel.DefaultZastep);
+            }
+            catch (Exception ex)
+            {
+                _settingsViewModel.ProgressMessageViewModel.Message = "";
+                _settingsViewModel.ErrorMessageViewModel.Message = $"Błąd: {ex.Message}";
+                return;
+            }
+
+            _settingsViewModel.ErrorMessageViewModel.Message = "";
+            _settingsViewModel.ProgressMessageViewModel.Message = "Zapisano!";
         }
 
         public void RaiseCanExecuteChanged()

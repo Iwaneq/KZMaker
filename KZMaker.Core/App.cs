@@ -67,7 +67,9 @@ namespace KZMaker.Core
             });
             services.RegisterSingleton<CreateViewModel<SettingsViewModel>>(() =>
             {
-                return services.GetSingleton<SettingsViewModel>();
+                var vm = services.GetSingleton<SettingsViewModel>();
+                vm.CleanMessages();
+                return vm;
             });
 
             services.RegisterSingleton<DelegateViewModelFactory>(
@@ -86,6 +88,10 @@ namespace KZMaker.Core
             services.RegisterType<ISaveCardService, SaveCardService>();
             services.RegisterType<ILoadCardsService, LoadCardsService>();
             services.RegisterType<ISettingsService, SettingsService>();
+            services.RegisterType<IChangeCommandsService, ChangeCommandsService>();
+
+            services.RegisterType<SaveCardCommand>();
+            services.RegisterType<SaveDraftCommand>();
 
             services.RegisterSingleton<LoadCardCommand>(() =>
             {
@@ -108,6 +114,10 @@ namespace KZMaker.Core
             {
                 return services.IoCConstruct<SettingsViewModel>();
             });
+
+            //Checking AppSettings
+            services.Resolve<IResourcesService>().CheckTheme();
+            services.Resolve<IChangeCommandsService>().CheckSavingMode();
 
             RegisterAppStart<MainViewModel>();
         }

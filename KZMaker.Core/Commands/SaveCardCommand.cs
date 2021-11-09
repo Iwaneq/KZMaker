@@ -1,4 +1,5 @@
 ﻿using KZMaker.Core.Services;
+using KZMaker.Core.ViewModels;
 using MvvmCross.Commands;
 using System;
 using System.Collections.Generic;
@@ -12,23 +13,14 @@ namespace KZMaker.Core.Commands
     public class SaveCardCommand : IMvxCommand
     {
         private readonly ISaveCardService _saveCardService;
-        private Bitmap _card;
-        private string _fileName;
+        private SaveCardViewModel _saveCardViewModel;
 
-        public SaveCardCommand(ISaveCardService saveCardService,
-            Bitmap card, 
-            string fileName)
+        public SaveCardCommand(ISaveCardService saveCardService)
         {
             _saveCardService = saveCardService;
-            _card = card;
-            _fileName = fileName;
         }
 
         public event EventHandler CanExecuteChanged;
-        public void UpdateFileName(string fileName)
-        {
-            _fileName = fileName;
-        }
 
         public bool CanExecute()
         {
@@ -47,12 +39,24 @@ namespace KZMaker.Core.Commands
 
         public void Execute(object parameter)
         {
+            _saveCardViewModel = (SaveCardViewModel)parameter;
+
             SaveCard();
         }
 
         private void SaveCard()
         {
-            _saveCardService.SaveCard(_card, _fileName, "");
+            try
+            {
+
+                _saveCardService.SaveCard(_saveCardViewModel.Card, _saveCardViewModel.FileName, AppSettings.Default.SavingPath);
+            }
+            catch (Exception ex)
+            {
+                _saveCardViewModel.ProgressMessageViewModel.Message = $"Błąd: {ex.Message}";
+                return;
+            }
+            _saveCardViewModel.ProgressMessageViewModel.Message = $"Zapisano {_saveCardViewModel.FileName}";
         }
 
         public void RaiseCanExecuteChanged()

@@ -71,9 +71,9 @@ namespace KZMaker.Core.ViewModels
         public MvxObservableCollection<RequiredItem> RequiredItems => WriteRequiredItemsViewModel.RequiredItems;
 
         public IMvxCommand GenerateCardCommand { get; set; }
-        public ISaveBrowsedDraftCommand SaveDraftCommand { get; set; }
+        public ISaveDraftCommand SaveDraftCommand { get; set; }
 
-        public CreateCardViewModel(ICreateCardService createCardService, SaveCardViewModel saveViewModel, INavigator navigator, ISaveCardService saveCardService, ISaveBrowsedDraftCommand saveDraftCommand)
+        public CreateCardViewModel(ICreateCardService createCardService, SaveCardViewModel saveViewModel, INavigator navigator, ISaveCardService saveCardService, ISaveDraftCommand saveDraftCommand)
         {
             WritePointsViewModel = new WritePointsViewModel();
             WriteRequiredItemsViewModel = new WriteRequiredItemsViewModel();
@@ -84,6 +84,7 @@ namespace KZMaker.Core.ViewModels
             SaveDraftCommand = saveDraftCommand;
 
             Date = DateTime.Now;
+            Zastep = AppSettings.Default.DefaultZastep;
         }
 
         public void UpdateProgressMessage(string message)

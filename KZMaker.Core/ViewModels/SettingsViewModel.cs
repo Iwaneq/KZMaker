@@ -1,6 +1,9 @@
 ﻿using KZMaker.Core.Commands;
+using KZMaker.Core.Exceptions;
 using KZMaker.Core.Models;
 using KZMaker.Core.ResourceManagement;
+using KZMaker.Core.Services;
+using KZMaker.Core.ViewModels.Progress;
 using MvvmCross.Commands;
 using MvvmCross.ViewModels;
 using System;
@@ -13,6 +16,8 @@ namespace KZMaker.Core.ViewModels
 {
     public class SettingsViewModel : MvxViewModel
     {
+        private readonly IMessageBoxService _messageBoxService;
+
         private MvxObservableCollection<ThemeColorOptionModel> _colors = new MvxObservableCollection<ThemeColorOptionModel>()
         {
             new ThemeColorOptionModel()
@@ -70,10 +75,24 @@ namespace KZMaker.Core.ViewModels
             }
         }
 
+        private bool _isSavingManually;
+
+        public bool IsSavingManually
+        {
+            get { return _isSavingManually; }
+            set 
+            {
+                _isSavingManually = value;
+                RaisePropertyChanged(() => IsSavingManually);
+            }
+        }
+
+
 
         public IMvxCommand SaveSettingsCommand { get; set; }
+        public IMvxCommand GetSavingPathCommand { get; set; }
 
-        
+
 
         public string ThemeColor => SelectedColor.ThemeColor;
 
@@ -89,10 +108,74 @@ namespace KZMaker.Core.ViewModels
             }
         }
 
-        public SettingsViewModel(ISettingsService settingsService)
+        private string _defaultZastep = AppSettings.Default.DefaultZastep;
+
+        public string DefaultZastep
         {
-            SaveSettingsCommand = new SaveSettingsCommand(settingsService, this);
+            get { return _defaultZastep; }
+            set 
+            {
+                _defaultZastep = value;
+                RaisePropertyChanged(() => DefaultZastep);
+            }
         }
 
+
+        private MessageViewModel _progressMessageViewModel;
+
+        public MessageViewModel ProgressMessageViewModel
+        {
+            get { return _progressMessageViewModel; }
+            set { _progressMessageViewModel = value; }
+        }
+
+        private MessageViewModel _erroMessageViewModel;
+
+        public MessageViewModel ErrorMessageViewModel
+        {
+            get { return _erroMessageViewModel; }
+            set { _erroMessageViewModel = value; }
+        }
+
+
+        public SettingsViewModel(ISettingsService settingsService, IMessageBoxService messageBoxService)
+        {
+            SaveSettingsCommand = new SaveSettingsCommand(settingsService, this);
+            GetSavingPathCommand = new MvxCommand(GetSavingPath);
+
+            _messageBoxService = messageBoxService;
+
+            ProgressMessageViewModel = new MessageViewModel();
+            ErrorMessageViewModel = new MessageViewModel();
+
+            SelectedColor = Colors.Where(x => x.ThemeColor == AppSettings.Default.Theme).FirstOrDefault();
+            IsSavingManually = AppSettings.Default.IsSavingManually;
+        }
+
+        public void CleanMessages()
+        {
+            ErrorMessageViewModel.Message = "";
+            ProgressMessageViewModel.Message = "";
+        }
+
+        private void GetSavingPath()
+        {
+            try
+            {
+                if (!string.IsNullOrEmpty(SavingPath))
+                {
+                    SavingPath = _messageBoxService.GetSavingPath(SavingPath);
+                }
+                else
+                {
+                    SavingPath = _messageBoxService.GetSavingPath();
+                }
+            }
+            catch (GetPathFailedException)
+            {
+                ProgressMessageViewModel.Message = "";
+                ErrorMessageViewModel.Message = "Przerwano wybieranie ścieżki zapisu.";
+            }
+        }
     }
 }

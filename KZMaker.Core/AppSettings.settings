@@ -8,5 +8,11 @@
     <Setting Name="SavingPath" Type="System.String" Scope="User">
       <Value Profile="(Default)">C:\\data\\KartaZbiorkiMaker\\Karty</Value>
     </Setting>
+    <Setting Name="IsSavingManually" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="DefaultZastep" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
   </Settings>
 </SettingsFile>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using KZMaker.Core.Services;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -11,13 +12,16 @@ namespace KZMaker.Core.ResourceManagement
     public class SettingsService : ISettingsService
     {
         private readonly IResourcesService _resourcesService;
+        private readonly IChangeCommandsService _changeCommandsService;
 
-        public SettingsService(IResourcesService resourcesService)
+        public SettingsService(IResourcesService resourcesService,
+            IChangeCommandsService changeCommandsService)
         {
             _resourcesService = resourcesService;
+            _changeCommandsService = changeCommandsService;
         }
 
-        public void UpdateSettings(string savingPath, string themeColor)
+        public void UpdateSettings(string savingPath, string themeColor, bool isSavingManually, string defaultZastep)
         {
             //Update saving path
             AppSettings.Default.SavingPath = savingPath;
@@ -27,8 +31,13 @@ namespace KZMaker.Core.ResourceManagement
             _resourcesService.CheckTheme();
 
             //Update file saving mode
+            AppSettings.Default.IsSavingManually = isSavingManually;
+            _changeCommandsService.CheckSavingMode();
 
             //Update zastep name
+            AppSettings.Default.DefaultZastep = defaultZastep;
+
+            AppSettings.Default.Save();
         }
     }
 }

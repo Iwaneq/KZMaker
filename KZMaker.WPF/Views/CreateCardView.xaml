@@ -115,7 +115,8 @@
                     MaxWidth="250"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Bottom"
-                    DataContext="{Binding ProgressMessageViewModel}" />
+                    DataContext="{Binding ProgressMessageViewModel}"
+                    Foreground="{StaticResource SuccessBrush1}" />
 
                 <Button
                     Grid.Row="3"

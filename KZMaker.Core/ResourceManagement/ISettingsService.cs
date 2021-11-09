@@ -8,6 +8,6 @@ namespace KZMaker.Core.ResourceManagement
 {
     public interface ISettingsService
     {
-        void UpdateSettings(string savingPath, string themeColor);
+        void UpdateSettings(string savingPath, string themeColor, bool isSavingManually, string defaultZastep);
     }
 }

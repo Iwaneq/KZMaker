@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace KZMaker.WPF.Commands
 {
-    class SaveBrowsedDraftCommand : ISaveBrowsedDraftCommand
+    class SaveBrowsedDraftCommand : ISaveDraftCommand
     {
         private CreateCardViewModel _viewModel;
         private readonly IMessageBoxService _messageBoxService;

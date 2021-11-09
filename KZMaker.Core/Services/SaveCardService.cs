@@ -1,4 +1,5 @@
-﻿using KZMaker.Core.Models;
+﻿using KZMaker.Core.Exceptions;
+using KZMaker.Core.Models;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -14,6 +15,11 @@ namespace KZMaker.Core.Services
 
         public void SaveCard(Bitmap card, string fileName, string savingPath)
         {
+            if (string.IsNullOrEmpty(fileName))
+            {
+                throw new NotGeneratedCardException("Karta nie została wygenerowana.");
+            }
+
             CheckIfDirectoryExists(savingPath);
 
             card.Save(Path.Combine(savingPath, $"{fileName}.png"));

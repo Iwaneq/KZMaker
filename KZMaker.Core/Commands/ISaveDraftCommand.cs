@@ -1,16 +1,14 @@
 ﻿using MvvmCross.Commands;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace KZMaker.Core.Commands
 {
-    public interface ISaveBrowsedCardCommand : IMvxCommand
+    public interface ISaveDraftCommand : IMvxCommand
     {
-        void SaveCard();
-        void UpdateCommand(Bitmap card, string fileName);
+
     }
 }

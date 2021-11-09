@@ -26,6 +26,11 @@ namespace KZMaker.WPF.Views
         public SettingsView()
         {
             InitializeComponent();
+
+            if (!manualSaveOption.IsChecked.Value)
+            {
+                automaticSaveOption.IsChecked = true;
+            }
         }
     }
 }
