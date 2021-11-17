@@ -28,22 +28,28 @@ namespace KZMaker.Core.Services
 
             string[] points = cols[3].Split('*');
             card.Points = new List<Point>();
-            foreach(string point in points)
+            if (points.Length > 0 && !string.IsNullOrEmpty(points[0]))
             {
-                string[] p = point.Split('$');
-                card.Points.Add(new Point
+                foreach (string point in points)
                 {
-                    DisplayTime = p[0],
-                    Title = p[1],
-                    ZastepMember = p[2]
-                });
+                    string[] p = point.Split('$');
+                    card.Points.Add(new Point
+                    {
+                        DisplayTime = p[0],
+                        Title = p[1],
+                        ZastepMember = p[2]
+                    });
+                } 
             }
 
             string[] items = cols[4].Split('*');
             card.RequiredItems = new List<RequiredItem>();
-            foreach(string item in items)
+            if (items.Length > 0 && !string.IsNullOrEmpty(items[0]))
             {
-                card.RequiredItems.Add(new RequiredItem { Item = item });
+                foreach (string item in items)
+                {
+                    card.RequiredItems.Add(new RequiredItem { Item = item });
+                } 
             }
 
             return card;

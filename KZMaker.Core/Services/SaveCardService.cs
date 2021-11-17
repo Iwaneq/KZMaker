@@ -36,19 +36,26 @@ namespace KZMaker.Core.Services
             lines += zastep + "^";
             lines += date + "^";
             lines += place + "^";
-            foreach(Models.Point point in points)
+
+            if (points.Count > 0)
             {
-                lines += $"{point.DisplayTime}${point.Title}${point.ZastepMember}*";
+                foreach (Models.Point point in points)
+                {
+                    lines += $"{point.DisplayTime}${point.Title}${point.ZastepMember}*";
+                }
+                lines = lines.Substring(0, lines.Length - 1); 
             }
-            lines = lines.Substring(0, lines.Length - 1);
 
             lines += "^";
 
-            foreach(RequiredItem item in requiredItems)
+            if (requiredItems.Count > 0)
             {
-                lines += $"{item.Item}*";
+                foreach (RequiredItem item in requiredItems)
+                {
+                    lines += $"{item.Item}*";
+                }
+                lines = lines.Substring(0, lines.Length - 1); 
             }
-            lines = lines.Substring(0, lines.Length - 1);
 
             File.WriteAllText(savingPath + $"\\{fileName}.card", lines);
         }
