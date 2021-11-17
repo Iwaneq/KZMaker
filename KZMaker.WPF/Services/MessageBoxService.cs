@@ -8,6 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace KZMaker.WPF.Services
 {
@@ -77,6 +78,19 @@ namespace KZMaker.WPF.Services
             }
 
             throw new GetPathFailedException("Load Path");
+        }
+
+        public bool Confirm(string message, string title)
+        {
+            var result = MessageBox.Show(message, title, MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if(result == MessageBoxResult.Yes)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

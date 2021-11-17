@@ -28,6 +28,7 @@ namespace KZMaker.WPF
             Mvx.IoCProvider.RegisterType<ISaveDraftCommand, Commands.SaveBrowsedDraftCommand>();
             Mvx.IoCProvider.RegisterType<ILoadBrowsedCardCommand, Commands.LoadBrowsedCardCommand>();
             Mvx.IoCProvider.RegisterType<IPrintCardCommand, Commands.PrintCardCommand>();
+            Mvx.IoCProvider.RegisterSingleton<IUpdateService>(Mvx.IoCProvider.IoCConstruct<UpdateService>());
 
             base.InitializeFirstChance(iocProvider);
         }

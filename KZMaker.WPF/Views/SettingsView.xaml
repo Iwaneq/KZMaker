@@ -130,6 +130,10 @@
         </Grid>
 
         <Grid Grid.Row="5" Margin="10,20,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="auto" />
@@ -152,6 +156,14 @@
                 mvx:Bi.nd="Command SaveSettingsCommand"
                 CommandParameter="{Binding}"
                 Content="Zapisz ustawienia" />
+            <Button
+                Grid.Row="1"
+                Grid.Column="1"
+                Margin="0,5,5,0"
+                HorizontalAlignment="Right"
+                mvx:Bi.nd="Command CheckForUpdateCommand"
+                CommandParameter="{Binding}"
+                Content="Sprawdź aktualizacje" />
         </Grid>
 
     </Grid>

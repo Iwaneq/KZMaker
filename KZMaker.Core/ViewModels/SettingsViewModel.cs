@@ -91,6 +91,7 @@ namespace KZMaker.Core.ViewModels
 
         public IMvxCommand SaveSettingsCommand { get; set; }
         public IMvxCommand GetSavingPathCommand { get; set; }
+        public IMvxCommand CheckForUpdateCommand { get; set; }
 
 
 
@@ -138,10 +139,11 @@ namespace KZMaker.Core.ViewModels
         }
 
 
-        public SettingsViewModel(ISettingsService settingsService, IMessageBoxService messageBoxService)
+        public SettingsViewModel(ISettingsService settingsService, IMessageBoxService messageBoxService, IUpdateService updateService)
         {
             SaveSettingsCommand = new SaveSettingsCommand(settingsService, this);
             GetSavingPathCommand = new MvxCommand(GetSavingPath);
+            CheckForUpdateCommand = new CheckForUpdateCommand(updateService);
 
             _messageBoxService = messageBoxService;
 

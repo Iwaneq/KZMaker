@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package >
+  <metadata>
+    <id>KZMaker</id>
+    <version>0.0.0</version>
+    <title>KZMaker</title>
+    <authors>Kuba "Iwan" Iwański</authors>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <license type="expression">MIT</license>
+    <description>Generator kart zbiórek dla zastępowych i szefów z Federacji Skautingu Europejskiego.</description>
+  </metadata>
+  <files>
+	<file src="bin\Release\net5.0-windows\**" target="lib\net45"/>
+  </files>
+</package>

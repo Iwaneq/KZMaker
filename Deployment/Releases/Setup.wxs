@@ -1,0 +1,39 @@
+﻿<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:util="http://schemas.microsoft.com/wix/UtilExtension" xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension">
+  <Product Id="*" Name="KZMaker Machine-Wide Installer" Language="1033" Codepage="1252" Version="!(bind.FileVersion.KZMaker.exe)" UpgradeCode="a129af10-dd3c-5577-88a5-15665827377b" Manufacturer="Kuba &quot;Iwan&quot; Iwański">
+
+    <Package Description="#Description" Comments="Comments" InstallerVersion="200" Compressed="yes"/>
+		<Media Id="1" Cabinet="contents.cab" EmbedCab="yes" CompressionLevel="high"/>
+
+    <PropertyRef Id="NETFRAMEWORK45" />
+
+    <Condition Message="This application requires .NET Framework 4.5 or higher. Please install the latest .NET Framework then run this installer again.">
+      <![CDATA[Installed OR NETFRAMEWORK45]]>
+    </Condition>
+
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFilesFolder">
+        <Directory Id="APPLICATIONROOTDIRECTORY" Name="KZMaker Installer" />
+      </Directory>
+    </Directory>
+
+    <DirectoryRef Id="APPLICATIONROOTDIRECTORY">
+      <Component Id="KZMaker.exe" Guid="44ada07f-256a-5833-93b2-385957f2b50f">
+        <File Id="KZMaker.exe" Name="KZMaker.exe" Source="./Setup.exe" KeyPath="yes" />
+      </Component>
+    </DirectoryRef>
+
+    <DirectoryRef Id="TARGETDIR">
+      <Component Id="RegistryEntries" Guid="74fceda0-659a-53bc-a7f1-d8e943c67e4a">
+        <RegistryKey Root="HKLM" Key="SOFTWARE\Microsoft\Windows\CurrentVersion\Run">
+          <RegistryValue Type="expandable" Name="KZMakerMachineInstaller" Value="%ProgramFiles%\KZMaker Installer\KZMaker.exe --checkInstall" />
+        </RegistryKey>
+      </Component>
+    </DirectoryRef>
+
+    <Feature Id="MainApplication" Title="Main Application" Level="1">
+      <ComponentRef Id="KZMaker.exe" />
+      <ComponentRef Id="RegistryEntries" />
+    </Feature>
+  </Product>
+</Wix>
+
