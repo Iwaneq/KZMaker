@@ -45,9 +45,11 @@
     <NugetTools>$(PkgNuGet_CommandLine)\tools</NugetTools>
     <SquirrelTools>$(Pkgsquirrel_windows)\tools</SquirrelTools>
 
-    <Version>1.0.3</Version>
+    <Version>2.0.1</Version>
 
     <NuspecFile>$(SolutionDir)KZMaker.WPF\ReleaseSpec.nuspec</NuspecFile>
+
+    <AssemblyName>KZMaker</AssemblyName>
     
   </PropertyGroup>
 

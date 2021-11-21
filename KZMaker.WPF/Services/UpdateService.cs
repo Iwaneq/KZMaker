@@ -20,26 +20,33 @@ namespace KZMaker.WPF.Services
         {
             using (var manager = await UpdateManager.GitHubUpdateManager(@"https://github.com/Iwaneq/KZMaker"))
             {
-                var updateInfo = await manager.CheckForUpdate();
-
-                if (updateInfo.ReleasesToApply.Count > 0)
+                try
                 {
-                    var canContiune = _messageBoxService.Confirm($"Masz do pobrania {updateInfo.ReleasesToApply.Count} aktualizacji. Czy chcesz kontynuować?", "Aktualizacja");
+                    var updateInfo = await manager.CheckForUpdate();
 
-                    if (canContiune)
+                    if (updateInfo.ReleasesToApply.Count > 0)
                     {
-                        await manager.UpdateApp();
+                        var canContiune = _messageBoxService.Confirm($"Masz do pobrania {updateInfo.ReleasesToApply.Count} aktualizacji. Czy chcesz kontynuować?", "Aktualizacja");
 
-                        _messageBoxService.Message("Pomyślnie zaaktualizowano aplikację!", "Aktualizacja");
+                        if (canContiune)
+                        {
+                            await manager.UpdateApp();
+
+                            UpdateManager.RestartApp();
+                        }
+                        else
+                        {
+                            return;
+                        }
                     }
                     else
                     {
-                        return;
+                        _messageBoxService.Message("Nie masz żadnych aktualizacji do pobrania.", "Aktualizacja");
                     }
                 }
-                else
+                catch (Exception ex)
                 {
-                    _messageBoxService.Message("Nie masz żadnych aktualizacji do pobrania.", "Aktualizacja");
+                    _messageBoxService.Message($"Podczas procesu aktualizacji nastąpił błąd: {ex.Message}", "Aktualizacja");
                 }
             }
         }
