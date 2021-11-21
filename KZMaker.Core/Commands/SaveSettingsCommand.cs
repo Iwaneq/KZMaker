@@ -54,13 +54,13 @@ namespace KZMaker.Core.Commands
             }
             catch (Exception ex)
             {
-                _settingsViewModel.ProgressMessageViewModel.Message = "";
-                _settingsViewModel.ErrorMessageViewModel.Message = $"Błąd: {ex.Message}";
+                _settingsViewModel.UpdateProgressMessage("");
+                _settingsViewModel.UpdateErrorMessage($"Błąd: {ex.Message}");
                 return;
             }
 
-            _settingsViewModel.ErrorMessageViewModel.Message = "";
-            _settingsViewModel.ProgressMessageViewModel.Message = "Zapisano!";
+            _settingsViewModel.UpdateErrorMessage("");
+            _settingsViewModel.UpdateProgressMessage("Zapisano!");
         }
 
         public void RaiseCanExecuteChanged()

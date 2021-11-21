@@ -53,10 +53,10 @@ namespace KZMaker.Core.Commands
             }
             catch (Exception ex)
             {
-                _saveCardViewModel.ProgressMessageViewModel.Message = $"Błąd: {ex.Message}";
+                _saveCardViewModel.UpdateProgressMessage($"Błąd: {ex.Message}");
                 return;
             }
-            _saveCardViewModel.ProgressMessageViewModel.Message = $"Zapisano {_saveCardViewModel.FileName}";
+            _saveCardViewModel.UpdateProgressMessage($"Zapisano {_saveCardViewModel.FileName}");
         }
 
         public void RaiseCanExecuteChanged()

@@ -74,7 +74,11 @@ namespace KZMaker.Core.ViewModels
         public ISaveDraftCommand SaveDraftCommand { get; set; }
         public IMvxCommand CleanViewCommand { get; set; }
 
-        public CreateCardViewModel(ICreateCardService createCardService, SaveCardViewModel saveViewModel, INavigator navigator, ISaveCardService saveCardService, ISaveDraftCommand saveDraftCommand)
+        public CreateCardViewModel(ICreateCardService createCardService, 
+            SaveCardViewModel saveViewModel, 
+            INavigator navigator, 
+            ISaveCardService saveCardService, 
+            ISaveDraftCommand saveDraftCommand)
         {
             WritePointsViewModel = new WritePointsViewModel();
             WriteRequiredItemsViewModel = new WriteRequiredItemsViewModel();

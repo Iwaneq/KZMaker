@@ -171,6 +171,14 @@ namespace KZMaker.Core.ViewModels
             ErrorMessageViewModel.Message = "";
             ProgressMessageViewModel.Message = "";
         }
+        public void UpdateProgressMessage(string message)
+        {
+            ProgressMessageViewModel.Message = message;
+        }
+        public void UpdateErrorMessage(string message)
+        {
+            ErrorMessageViewModel.Message = message;
+        }
 
         private void GetSavingPath()
         {

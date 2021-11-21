@@ -77,5 +77,10 @@ namespace KZMaker.Core.ViewModels
             FileName = fileName;
             ProgressMessageViewModel.Message = "";
         }
+
+        public void UpdateProgressMessage(string message)
+        {
+            ProgressMessageViewModel.Message = message;
+        }
     }
 }
