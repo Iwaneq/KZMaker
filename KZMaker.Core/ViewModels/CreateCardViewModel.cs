@@ -72,6 +72,7 @@ namespace KZMaker.Core.ViewModels
 
         public IMvxCommand GenerateCardCommand { get; set; }
         public ISaveDraftCommand SaveDraftCommand { get; set; }
+        public IMvxCommand CleanViewCommand { get; set; }
 
         public CreateCardViewModel(ICreateCardService createCardService, SaveCardViewModel saveViewModel, INavigator navigator, ISaveCardService saveCardService, ISaveDraftCommand saveDraftCommand)
         {
@@ -80,8 +81,8 @@ namespace KZMaker.Core.ViewModels
             ProgressMessageViewModel = new MessageViewModel();
 
             GenerateCardCommand = new GenerateCardCommand(createCardService, this, saveViewModel, navigator);
-
             SaveDraftCommand = saveDraftCommand;
+            CleanViewCommand = new MvxCommand(CleanView);
 
             Date = DateTime.Now;
             Zastep = AppSettings.Default.DefaultZastep;
@@ -99,6 +100,16 @@ namespace KZMaker.Core.ViewModels
             Place = card.Place;
             Points.ReplaceWith(card.Points);
             RequiredItems.ReplaceWith(card.RequiredItems);
+        }
+
+        private void CleanView()
+        {
+            Date = DateTime.Now;
+            Zastep = AppSettings.Default.DefaultZastep;
+
+            Place = "";
+            Points.Clear();
+            RequiredItems.Clear();
         }
     }
 }
