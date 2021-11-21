@@ -92,5 +92,10 @@ namespace KZMaker.WPF.Services
                 return false;
             }
         }
+
+        public void Message(string message, string title)
+        {
+            MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.None);
+        }
     }
 }

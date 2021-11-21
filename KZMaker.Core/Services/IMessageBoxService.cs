@@ -14,5 +14,6 @@ namespace KZMaker.Core.Services
         string GetFile(string ext);
 
         bool Confirm(string message, string title);
+        void Message(string message, string title);
     }
 }

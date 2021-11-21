@@ -24,6 +24,10 @@
         </Grid.RowDefinitions>
 
         <TextBlock Grid.Row="0" Text="Ustawienia" />
+        <TextBlock
+            HorizontalAlignment="Right"
+            Foreground="{DynamicResource FontBrush1}"
+            Text="{Binding Version}" />
 
         <Grid Grid.Row="1" Margin="10,10,0,0">
             <Grid.RowDefinitions>

@@ -10,36 +10,45 @@ namespace KZMaker.WPF.Services
 {
     public class UpdateService : IUpdateService
     {
-        UpdateManager manager;
         private readonly IMessageBoxService _messageBoxService;
         public UpdateService(IMessageBoxService messageBoxService)
         {
             _messageBoxService = messageBoxService;
         }
 
-        private async Task GetManager()
-        {
-            manager = await UpdateManager.GitHubUpdateManager(@"https://github.com/Iwaneq/KZMaker");
-        }
-
         public async Task CheckForUpdate()
         {
-            if (manager == null) await GetManager();
-
-            var updateInfo = await manager.CheckForUpdate();
-
-            if(updateInfo.ReleasesToApply.Count > 0)
+            using (var manager = await UpdateManager.GitHubUpdateManager(@"https://github.com/Iwaneq/KZMaker"))
             {
-                var canContiune = _messageBoxService.Confirm($"Masz do pobrania {updateInfo.ReleasesToApply} aktualizacji. Czy chcesz kontynuować?", "Aktualizacja");
+                var updateInfo = await manager.CheckForUpdate();
 
-                if (canContiune)
+                if (updateInfo.ReleasesToApply.Count > 0)
                 {
-                    await manager.UpdateApp();
+                    var canContiune = _messageBoxService.Confirm($"Masz do pobrania {updateInfo.ReleasesToApply.Count} aktualizacji. Czy chcesz kontynuować?", "Aktualizacja");
+
+                    if (canContiune)
+                    {
+                        await manager.UpdateApp();
+
+                        _messageBoxService.Message("Pomyślnie zaaktualizowano aplikację!", "Aktualizacja");
+                    }
+                    else
+                    {
+                        return;
+                    }
                 }
                 else
                 {
-                    return;
+                    _messageBoxService.Message("Nie masz żadnych aktualizacji do pobrania.", "Aktualizacja");
                 }
+            }
+        }
+
+        public string GetCurrentVersion()
+        {
+            using(var manager = new UpdateManager(""))
+            {
+                return manager.CurrentlyInstalledVersion().ToString();
             }
         }
     }

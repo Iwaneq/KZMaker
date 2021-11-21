@@ -1,4 +1,5 @@
 ﻿using KZMaker.Core.Services;
+using KZMaker.Core.ViewModels;
 using MvvmCross.Commands;
 using System;
 using System.Collections.Generic;
@@ -11,11 +12,13 @@ namespace KZMaker.Core.Commands
     class CheckForUpdateCommand : IMvxCommand
     {
         private readonly IUpdateService _updateService;
+        private readonly SettingsViewModel _viewModel;
         public event EventHandler CanExecuteChanged;
 
-        public CheckForUpdateCommand(IUpdateService updateService)
+        public CheckForUpdateCommand(IUpdateService updateService, SettingsViewModel viewModel)
         {
             _updateService = updateService;
+            _viewModel = viewModel;
         }
 
         public bool CanExecute()
@@ -28,19 +31,21 @@ namespace KZMaker.Core.Commands
             return true;
         }
 
-        public void Execute()
+        public async void Execute()
         {
-            CheckForUpdate();
+            await CheckForUpdate();
         }
 
-        public void Execute(object parameter)
+        public async void Execute(object parameter)
         {
-            CheckForUpdate();
+            await CheckForUpdate();
         }
 
-        private void CheckForUpdate()
+        private async Task CheckForUpdate()
         {
-            _updateService.CheckForUpdate();
+            await _updateService.CheckForUpdate();
+
+            _viewModel.UpdateVersionText();
         }
 
         public void RaiseCanExecuteChanged()

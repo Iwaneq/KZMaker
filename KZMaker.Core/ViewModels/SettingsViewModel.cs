@@ -16,6 +16,7 @@ namespace KZMaker.Core.ViewModels
 {
     public class SettingsViewModel : MvxViewModel
     {
+        private readonly IUpdateService _updateService;
         private readonly IMessageBoxService _messageBoxService;
 
         private MvxObservableCollection<ThemeColorOptionModel> _colors = new MvxObservableCollection<ThemeColorOptionModel>()
@@ -121,6 +122,15 @@ namespace KZMaker.Core.ViewModels
             }
         }
 
+        private string _version;
+
+        public string Version
+        {
+            get { return _version; }
+            set { _version = value; }
+        }
+
+
 
         private MessageViewModel _progressMessageViewModel;
 
@@ -143,15 +153,17 @@ namespace KZMaker.Core.ViewModels
         {
             SaveSettingsCommand = new SaveSettingsCommand(settingsService, this);
             GetSavingPathCommand = new MvxCommand(GetSavingPath);
-            CheckForUpdateCommand = new CheckForUpdateCommand(updateService);
+            CheckForUpdateCommand = new CheckForUpdateCommand(updateService, this);
 
             _messageBoxService = messageBoxService;
+            _updateService = updateService;
 
             ProgressMessageViewModel = new MessageViewModel();
             ErrorMessageViewModel = new MessageViewModel();
 
             SelectedColor = Colors.Where(x => x.ThemeColor == AppSettings.Default.Theme).FirstOrDefault();
             IsSavingManually = AppSettings.Default.IsSavingManually;
+            Version = _updateService.GetCurrentVersion();
         }
 
         public void CleanMessages()
@@ -178,6 +190,11 @@ namespace KZMaker.Core.ViewModels
                 ProgressMessageViewModel.Message = "";
                 ErrorMessageViewModel.Message = "Przerwano wybieranie ścieżki zapisu.";
             }
+        }
+
+        public void UpdateVersionText()
+        {
+            Version = _updateService.GetCurrentVersion();
         }
     }
 }
