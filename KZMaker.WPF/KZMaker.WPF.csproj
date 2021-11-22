@@ -50,6 +50,8 @@
     <NuspecFile>$(SolutionDir)KZMaker.WPF\ReleaseSpec.nuspec</NuspecFile>
 
     <AssemblyName>KZMaker</AssemblyName>
+
+    <RootNamespace>KZMaker.WPF</RootNamespace>
     
   </PropertyGroup>
 
