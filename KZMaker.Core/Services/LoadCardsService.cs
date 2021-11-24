@@ -70,6 +70,10 @@ namespace KZMaker.Core.Services
 
         public MvxObservableCollection<CardFile> LoadCards(string folder)
         {
+            if (!Directory.Exists(folder))
+            {
+                Directory.CreateDirectory(folder);
+            }
             MvxObservableCollection<CardFile> output = new MvxObservableCollection<CardFile>();
 
             foreach(var file in Directory.GetFiles(folder))
