@@ -1,6 +1,7 @@
 ﻿using KZMaker.Core.Models;
 using KZMaker.Core.Navigation;
 using KZMaker.Core.Services;
+using KZMaker.Core.Services.Interfaces;
 using KZMaker.Core.ViewModels;
 using MvvmCross.Commands;
 using System;
@@ -16,14 +17,17 @@ namespace KZMaker.Core.Commands
         private readonly ILoadCardsService _loadCardsService;
         private readonly CreateCardViewModel _createCardViewModel;
         private readonly INavigator _navigator;
+        private readonly INotificationsService _notificationsService;
 
         public LoadCardCommand(ILoadCardsService loadCardsService, 
             CreateCardViewModel createCardViewModel, 
-            INavigator navigator)
+            INavigator navigator,
+            INotificationsService notificationsService)
         {
             _loadCardsService = loadCardsService;
             _createCardViewModel = createCardViewModel;
             _navigator = navigator;
+            _notificationsService = notificationsService;
         }
 
         public event EventHandler CanExecuteChanged;
@@ -31,7 +35,17 @@ namespace KZMaker.Core.Commands
         private void LoadCard(CardFile file)
         {
             //Load card
-            Card card = _loadCardsService.LoadCard(file.Path);
+            Card card;
+
+            try
+            {
+                card = _loadCardsService.LoadCard(file.Path);
+            }
+            catch (Exception ex)
+            {
+                _notificationsService.UpdateMessage($"Błąd: {ex.Message}", true);
+                return;
+            }
 
             //Open card in CreateCardViewModel
             _createCardViewModel.UpdateViewModel(card);

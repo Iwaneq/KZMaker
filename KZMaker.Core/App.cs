@@ -18,6 +18,8 @@ using System.IO;
 using KZMaker.Core.Commands;
 using MvvmCross.Plugin;
 using KZMaker.Core.ResourceManagement;
+using KZMaker.Core.Services.Interfaces;
+using KZMaker.Core.State;
 
 namespace KZMaker.Core
 {
@@ -83,12 +85,14 @@ namespace KZMaker.Core
             services.RegisterSingleton<INavigator>(
                 new Navigator(
                     services.Resolve<DelegateViewModelFactory>()));
+            services.RegisterSingleton<NotificationsStore>(new NotificationsStore());
 
             services.RegisterType<ICreateCardService, CreateCardService>();
             services.RegisterType<ISaveCardService, SaveCardService>();
             services.RegisterType<ILoadCardsService, LoadCardsService>();
             services.RegisterType<ISettingsService, SettingsService>();
             services.RegisterType<IChangeCommandsService, ChangeCommandsService>();
+            services.RegisterType<INotificationsService, NotificationsService>();
 
             services.RegisterType<SaveCardCommand>();
             services.RegisterType<SaveDraftCommand>();

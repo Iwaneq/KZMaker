@@ -1,4 +1,8 @@
-﻿using System;
+﻿using KZMaker.Core.ViewModels.Progress;
+using MvvmCross.Platforms.Wpf.Presenters.Attributes;
+using MvvmCross.Platforms.Wpf.Views;
+using MvvmCross.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,12 +19,11 @@ using System.Windows.Shapes;
 
 namespace KZMaker.WPF.Views.Progress
 {
-    /// <summary>
-    /// Logika interakcji dla klasy ProgressMessageView.xaml
-    /// </summary>
-    public partial class ProgressMessageView : UserControl
+    [MvxContentPresentation]
+    [MvxViewFor(typeof(NotificationViewModel))]
+    public partial class NotificationView : MvxWpfView
     {
-        public ProgressMessageView()
+        public NotificationView()
         {
             InitializeComponent();
         }

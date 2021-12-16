@@ -1,5 +1,7 @@
 ﻿using KZMaker.Core.Commands;
 using KZMaker.Core.Navigation;
+using KZMaker.Core.State;
+using KZMaker.Core.ViewModels.Progress;
 using MvvmCross.Commands;
 using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
@@ -24,11 +26,25 @@ namespace KZMaker.Core.ViewModels
             }
         }
 
+        private NotificationViewModel _notificationVM;
+
+        public NotificationViewModel NotificationViewModel
+        {
+            get { return _notificationVM; }
+            set 
+            {
+                _notificationVM = value;
+                RaisePropertyChanged(() => NotificationViewModel);
+            }
+        }
+
+
         public IMvxCommand<ViewModelType> NavigateCommand { get; set; }
 
-        public MainViewModel(INavigator navigator)
+        public MainViewModel(INavigator navigator, NotificationsStore notificationsStore)
         {
             Navigator = navigator;
+            NotificationViewModel = new NotificationViewModel(notificationsStore);
 
             NavigateCommand = new NavigateCommand(Navigator);
         }

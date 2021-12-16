@@ -3,6 +3,7 @@ using KZMaker.Core.Exceptions;
 using KZMaker.Core.Models;
 using KZMaker.Core.ResourceManagement;
 using KZMaker.Core.Services;
+using KZMaker.Core.Services.Interfaces;
 using KZMaker.Core.ViewModels.Progress;
 using MvvmCross.Commands;
 using MvvmCross.ViewModels;
@@ -131,53 +132,18 @@ namespace KZMaker.Core.ViewModels
         }
 
 
-
-        private MessageViewModel _progressMessageViewModel;
-
-        public MessageViewModel ProgressMessageViewModel
+        public SettingsViewModel(ISettingsService settingsService, IMessageBoxService messageBoxService, IUpdateService updateService, INotificationsService notificationsService)
         {
-            get { return _progressMessageViewModel; }
-            set { _progressMessageViewModel = value; }
-        }
-
-        private MessageViewModel _erroMessageViewModel;
-
-        public MessageViewModel ErrorMessageViewModel
-        {
-            get { return _erroMessageViewModel; }
-            set { _erroMessageViewModel = value; }
-        }
-
-
-        public SettingsViewModel(ISettingsService settingsService, IMessageBoxService messageBoxService, IUpdateService updateService)
-        {
-            SaveSettingsCommand = new SaveSettingsCommand(settingsService, this);
+            SaveSettingsCommand = new SaveSettingsCommand(settingsService, this, notificationsService);
             GetSavingPathCommand = new MvxCommand(GetSavingPath);
             CheckForUpdateCommand = new CheckForUpdateCommand(updateService, this);
 
             _messageBoxService = messageBoxService;
             _updateService = updateService;
 
-            ProgressMessageViewModel = new MessageViewModel();
-            ErrorMessageViewModel = new MessageViewModel();
-
             SelectedColor = Colors.Where(x => x.ThemeColor == AppSettings.Default.Theme).FirstOrDefault();
             IsSavingManually = AppSettings.Default.IsSavingManually;
             Version = _updateService.GetCurrentVersion();
-        }
-
-        public void CleanMessages()
-        {
-            ErrorMessageViewModel.Message = "";
-            ProgressMessageViewModel.Message = "";
-        }
-        public void UpdateProgressMessage(string message)
-        {
-            ProgressMessageViewModel.Message = message;
-        }
-        public void UpdateErrorMessage(string message)
-        {
-            ErrorMessageViewModel.Message = message;
         }
 
         private void GetSavingPath()
@@ -195,8 +161,7 @@ namespace KZMaker.Core.ViewModels
             }
             catch (GetPathFailedException)
             {
-                ProgressMessageViewModel.Message = "";
-                ErrorMessageViewModel.Message = "Przerwano wybieranie ścieżki zapisu.";
+                SavingPath = "Błąd przy wczytaniu ścieżki";
             }
         }
 

@@ -1,4 +1,5 @@
 ﻿using KZMaker.Core.Services;
+using KZMaker.Core.Services.Interfaces;
 using KZMaker.Core.ViewModels;
 using MvvmCross.Commands;
 using System;
@@ -13,11 +14,13 @@ namespace KZMaker.Core.Commands
     {
         private readonly CreateCardViewModel _viewModel;
         private readonly ISaveCardService _saveCardService;
+        private readonly INotificationsService _notificationsService;
 
-        public SaveDraftCommand(CreateCardViewModel createCardViewModel, ISaveCardService saveCardService)
+        public SaveDraftCommand(CreateCardViewModel createCardViewModel, ISaveCardService saveCardService, INotificationsService notificationsService)
         {
             _viewModel = createCardViewModel;
             _saveCardService = saveCardService;
+            _notificationsService = notificationsService;
         }
 
         public event EventHandler CanExecuteChanged;
@@ -50,10 +53,10 @@ namespace KZMaker.Core.Commands
             }
             catch (Exception ex)
             {
-                _viewModel.UpdateProgressMessage($"Błąd: {ex.Message}");
+                _notificationsService.UpdateMessage($"Błąd: {ex.Message}", true);
                 return;
             }
-            _viewModel.UpdateProgressMessage("Zapisano!");
+            _notificationsService.UpdateMessage("Zapisano szkic!", false);
         }
 
         public void RaiseCanExecuteChanged()

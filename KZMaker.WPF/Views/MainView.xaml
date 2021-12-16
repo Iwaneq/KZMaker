@@ -9,6 +9,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:mvx="clr-namespace:MvvmCross.Platforms.Wpf.Binding;assembly=MvvmCross.Platforms.Wpf"
     xmlns:navigation="clr-namespace:KZMaker.Core.Navigation;assembly=KZMaker.Core"
+    xmlns:progress="clr-namespace:KZMaker.WPF.Views.Progress"
+    xmlns:progressViewModels="clr-namespace:KZMaker.Core.ViewModels.Progress;assembly=KZMaker.Core"
     xmlns:viewmodels="clr-namespace:KZMaker.Core.ViewModels;assembly=KZMaker.Core"
     xmlns:views="clr-namespace:MvvmCross.Platforms.Wpf.Views;assembly=MvvmCross.Platforms.Wpf"
     d:DesignHeight="450"
@@ -144,6 +146,16 @@
             Grid.Column="1"
             Margin="10"
             Content="{Binding Navigator.CurrentViewModel}" />
+
+        <progress:NotificationView
+            Grid.Row="1"
+            Grid.Column="1"
+            Width="350"
+            Height="90"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Bottom"
+            DataContext="{Binding NotificationViewModel}"
+            FontSize="15" />
 
     </Grid>
 </views:MvxWpfView>

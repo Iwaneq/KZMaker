@@ -120,14 +120,6 @@
                     Margin="5,32,0,0"
                     Text="Co dalej?" />
 
-                <progress:ProgressMessageView
-                    Grid.Row="2"
-                    MaxWidth="250"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Bottom"
-                    DataContext="{Binding ProgressMessageViewModel}"
-                    Foreground="{StaticResource SuccessBrush1}" />
-
                 <Button
                     Grid.Row="3"
                     Height="75"

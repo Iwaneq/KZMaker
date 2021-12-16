@@ -1,4 +1,5 @@
 ﻿using KZMaker.Core.Services;
+using KZMaker.Core.Services.Interfaces;
 using KZMaker.Core.ViewModels;
 using MvvmCross.Commands;
 using System;
@@ -13,11 +14,13 @@ namespace KZMaker.Core.Commands
     public class SaveCardCommand : IMvxCommand
     {
         private readonly ISaveCardService _saveCardService;
+        private readonly INotificationsService _notificationsService;
         private SaveCardViewModel _saveCardViewModel;
 
-        public SaveCardCommand(ISaveCardService saveCardService)
+        public SaveCardCommand(ISaveCardService saveCardService, INotificationsService notificationsService)
         {
             _saveCardService = saveCardService;
+            _notificationsService = notificationsService;
         }
 
         public event EventHandler CanExecuteChanged;
@@ -48,15 +51,15 @@ namespace KZMaker.Core.Commands
         {
             try
             {
-
                 _saveCardService.SaveCard(_saveCardViewModel.Card, _saveCardViewModel.FileName, AppSettings.Default.SavingPath);
             }
             catch (Exception ex)
             {
-                _saveCardViewModel.UpdateProgressMessage($"Błąd: {ex.Message}");
+                _notificationsService.UpdateMessage($"Błąd: {ex.Message}", true);
                 return;
             }
-            _saveCardViewModel.UpdateProgressMessage($"Zapisano {_saveCardViewModel.FileName}");
+
+            _notificationsService.UpdateMessage($"Zapisano kartę: {_saveCardViewModel.FileName}!", false);
         }
 
         public void RaiseCanExecuteChanged()

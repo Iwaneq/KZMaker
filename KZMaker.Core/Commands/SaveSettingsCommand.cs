@@ -1,4 +1,5 @@
 ﻿using KZMaker.Core.ResourceManagement;
+using KZMaker.Core.Services.Interfaces;
 using KZMaker.Core.ViewModels;
 using MvvmCross.Commands;
 using System;
@@ -13,11 +14,13 @@ namespace KZMaker.Core.Commands
     {
         private readonly ISettingsService _settingsService;
         private readonly SettingsViewModel _settingsViewModel;
+        private readonly INotificationsService _notificationsService;
 
-        public SaveSettingsCommand(ISettingsService settingsService, SettingsViewModel settingsViewModel)
+        public SaveSettingsCommand(ISettingsService settingsService, SettingsViewModel settingsViewModel, INotificationsService notificationsService)
         {
             _settingsService = settingsService;
             _settingsViewModel = settingsViewModel;
+            _notificationsService = notificationsService;
         }
 
         public event EventHandler CanExecuteChanged;
@@ -54,13 +57,11 @@ namespace KZMaker.Core.Commands
             }
             catch (Exception ex)
             {
-                _settingsViewModel.UpdateProgressMessage("");
-                _settingsViewModel.UpdateErrorMessage($"Błąd: {ex.Message}");
+                _notificationsService.UpdateMessage($"Błąd: {ex.Message}", true);
                 return;
             }
 
-            _settingsViewModel.UpdateErrorMessage("");
-            _settingsViewModel.UpdateProgressMessage("Zapisano!");
+            _notificationsService.UpdateMessage("Zapisano ustawienia!", false);
         }
 
         public void RaiseCanExecuteChanged()

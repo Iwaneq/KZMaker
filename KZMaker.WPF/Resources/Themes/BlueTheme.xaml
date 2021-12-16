@@ -1,12 +1,12 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <!--  COLORS  -->
     <Color x:Key="PrimaryColor1">#0057db</Color>
     <Color x:Key="PrimaryColor2">#0C6CFE</Color>
     <Color x:Key="SecondaryColor1">#004CBD</Color>
     <Color x:Key="SecondaryColor2">#0056d6</Color>
     <Color x:Key="ActiveColor1">#BF0808</Color>
-    <Color x:Key="SuccessColor1">#ffffff</Color>
+    <Color x:Key="SuccessColor1">#47A100</Color>
+    <Color x:Key="FailColor1">#D20000</Color>
     <Color x:Key="FontColor1">#ffffff</Color>
 
     <!--  BRUSHES  -->
@@ -16,6 +16,7 @@
     <SolidColorBrush x:Key="SecondaryBrush2" Color="{DynamicResource SecondaryColor2}" />
     <SolidColorBrush x:Key="ActiveBrush1" Color="{DynamicResource ActiveColor1}" />
     <SolidColorBrush x:Key="SuccessBrush1" Color="{DynamicResource SuccessColor1}" />
+    <SolidColorBrush x:Key="FailBrush1" Color="{DynamicResource FailColor1}" />
     <SolidColorBrush x:Key="FontBrush1" Color="{DynamicResource FontColor1}" />
 
 </ResourceDictionary>

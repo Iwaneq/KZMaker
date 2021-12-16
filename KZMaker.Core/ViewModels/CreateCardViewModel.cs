@@ -2,6 +2,7 @@
 using KZMaker.Core.Models;
 using KZMaker.Core.Navigation;
 using KZMaker.Core.Services;
+using KZMaker.Core.Services.Interfaces;
 using KZMaker.Core.ViewModels.Progress;
 using MvvmCross.Commands;
 using MvvmCross.ViewModels;
@@ -15,9 +16,9 @@ namespace KZMaker.Core.ViewModels
 {
     public class CreateCardViewModel : MvxViewModel
     {
+        private readonly INotificationsService _notificationService;
         public WritePointsViewModel WritePointsViewModel { get; set; }
         public WriteRequiredItemsViewModel WriteRequiredItemsViewModel { get; set; }
-        public MessageViewModel ProgressMessageViewModel { get; set; }
 
         private string _zastep;
 
@@ -78,23 +79,20 @@ namespace KZMaker.Core.ViewModels
             SaveCardViewModel saveViewModel, 
             INavigator navigator, 
             ISaveCardService saveCardService, 
-            ISaveDraftCommand saveDraftCommand)
+            ISaveDraftCommand saveDraftCommand, 
+            INotificationsService notificationsService)
         {
+            _notificationService = notificationsService;
+
             WritePointsViewModel = new WritePointsViewModel();
             WriteRequiredItemsViewModel = new WriteRequiredItemsViewModel();
-            ProgressMessageViewModel = new MessageViewModel();
 
-            GenerateCardCommand = new GenerateCardCommand(createCardService, this, saveViewModel, navigator);
+            GenerateCardCommand = new GenerateCardCommand(createCardService, this, saveViewModel, navigator, notificationsService);
             SaveDraftCommand = saveDraftCommand;
             CleanViewCommand = new MvxCommand(CleanView);
 
             Date = DateTime.Now;
             Zastep = AppSettings.Default.DefaultZastep;
-        }
-
-        public void UpdateProgressMessage(string message)
-        {
-            ProgressMessageViewModel.Message = message;
         }
 
         public void UpdateViewModel(Card card)
@@ -114,6 +112,8 @@ namespace KZMaker.Core.ViewModels
             Place = "";
             Points.Clear();
             RequiredItems.Clear();
+
+            _notificationService.UpdateMessage("Wyczyszczono.", false);
         }
     }
 }

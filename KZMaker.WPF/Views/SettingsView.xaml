@@ -143,16 +143,6 @@
                 <RowDefinition Height="auto" />
             </Grid.RowDefinitions>
 
-            <progress:ProgressMessageView
-                HorizontalAlignment="Left"
-                DataContext="{Binding ProgressMessageViewModel}"
-                FontSize="14"
-                Foreground="{DynamicResource SuccessBrush1}" />
-            <progress:ProgressMessageView
-                HorizontalAlignment="Left"
-                DataContext="{Binding ErrorMessageViewModel}"
-                FontSize="14"
-                Foreground="Red" />
             <Button
                 Grid.Row="1"
                 Margin="0,5,0,0"

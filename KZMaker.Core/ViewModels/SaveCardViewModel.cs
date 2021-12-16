@@ -40,19 +40,6 @@ namespace KZMaker.Core.ViewModels
             }
         }
 
-        private MessageViewModel _progressMessageViewModel;
-
-        public MessageViewModel ProgressMessageViewModel
-        {
-            get { return _progressMessageViewModel; }
-            set 
-            {
-                _progressMessageViewModel = value;
-                RaisePropertyChanged(() => ProgressMessageViewModel);
-            }
-        }
-
-
 
         public IMvxCommand SaveCardCommand { get; set; }
         public IPrintCardCommand PrintCardCommand { get; set; }
@@ -65,8 +52,6 @@ namespace KZMaker.Core.ViewModels
 
             _saveCardService = saveCardService;
 
-            ProgressMessageViewModel = new MessageViewModel();
-
             SaveCardCommand = saveCardCommand;
             PrintCardCommand = printCardCommand;
         }
@@ -75,12 +60,6 @@ namespace KZMaker.Core.ViewModels
         {
             Card = card;
             FileName = fileName;
-            ProgressMessageViewModel.Message = "";
-        }
-
-        public void UpdateProgressMessage(string message)
-        {
-            ProgressMessageViewModel.Message = message;
         }
     }
 }

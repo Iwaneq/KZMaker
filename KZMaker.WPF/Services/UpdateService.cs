@@ -53,6 +53,7 @@ namespace KZMaker.WPF.Services
 
         public string GetCurrentVersion()
         {
+            //return "";
             using(var manager = new UpdateManager(""))
             {
                 return manager.CurrentlyInstalledVersion().ToString();
