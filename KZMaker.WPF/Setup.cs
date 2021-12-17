@@ -1,6 +1,8 @@
 ﻿using KZMaker.Core.Commands;
 using KZMaker.Core.ResourceManagement;
 using KZMaker.Core.Services;
+using KZMaker.Core.ViewModels;
+using KZMaker.WPF.Commands;
 using KZMaker.WPF.Services;
 using Microsoft.Extensions.Logging;
 using MvvmCross;
@@ -21,14 +23,23 @@ namespace KZMaker.WPF
     {
         protected override void InitializeFirstChance(IMvxIoCProvider iocProvider)
         {
-            Mvx.IoCProvider.RegisterType<IMessageBoxService, MessageBoxService>();
-            Mvx.IoCProvider.RegisterType<IPrintService, PrintService>();
-            Mvx.IoCProvider.RegisterType<IResourcesService, ResourcesService>();
-            Mvx.IoCProvider.RegisterType<ISaveBrowsedCardCommand, Commands.SaveBrowsedCardCommand>();
-            Mvx.IoCProvider.RegisterType<ISaveDraftCommand, Commands.SaveBrowsedDraftCommand>();
-            Mvx.IoCProvider.RegisterType<ILoadBrowsedCardCommand, Commands.LoadBrowsedCardCommand>();
-            Mvx.IoCProvider.RegisterType<IPrintCardCommand, Commands.PrintCardCommand>();
-            Mvx.IoCProvider.RegisterSingleton<IUpdateService>(Mvx.IoCProvider.IoCConstruct<UpdateService>());
+            var services = Mvx.IoCProvider;
+
+            services.RegisterType<IPrintCardCommand, Commands.PrintCardCommand>();
+            services.RegisterType<ILoadBrowsedCardCommand, LoadBrowsedCardCommand>();
+
+            services.RegisterType<IMessageBoxService, MessageBoxService>();
+            services.RegisterType<IPrintService, PrintService>();
+            services.RegisterType<IResourcesService, ResourcesService>();
+            services.RegisterSingleton<IUpdateService>(services.IoCConstruct<UpdateService>());
+
+            services.RegisterType<IChangeCommandsService>(() => new ChangeCommandsService(
+                services.GetSingleton<CreateCardViewModel>(),
+                services.GetSingleton<SaveCardViewModel>(),
+                services.IoCConstruct<SaveBrowsedCardCommand>(),
+                services.IoCConstruct<SaveCardCommand>(),
+                services.IoCConstruct<SaveBrowsedDraftCommand>(),
+                services.IoCConstruct<SaveDraftCommand>()));
 
             base.InitializeFirstChance(iocProvider);
         }

@@ -10,6 +10,6 @@ namespace KZMaker.Core.Services
     {
         void ChangeToAutomaticSave();
         void ChangeToManualSave();
-        void CheckSavingMode();
+        void ChangeSavingMode();
     }
 }

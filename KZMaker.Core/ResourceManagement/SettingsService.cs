@@ -1,4 +1,5 @@
-﻿using KZMaker.Core.Services;
+﻿using KZMaker.Core.Models;
+using KZMaker.Core.Services;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -21,21 +22,21 @@ namespace KZMaker.Core.ResourceManagement
             _changeCommandsService = changeCommandsService;
         }
 
-        public void UpdateSettings(string savingPath, string themeColor, bool isSavingManually, string defaultZastep)
+        public void UpdateSettings(Settings settings)
         {
             //Update saving path
-            AppSettings.Default.SavingPath = savingPath;
+            AppSettings.Default.SavingPath = settings.SavingPath;
 
             //Update resources
-            AppSettings.Default.Theme = themeColor;
+            AppSettings.Default.Theme = settings.ThemeColor;
             _resourcesService.CheckTheme();
 
             //Update file saving mode
-            AppSettings.Default.IsSavingManually = isSavingManually;
-            _changeCommandsService.CheckSavingMode();
+            AppSettings.Default.IsSavingManually = settings.IsSavingManually;
+            _changeCommandsService.ChangeSavingMode();
 
             //Update zastep name
-            AppSettings.Default.DefaultZastep = defaultZastep;
+            AppSettings.Default.DefaultZastep = settings.DefaultZastep;
 
             AppSettings.Default.Save();
         }

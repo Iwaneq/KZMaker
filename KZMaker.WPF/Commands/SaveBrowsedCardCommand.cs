@@ -1,6 +1,8 @@
 ﻿using KZMaker.Core.Commands;
+using KZMaker.Core.Commands.Interfaces;
 using KZMaker.Core.Exceptions;
 using KZMaker.Core.Services;
+using KZMaker.Core.Services.Interfaces;
 using KZMaker.Core.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -12,18 +14,21 @@ using System.Threading.Tasks;
 
 namespace KZMaker.WPF.Commands
 {
-    public class SaveBrowsedCardCommand : ISaveBrowsedCardCommand
+    public class SaveBrowsedCardCommand : ISaveCardCommand
     {
         private SaveCardViewModel _saveCardViewModel;
         private readonly ISaveCardService _saveCardService;
         private readonly IMessageBoxService _messageBoxService;
+        private readonly INotificationsService _notificationsService;
 
         public SaveBrowsedCardCommand(
-            ISaveCardService saveCardService, 
-            IMessageBoxService messageBoxService)
+            ISaveCardService saveCardService,
+            IMessageBoxService messageBoxService, 
+            INotificationsService notificationsService)
         {
             _saveCardService = saveCardService;
             _messageBoxService = messageBoxService;
+            _notificationsService = notificationsService;
         }
 
         public event EventHandler CanExecuteChanged;
@@ -57,7 +62,6 @@ namespace KZMaker.WPF.Commands
 
         public void SaveCard()
         {
-            _saveCardViewModel.ProgressMessageViewModel.Message = "";
             //Get path
 
             string path = "";
@@ -75,7 +79,7 @@ namespace KZMaker.WPF.Commands
             _saveCardService.SaveCard(_saveCardViewModel.Card, _saveCardViewModel.FileName, path);
 
             //Update ProgressMessageViewModel
-            _saveCardViewModel.ProgressMessageViewModel.Message = $"Karta '{_saveCardViewModel.FileName}' została zapisana";
+            _notificationsService.UpdateMessage($"Karta '{_saveCardViewModel.FileName}' została zapisana!", false);
         }
     }
 }

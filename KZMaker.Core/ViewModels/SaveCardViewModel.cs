@@ -1,4 +1,5 @@
 ﻿using KZMaker.Core.Commands;
+using KZMaker.Core.Commands.Interfaces;
 using KZMaker.Core.Services;
 using KZMaker.Core.ViewModels.Progress;
 using MvvmCross.Commands;
@@ -41,18 +42,16 @@ namespace KZMaker.Core.ViewModels
         }
 
 
-        public IMvxCommand SaveCardCommand { get; set; }
+        public ISaveCardCommand SaveCardCommand { get; set; }
         public IPrintCardCommand PrintCardCommand { get; set; }
 
-        public SaveCardViewModel(ISaveCardService saveCardService, 
-            ISaveBrowsedCardCommand saveCardCommand, 
+        public SaveCardViewModel(ISaveCardService saveCardService,
             IPrintCardCommand printCardCommand)
         {
             Card = new Bitmap(Path.Combine(Environment.CurrentDirectory, @"Resources\", "karta.png"));
 
             _saveCardService = saveCardService;
 
-            SaveCardCommand = saveCardCommand;
             PrintCardCommand = printCardCommand;
         }
 
@@ -60,6 +59,10 @@ namespace KZMaker.Core.ViewModels
         {
             Card = card;
             FileName = fileName;
+        }
+        public void ChangeCommand(ISaveCardCommand command)
+        {
+            SaveCardCommand = command;
         }
     }
 }

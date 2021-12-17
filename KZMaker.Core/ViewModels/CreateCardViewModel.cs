@@ -79,7 +79,6 @@ namespace KZMaker.Core.ViewModels
             SaveCardViewModel saveViewModel, 
             INavigator navigator, 
             ISaveCardService saveCardService, 
-            ISaveDraftCommand saveDraftCommand, 
             INotificationsService notificationsService)
         {
             _notificationService = notificationsService;
@@ -88,7 +87,6 @@ namespace KZMaker.Core.ViewModels
             WriteRequiredItemsViewModel = new WriteRequiredItemsViewModel();
 
             GenerateCardCommand = new GenerateCardCommand(createCardService, this, saveViewModel, navigator, notificationsService);
-            SaveDraftCommand = saveDraftCommand;
             CleanViewCommand = new MvxCommand(CleanView);
 
             Date = DateTime.Now;
@@ -114,6 +112,11 @@ namespace KZMaker.Core.ViewModels
             RequiredItems.Clear();
 
             _notificationService.UpdateMessage("Wyczyszczono.", false);
+        }
+
+        public void ChangeCommand(ISaveDraftCommand command)
+        {
+            SaveDraftCommand = command;
         }
     }
 }

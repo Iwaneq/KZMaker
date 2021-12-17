@@ -1,4 +1,5 @@
-﻿using System;
+﻿using KZMaker.Core.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,6 @@ namespace KZMaker.Core.ResourceManagement
 {
     public interface ISettingsService
     {
-        void UpdateSettings(string savingPath, string themeColor, bool isSavingManually, string defaultZastep);
+        void UpdateSettings(Settings settings);
     }
 }

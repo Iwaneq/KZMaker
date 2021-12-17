@@ -1,4 +1,5 @@
-﻿using KZMaker.Core.ResourceManagement;
+﻿using KZMaker.Core.Models;
+using KZMaker.Core.ResourceManagement;
 using KZMaker.Core.Services.Interfaces;
 using KZMaker.Core.ViewModels;
 using MvvmCross.Commands;
@@ -47,13 +48,19 @@ namespace KZMaker.Core.Commands
 
         private void SaveSettings()
         {
+            //Get settings from ViewModel
+            Settings settings = new Settings()
+            {
+                SavingPath = _settingsViewModel.SavingPath,
+                ThemeColor = _settingsViewModel.ThemeColor,
+                IsSavingManually = _settingsViewModel.IsSavingManually,
+                DefaultZastep = _settingsViewModel.DefaultZastep
+            };
+
             try
             {
                 //Save AppSettings
-                _settingsService.UpdateSettings(_settingsViewModel.SavingPath, 
-                    _settingsViewModel.ThemeColor, 
-                    _settingsViewModel.IsSavingManually, 
-                    _settingsViewModel.DefaultZastep);
+                _settingsService.UpdateSettings(settings);
             }
             catch (Exception ex)
             {

@@ -1,4 +1,5 @@
-﻿using KZMaker.Core.Services;
+﻿using KZMaker.Core.Commands.Interfaces;
+using KZMaker.Core.Services;
 using KZMaker.Core.Services.Interfaces;
 using KZMaker.Core.ViewModels;
 using MvvmCross.Commands;
@@ -11,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace KZMaker.Core.Commands
 {
-    public class SaveCardCommand : IMvxCommand
+    public class SaveCardCommand : ISaveCardCommand
     {
         private readonly ISaveCardService _saveCardService;
         private readonly INotificationsService _notificationsService;
