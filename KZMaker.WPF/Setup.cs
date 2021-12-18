@@ -1,4 +1,5 @@
-﻿using KZMaker.Core.Commands;
+﻿using KZMaker.Core;
+using KZMaker.Core.Commands;
 using KZMaker.Core.ResourceManagement;
 using KZMaker.Core.Services;
 using KZMaker.Core.ViewModels;
@@ -32,6 +33,11 @@ namespace KZMaker.WPF
             services.RegisterType<IPrintService, PrintService>();
             services.RegisterType<IResourcesService, ResourcesService>();
             services.RegisterSingleton<IUpdateService>(services.IoCConstruct<UpdateService>());
+
+            if (AppSettings.Default.IsCheckingUpdatesAtStart)
+            {
+                Task.Run(() => services.Resolve<IUpdateService>().CheckForUpdate(true)).Wait(); 
+            }
 
             services.RegisterType<IChangeCommandsService>(() => new ChangeCommandsService(
                 services.GetSingleton<CreateCardViewModel>(),

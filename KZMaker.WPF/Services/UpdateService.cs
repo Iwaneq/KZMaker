@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Squirrel;
+using System.Windows;
 
 namespace KZMaker.WPF.Services
 {
@@ -16,8 +17,14 @@ namespace KZMaker.WPF.Services
             _messageBoxService = messageBoxService;
         }
 
-        public async Task CheckForUpdate()
+        public async Task CheckForUpdate(bool isAppLoading)
         {
+            if (System.Diagnostics.Debugger.IsAttached) 
+            {
+                await Task.Delay(1500);
+                _messageBoxService.Message("Nie masz żadnych aktualizacji do pobrania.", "Aktualizacja");
+                return;
+            } 
             using (var manager = await UpdateManager.GitHubUpdateManager(@"https://github.com/Iwaneq/KZMaker"))
             {
                 try
@@ -41,6 +48,7 @@ namespace KZMaker.WPF.Services
                     }
                     else
                     {
+                        if (isAppLoading) return;
                         _messageBoxService.Message("Nie masz żadnych aktualizacji do pobrania.", "Aktualizacja");
                     }
                 }
@@ -53,8 +61,11 @@ namespace KZMaker.WPF.Services
 
         public string GetCurrentVersion()
         {
-            //return "";
-            using(var manager = new UpdateManager(""))
+            if (System.Diagnostics.Debugger.IsAttached)
+            {
+                return "";
+            }
+            using (var manager = new UpdateManager(""))
             {
                 return manager.CurrentlyInstalledVersion().ToString();
             }

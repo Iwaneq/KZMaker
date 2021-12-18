@@ -43,7 +43,7 @@ namespace KZMaker.Core.Commands
 
         private async Task CheckForUpdate()
         {
-            await _updateService.CheckForUpdate();
+            await _updateService.CheckForUpdate(false);
 
             _viewModel.UpdateVersionText();
         }

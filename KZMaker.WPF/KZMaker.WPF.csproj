@@ -11,6 +11,7 @@
   <ItemGroup>
     <None Remove="Fonts\Rubik.ttf" />
     <None Remove="Resources\fse.png" />
+    <None Remove="Resources\SplashScreen.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -39,6 +40,10 @@
     <Resource Include="Resources\fse.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <SplashScreen Include="Resources\SplashScreen.png" />
   </ItemGroup>
 
   <PropertyGroup>

@@ -70,5 +70,17 @@ namespace KZMaker.Core {
                 this["DefaultZastep"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool IsCheckingUpdatesAtStart {
+            get {
+                return ((bool)(this["IsCheckingUpdatesAtStart"]));
+            }
+            set {
+                this["IsCheckingUpdatesAtStart"] = value;
+            }
+        }
     }
 }

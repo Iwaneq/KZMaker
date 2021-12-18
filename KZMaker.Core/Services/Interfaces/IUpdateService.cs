@@ -8,7 +8,7 @@ namespace KZMaker.Core.Services
 {
     public interface IUpdateService
     {
-        Task CheckForUpdate();
+        Task CheckForUpdate(bool isAppLoading);
         string GetCurrentVersion();
     }
 }

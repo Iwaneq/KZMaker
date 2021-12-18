@@ -30,6 +30,28 @@
         </Setter>
     </Style>
 
+    <Style x:Key="ChoiceButton" TargetType="Button">
+        <Setter Property="Padding" Value="10,3" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border
+                        Name="mainBorder"
+                        Padding="{TemplateBinding Padding}"
+                        Background="{TemplateBinding Background}"
+                        CornerRadius="5">
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Foreground="White"
+                            Text="{TemplateBinding Content}"
+                            TextAlignment="Center" />
+                    </Border>
+
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <Style TargetType="RadioButton">
         <Setter Property="Template">
             <Setter.Value>
