@@ -1,4 +1,4 @@
-﻿using KZMaker.Core.ViewModels;
+﻿using KZMaker.Core.ViewModels.Settings;
 using MvvmCross.Platforms.Wpf.Presenters.Attributes;
 using MvvmCross.Platforms.Wpf.Views;
 using MvvmCross.ViewModels;
@@ -17,13 +17,13 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace KZMaker.WPF.Views
+namespace KZMaker.WPF.Views.Settings
 {
     [MvxContentPresentation]
-    [MvxViewFor(typeof(SettingsViewModel))]
-    public partial class SettingsView : MvxWpfView
+    [MvxViewFor(typeof(GeneralSettingsViewModel))]
+    public partial class GeneralSettingsView : MvxWpfView
     {
-        public SettingsView()
+        public GeneralSettingsView()
         {
             InitializeComponent();
         }

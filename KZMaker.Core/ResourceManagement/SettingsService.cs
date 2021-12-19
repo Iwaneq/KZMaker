@@ -38,6 +38,9 @@ namespace KZMaker.Core.ResourceManagement
             //Update zastep name
             AppSettings.Default.DefaultZastep = settings.DefaultZastep;
 
+            //Update updates checking mode
+            AppSettings.Default.IsCheckingUpdatesAtStart = settings.IsCheckingUpdatesAtStart;
+
             AppSettings.Default.Save();
         }
     }

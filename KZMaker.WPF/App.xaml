@@ -6,6 +6,8 @@
     xmlns:local="clr-namespace:KZMaker.WPF"
     xmlns:progressViewModels="clr-namespace:KZMaker.Core.ViewModels.Progress;assembly=KZMaker.Core"
     xmlns:progressViews="clr-namespace:KZMaker.WPF.Views.Progress"
+    xmlns:settings="clr-namespace:KZMaker.WPF.Views.Settings"
+    xmlns:settingsViewModels="clr-namespace:KZMaker.Core.ViewModels.Settings;assembly=KZMaker.Core"
     xmlns:viewModels="clr-namespace:KZMaker.Core.ViewModels;assembly=KZMaker.Core"
     xmlns:views="clr-namespace:MvvmCross.Platforms.Wpf.Views;assembly=MvvmCross.Platforms.Wpf"
     StartupUri="MainWindow.xaml">
@@ -42,6 +44,20 @@
             </DataTemplate>
             <DataTemplate DataType="{x:Type viewModels:SettingsViewModel}">
                 <appViews:SettingsView />
+            </DataTemplate>
+
+            <!--  CHILD SETTINGS VIEW MODEL'S  -->
+            <DataTemplate DataType="{x:Type settingsViewModels:GeneralSettingsViewModel}">
+                <settings:GeneralSettingsView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type settingsViewModels:SavingSettingsViewModel}">
+                <settings:SavingSettingsView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type settingsViewModels:UpdatesSettingsViewModel}">
+                <settings:UpdatesSettingsView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type settingsViewModels:InfoSettingsViewModel}">
+                <settings:InfoSettingsView />
             </DataTemplate>
 
         </ResourceDictionary>

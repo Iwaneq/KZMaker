@@ -12,5 +12,6 @@ namespace KZMaker.Core.Models
         public string ThemeColor { get; set; }
         public bool IsSavingManually { get; set; }
         public string DefaultZastep { get; set; }
+        public bool IsCheckingUpdatesAtStart { get; set; }
     }
 }

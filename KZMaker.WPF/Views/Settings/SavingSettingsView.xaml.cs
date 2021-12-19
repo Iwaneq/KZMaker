@@ -1,4 +1,5 @@
-﻿using KZMaker.Core.ViewModels;
+﻿using KZMaker.Core;
+using KZMaker.Core.ViewModels.Settings;
 using MvvmCross.Platforms.Wpf.Presenters.Attributes;
 using MvvmCross.Platforms.Wpf.Views;
 using MvvmCross.ViewModels;
@@ -17,15 +18,24 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace KZMaker.WPF.Views
+namespace KZMaker.WPF.Views.Settings
 {
     [MvxContentPresentation]
-    [MvxViewFor(typeof(SettingsViewModel))]
-    public partial class SettingsView : MvxWpfView
+    [MvxViewFor(typeof(SavingSettingsViewModel))]
+    public partial class SavingSettingsView : MvxWpfView
     {
-        public SettingsView()
+        public SavingSettingsView()
         {
             InitializeComponent();
+
+            if (!AppSettings.Default.IsSavingManually)
+            {
+                automaticSaveOption.IsChecked = true;
+            }
+            else
+            {
+                manualSaveOption.IsChecked = true;
+            }
         }
     }
 }

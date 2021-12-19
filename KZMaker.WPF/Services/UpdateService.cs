@@ -63,7 +63,7 @@ namespace KZMaker.WPF.Services
         {
             if (System.Diagnostics.Debugger.IsAttached)
             {
-                return "";
+                return "dev";
             }
             using (var manager = new UpdateManager(""))
             {

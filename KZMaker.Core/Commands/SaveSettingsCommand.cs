@@ -54,7 +54,8 @@ namespace KZMaker.Core.Commands
                 SavingPath = _settingsViewModel.SavingPath,
                 ThemeColor = _settingsViewModel.ThemeColor,
                 IsSavingManually = _settingsViewModel.IsSavingManually,
-                DefaultZastep = _settingsViewModel.DefaultZastep
+                DefaultZastep = _settingsViewModel.DefaultZastep,
+                IsCheckingUpdatesAtStart = _settingsViewModel.IsCheckingUpdatesAtStart
             };
 
             try

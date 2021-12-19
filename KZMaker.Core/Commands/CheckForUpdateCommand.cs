@@ -12,13 +12,11 @@ namespace KZMaker.Core.Commands
     class CheckForUpdateCommand : IMvxCommand
     {
         private readonly IUpdateService _updateService;
-        private readonly SettingsViewModel _viewModel;
         public event EventHandler CanExecuteChanged;
 
-        public CheckForUpdateCommand(IUpdateService updateService, SettingsViewModel viewModel)
+        public CheckForUpdateCommand(IUpdateService updateService)
         {
             _updateService = updateService;
-            _viewModel = viewModel;
         }
 
         public bool CanExecute()
@@ -44,8 +42,6 @@ namespace KZMaker.Core.Commands
         private async Task CheckForUpdate()
         {
             await _updateService.CheckForUpdate(false);
-
-            _viewModel.UpdateVersionText();
         }
 
         public void RaiseCanExecuteChanged()

@@ -5,6 +5,7 @@ using KZMaker.Core.ResourceManagement;
 using KZMaker.Core.Services;
 using KZMaker.Core.Services.Interfaces;
 using KZMaker.Core.ViewModels.Progress;
+using KZMaker.Core.ViewModels.Settings;
 using MvvmCross.Commands;
 using MvvmCross.ViewModels;
 using System;
@@ -17,157 +18,134 @@ namespace KZMaker.Core.ViewModels
 {
     public class SettingsViewModel : MvxViewModel
     {
-        private readonly IUpdateService _updateService;
-        private readonly IMessageBoxService _messageBoxService;
+        private readonly GeneralSettingsViewModel _generalSettingsViewModel;
+        private readonly SavingSettingsViewModel _savingSettingsViewModel;
+        private readonly UpdatesSettingsViewModel _updatesSettingsViewModel;
+        private readonly InfoSettingsViewModel _infoSettingsViewModel;
 
-        private MvxObservableCollection<ThemeColorOptionModel> _colors = new MvxObservableCollection<ThemeColorOptionModel>()
-        {
-            new ThemeColorOptionModel()
-            {
-                ColorName = "Biały",
-                ColorValue = "#FFFFFF",
-                ThemeColor = "Light"
-            },
-            new ThemeColorOptionModel()
-            {
-                ColorName = "Czarny",
-                ColorValue = "#272727",
-                ThemeColor = "Dark"
-            },
-            new ThemeColorOptionModel()
-            {
-                ColorName = "Niebieski",
-                ColorValue = "#004fcf", 
-                ThemeColor = "Blue"
-            },
-            new ThemeColorOptionModel()
-            {
-                ColorName = "Zielony",
-                ColorValue = "#337500",
-                ThemeColor = "Green"
-            },
-            new ThemeColorOptionModel()
-            {
-                ColorName = "Fioletowy",
-                ColorValue = "#5D00A8",
-                ThemeColor = "Purple"
-            }
-        };
-
-        public MvxObservableCollection<ThemeColorOptionModel> Colors
-        {
-            get { return _colors; }
-            set 
-            {
-                _colors = value;
-                RaisePropertyChanged(() => Colors);
-            }
-        }
-
-        private ThemeColorOptionModel _selectedColor;
-
-        public ThemeColorOptionModel SelectedColor
-        {
-            get { return _selectedColor; }
-            set 
-            {
-                _selectedColor = value;
-                RaisePropertyChanged(() => SelectedColor);
-                RaisePropertyChanged(() => ThemeColor);
-            }
-        }
-
-        private bool _isSavingManually;
-
-        public bool IsSavingManually
-        {
-            get { return _isSavingManually; }
-            set 
-            {
-                _isSavingManually = value;
-                RaisePropertyChanged(() => IsSavingManually);
-            }
-        }
-
-
+        private List<MvxViewModel> _childViewModels;
 
         public IMvxCommand SaveSettingsCommand { get; set; }
-        public IMvxCommand GetSavingPathCommand { get; set; }
-        public IMvxCommand CheckForUpdateCommand { get; set; }
+        public IMvxCommand NextViewModelCommand { get; set; }
+        public IMvxCommand PreviousViewModelCommand { get; set; }
 
 
+        public string SavingPath => _savingSettingsViewModel.SavingPath;
+        public string ThemeColor => _generalSettingsViewModel.ThemeColor;
+        public bool IsSavingManually => _savingSettingsViewModel.IsSavingManually;
+        public string DefaultZastep => _generalSettingsViewModel.DefaultZastep;
+        public bool IsCheckingUpdatesAtStart => _updatesSettingsViewModel.IsCheckingUpdatesAtStart;
 
-        public string ThemeColor => SelectedColor.ThemeColor;
 
-        private string _savingPath = AppSettings.Default.SavingPath;
-
-        public string SavingPath
+        private MvxViewModel _currentViewModel;
+        public MvxViewModel CurrentViewModel
         {
-            get { return _savingPath; }
+            get { return _currentViewModel; }
             set 
             {
-                _savingPath = value;
-                RaisePropertyChanged(() => SavingPath);
+                _currentViewModel = value;
+                RaisePropertyChanged(() => CurrentViewModel);
             }
         }
 
-        private string _defaultZastep = AppSettings.Default.DefaultZastep;
 
-        public string DefaultZastep
+        private string _childName;
+        public string ChildName
         {
-            get { return _defaultZastep; }
+            get { return _childName; }
             set 
             {
-                _defaultZastep = value;
-                RaisePropertyChanged(() => DefaultZastep);
+                _childName = value;
+                RaisePropertyChanged(() => ChildName);
             }
         }
 
-        private string _version;
 
-        public string Version
+        public SettingsViewModel(ISettingsService settingsService, IUpdateService updateService, INotificationsService notificationsService, IMessageBoxService messageBoxService)
         {
-            get { return _version; }
-            set { _version = value; }
-        }
+            _generalSettingsViewModel = new GeneralSettingsViewModel();
+            _savingSettingsViewModel = new SavingSettingsViewModel(messageBoxService);
+            _updatesSettingsViewModel = new UpdatesSettingsViewModel(updateService);
+            _infoSettingsViewModel = new InfoSettingsViewModel(updateService);
 
+            _childViewModels = new List<MvxViewModel>()
+            {
+                _generalSettingsViewModel,
+                _savingSettingsViewModel,
+                _updatesSettingsViewModel,
+                _infoSettingsViewModel
+            };
 
-        public SettingsViewModel(ISettingsService settingsService, IMessageBoxService messageBoxService, IUpdateService updateService, INotificationsService notificationsService)
-        {
+            //Set CurrentViewModel (with Settings Title/Child's Name)
+            CurrentViewModel = _childViewModels[0];
+            UpdateTitle(0);
+
+            NextViewModelCommand = new MvxCommand(NextViewModel);
+            PreviousViewModelCommand = new MvxCommand(PreviousViewModel);
+
             SaveSettingsCommand = new SaveSettingsCommand(settingsService, this, notificationsService);
-            GetSavingPathCommand = new MvxCommand(GetSavingPath);
-            CheckForUpdateCommand = new CheckForUpdateCommand(updateService, this);
-
-            _messageBoxService = messageBoxService;
-            _updateService = updateService;
-
-            SelectedColor = Colors.Where(x => x.ThemeColor == AppSettings.Default.Theme).FirstOrDefault();
-            IsSavingManually = AppSettings.Default.IsSavingManually;
-            Version = _updateService.GetCurrentVersion();
         }
 
-        private void GetSavingPath()
+        private void NextViewModel()
         {
-            try
+            int viewModelsCount = _childViewModels.Count();
+            int currIndex = _childViewModels.FindIndex(x => x == CurrentViewModel);
+
+            //If CurrentViewModel is last in list
+            if (CurrentViewModel == _childViewModels[viewModelsCount - 1])
             {
-                if (!string.IsNullOrEmpty(SavingPath))
-                {
-                    SavingPath = _messageBoxService.GetSavingPath(SavingPath);
-                }
-                else
-                {
-                    SavingPath = _messageBoxService.GetSavingPath();
-                }
+                int newIndex = 0;
+
+                CurrentViewModel = _childViewModels[newIndex];
+                UpdateTitle(newIndex);
             }
-            catch (GetPathFailedException)
+            else
             {
-                SavingPath = "Błąd przy wczytaniu ścieżki";
+                int newIndex = currIndex + 1;
+
+                CurrentViewModel = _childViewModels[newIndex];
+                UpdateTitle(newIndex);
             }
         }
 
-        public void UpdateVersionText()
+        private void PreviousViewModel()
         {
-            Version = _updateService.GetCurrentVersion();
+            int viewModelsCount = _childViewModels.Count();
+            int currIndex = _childViewModels.FindIndex(x => x == CurrentViewModel);
+
+            //If CurrentViewModel is first in list
+            if (CurrentViewModel == _childViewModels[0])
+            {
+                int newIndex = viewModelsCount - 1;
+
+                CurrentViewModel = _childViewModels[newIndex];
+                UpdateTitle(newIndex);
+            }
+            else
+            {
+                int newIndex = currIndex - 1;
+                CurrentViewModel = _childViewModels[newIndex];
+                UpdateTitle(newIndex);
+            }
+        }
+
+        private void UpdateTitle(int currIndex)
+        {
+            switch (currIndex)
+            {
+                case 0:
+                    ChildName = "Ogólne";
+                    break;
+                case 1:
+                    ChildName = "Zapis";
+                    break;
+                case 2:
+                    ChildName = "Aktualizacje";
+                    break;
+                case 3:
+                    ChildName = "Informacje";
+                    break;
+            }
         }
     }
 }
