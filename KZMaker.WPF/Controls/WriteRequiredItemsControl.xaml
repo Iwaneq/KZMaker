@@ -11,64 +11,152 @@
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d">
-    <Border Background="{DynamicResource SecondaryBrush2}" CornerRadius="5">
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition />
-                <ColumnDefinition Width="auto" />
-            </Grid.ColumnDefinitions>
 
-            <ScrollViewer HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Auto">
-                <ListView
-                    Background="Transparent"
-                    BorderThickness="0"
-                    ItemsSource="{Binding RequiredItems}"
-                    SelectedItem="{Binding SelectedItem}">
-                    <ListBox.ItemTemplate>
-                        <DataTemplate DataType="{x:Type models:RequiredItem}">
-                            <StackPanel Orientation="Horizontal">
-                                <TextBox
-                                    Width="150"
-                                    Margin="1,4"
-                                    Text="{Binding Item}" />
-                            </StackPanel>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                    <ListView.ItemContainerStyle>
-                        <Style TargetType="ListViewItem">
-                            <Style.Triggers>
-                                <Trigger Property="IsKeyboardFocused" Value="False">
-                                    <Setter Property="Background" Value="Transparent" />
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </ListView.ItemContainerStyle>
-                </ListView>
-            </ScrollViewer>
+    <UserControl.Resources>
 
-            <Button
-                Grid.Column="1"
-                Width="25"
-                Height="25"
-                Margin="5,5"
-                Padding="5"
-                VerticalAlignment="Top"
-                mvx:Bi.nd="Command AddNewItemCommand"
-                Background="{DynamicResource SecondaryBrush1}"
-                Content="{StaticResource Plus_Icon}"
-                Style="{StaticResource ChromeButton}" />
-            <Button
-                Grid.Column="1"
-                Width="25"
-                Height="25"
-                Margin="0,38,0,0"
-                Padding="5"
-                VerticalAlignment="Top"
-                mvx:Bi.nd="Command DeleteSelectedItemCommand"
-                Background="{DynamicResource SecondaryBrush1}"
-                Content="{StaticResource Minimize_Icon}"
-                Style="{StaticResource ChromeButton}" />
+        <!--  LAYOUTS  -->
 
-        </Grid>
-    </Border>
+        <ControlTemplate x:Key="NormalLayout">
+            <Border Background="{DynamicResource SecondaryBrush2}" CornerRadius="5">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <ScrollViewer HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Auto">
+                        <ListView
+                            Background="Transparent"
+                            BorderThickness="0"
+                            ItemsSource="{Binding RequiredItems}"
+                            SelectedItem="{Binding SelectedItem}">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate DataType="{x:Type models:RequiredItem}">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBox
+                                            Width="150"
+                                            Margin="1,4"
+                                            Text="{Binding Item}" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                            <ListView.ItemContainerStyle>
+                                <Style TargetType="ListViewItem">
+                                    <Style.Triggers>
+                                        <Trigger Property="IsKeyboardFocused" Value="False">
+                                            <Setter Property="Background" Value="Transparent" />
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ListView.ItemContainerStyle>
+                        </ListView>
+                    </ScrollViewer>
+
+                    <Button
+                        Grid.Column="1"
+                        Width="25"
+                        Height="25"
+                        Margin="5,5"
+                        Padding="5"
+                        VerticalAlignment="Top"
+                        mvx:Bi.nd="Command AddNewItemCommand"
+                        Background="{DynamicResource SecondaryBrush1}"
+                        Content="{StaticResource Plus_Icon}"
+                        Style="{StaticResource ChromeButton}" />
+                    <Button
+                        Grid.Column="1"
+                        Width="25"
+                        Height="25"
+                        Margin="0,38,0,0"
+                        Padding="5"
+                        VerticalAlignment="Top"
+                        mvx:Bi.nd="Command DeleteSelectedItemCommand"
+                        Background="{DynamicResource SecondaryBrush1}"
+                        Content="{StaticResource Minimize_Icon}"
+                        Style="{StaticResource ChromeButton}" />
+
+                </Grid>
+            </Border>
+        </ControlTemplate>
+
+        <ControlTemplate x:Key="FullScreenLayout">
+            <Border Background="{DynamicResource SecondaryBrush2}" CornerRadius="5">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <ScrollViewer HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Auto">
+                        <ListView
+                            Padding="5"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            ItemsSource="{Binding RequiredItems}"
+                            SelectedItem="{Binding SelectedItem}">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate DataType="{x:Type models:RequiredItem}">
+                                    <TextBox Margin="1,4" Text="{Binding Item}" />
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                            <ListView.ItemContainerStyle>
+                                <Style TargetType="ListViewItem">
+                                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                    <Style.Triggers>
+                                        <Trigger Property="IsKeyboardFocused" Value="False">
+                                            <Setter Property="Background" Value="Transparent" />
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ListView.ItemContainerStyle>
+                        </ListView>
+                    </ScrollViewer>
+
+                    <Button
+                        Grid.Column="1"
+                        Width="45"
+                        Height="45"
+                        Margin="5,5"
+                        Padding="5"
+                        VerticalAlignment="Top"
+                        mvx:Bi.nd="Command AddNewItemCommand"
+                        Background="{DynamicResource SecondaryBrush1}"
+                        Content="{StaticResource Plus_Icon}"
+                        Style="{StaticResource ChromeButton}" />
+                    <Button
+                        Grid.Column="1"
+                        Width="45"
+                        Height="45"
+                        Margin="0,60,0,0"
+                        Padding="5"
+                        VerticalAlignment="Top"
+                        mvx:Bi.nd="Command DeleteSelectedItemCommand"
+                        Background="{DynamicResource SecondaryBrush1}"
+                        Content="{StaticResource Minimize_Icon}"
+                        Style="{StaticResource ChromeButton}" />
+
+                </Grid>
+            </Border>
+        </ControlTemplate>
+
+    </UserControl.Resources>
+
+
+
+    <UserControl.Style>
+
+        <Style TargetType="UserControl">
+            <!--<Setter Property="Template" Value="{StaticResource FullScreenLayout}" />-->
+            <Setter Property="Template" Value="{StaticResource NormalLayout}" />
+
+            <!--  DATA TRIGGERS  -->
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding ActualWidth, RelativeSource={RelativeSource Self}, Converter={StaticResource BreakpointConverter}, ConverterParameter=1600}" Value="False">
+                    <Setter Property="Template" Value="{StaticResource FullScreenLayout}" />
+                </DataTrigger>
+            </Style.Triggers>
+
+        </Style>
+
+    </UserControl.Style>
 </views:MvxWpfView>

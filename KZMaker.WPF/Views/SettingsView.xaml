@@ -13,52 +13,135 @@
     d:DesignWidth="800"
     FontSize="18"
     mc:Ignorable="d">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition />
-            <RowDefinition Height="auto" />
-        </Grid.RowDefinitions>
 
-        <StackPanel
-            Grid.Row="1"
-            Margin="0,20,0,0"
-            HorizontalAlignment="Center"
-            VerticalAlignment="Center"
-            Orientation="Horizontal">
+    <UserControl.Resources>
 
-            <Button
-                Width="30"
-                Height="30"
-                mvx:Bi.nd="Command PreviousViewModelCommand"
-                Content="{StaticResource LeftArrow_Icon}"
-                RenderTransformOrigin="0.5 0.5"
-                Style="{DynamicResource SvgButton}" />
+        <!--  LAYOUTS  -->
 
-            <TextBlock
-                Width="200"
-                VerticalAlignment="Center"
-                Text="{Binding ChildName}"
-                TextAlignment="Center" />
+        <ControlTemplate x:Key="NormalLayout">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
 
-            <Button
-                Width="30"
-                Height="30"
-                mvx:Bi.nd="Command NextViewModelCommand"
-                Content="{StaticResource RightArrow_Icon}"
-                Style="{DynamicResource SvgButton}" />
+                <StackPanel
+                    Grid.Row="1"
+                    Margin="0,20,0,0"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Orientation="Horizontal">
 
-        </StackPanel>
+                    <Button
+                        Width="30"
+                        Height="30"
+                        mvx:Bi.nd="Command PreviousViewModelCommand"
+                        Content="{StaticResource LeftArrow_Icon}"
+                        RenderTransformOrigin="0.5 0.5"
+                        Style="{DynamicResource SvgButton}" />
 
-        <ContentControl Grid.Row="2" Content="{Binding CurrentViewModel}" />
+                    <TextBlock
+                        Width="200"
+                        VerticalAlignment="Center"
+                        FontSize="20"
+                        Text="{Binding ChildName}"
+                        TextAlignment="Center" />
 
-        <Button
-            Grid.Row="3"
-            Margin="0,5,0,0"
-            HorizontalAlignment="Center"
-            mvx:Bi.nd="Command SaveSettingsCommand"
-            CommandParameter="{Binding}"
-            Content="Zapisz ustawienia" />
-    </Grid>
+                    <Button
+                        Width="30"
+                        Height="30"
+                        mvx:Bi.nd="Command NextViewModelCommand"
+                        Content="{StaticResource RightArrow_Icon}"
+                        Style="{DynamicResource SvgButton}" />
+
+                </StackPanel>
+
+                <ContentControl Grid.Row="2" Content="{Binding CurrentViewModel}" />
+
+                <Button
+                    Grid.Row="3"
+                    Margin="0,5,0,0"
+                    HorizontalAlignment="Center"
+                    mvx:Bi.nd="Command SaveSettingsCommand"
+                    Content="Zapisz ustawienia" />
+            </Grid>
+        </ControlTemplate>
+
+        <ControlTemplate x:Key="FullScreenLayout">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
+
+                <StackPanel
+                    Grid.Row="1"
+                    Margin="0,20,0,0"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Orientation="Horizontal">
+
+                    <Button
+                        Width="30"
+                        Height="30"
+                        mvx:Bi.nd="Command PreviousViewModelCommand"
+                        Content="{StaticResource LeftArrow_Icon}"
+                        RenderTransformOrigin="0.5 0.5"
+                        Style="{DynamicResource SvgButton}" />
+
+                    <TextBlock
+                        Width="200"
+                        VerticalAlignment="Center"
+                        FontSize="25"
+                        Text="{Binding ChildName}"
+                        TextAlignment="Center" />
+
+                    <Button
+                        Width="30"
+                        Height="30"
+                        mvx:Bi.nd="Command NextViewModelCommand"
+                        Content="{StaticResource RightArrow_Icon}"
+                        Style="{DynamicResource SvgButton}" />
+
+                </StackPanel>
+
+                <ContentControl Grid.Row="2" Content="{Binding CurrentViewModel}" />
+
+
+                <Button
+                    Grid.Row="3"
+                    Margin="0,5,0,0"
+                    HorizontalAlignment="Center"
+                    mvx:Bi.nd="Command SaveSettingsCommand"
+                    Content="Zapisz ustawienia"
+                    FontSize="23" />
+            </Grid>
+        </ControlTemplate>
+
+
+    </UserControl.Resources>
+
+
+
+    <UserControl.Style>
+
+        <Style TargetType="UserControl">
+            <!--<Setter Property="Template" Value="{StaticResource FullScreenLayout}" />-->
+            <Setter Property="Template" Value="{StaticResource NormalLayout}" />
+
+            <!--  DATA TRIGGERS  -->
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding ActualWidth, RelativeSource={RelativeSource Self}, Converter={StaticResource BreakpointConverter}, ConverterParameter=1600}" Value="False">
+                    <Setter Property="Template" Value="{StaticResource FullScreenLayout}" />
+                </DataTrigger>
+            </Style.Triggers>
+
+        </Style>
+
+    </UserControl.Style>
+
 </views:MvxWpfView>

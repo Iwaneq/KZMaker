@@ -11,7 +11,6 @@
     Name="View"
     d:DesignHeight="150"
     d:DesignWidth="400"
-    DataContext="{x:Type progressViewModels:NotificationViewModel}"
     mc:Ignorable="d">
     <UserControl.Style>
         <Style TargetType="UserControl">

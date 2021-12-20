@@ -15,60 +15,155 @@
     FontSize="18"
     mc:Ignorable="d">
     <UserControl.Resources>
+
+        <!--  CONVERTERS  -->
+
         <converters:WPFImageSourceConverter x:Key="ImageSourceConverter" />
+
+        <!--  LAYOUTS  -->
+
+        <ControlTemplate x:Key="NormalLayout">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Margin="0,0,0,25" Text="Wydrukuj Kartę" />
+
+                <Image
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Margin="5"
+                    RenderOptions.BitmapScalingMode="HighQuality"
+                    Source="{Binding Card, Converter={StaticResource ImageSourceConverter}}"
+                    Stretch="Uniform" />
+
+                <Grid
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Margin="0,-50,0,0"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
+
+                    <Button
+                        Grid.Row="1"
+                        Width="250"
+                        Height="75"
+                        Margin="0,25,0,0"
+                        extenstions:HomeButtonExtensions.IconPath="{StaticResource Printer_Icon}"
+                        mvx:Bi.nd="Command PrintCardCommand"
+                        CommandParameter="{Binding Card}"
+                        Content="Drukuj"
+                        FontSize="25"
+                        Style="{StaticResource CreateCardButton}" />
+
+                    <Button
+                        Grid.Row="2"
+                        Width="250"
+                        Height="75"
+                        Margin="0,50,0,0"
+                        extenstions:HomeButtonExtensions.IconPath="{StaticResource Save_Icon}"
+                        mvx:Bi.nd="Command SaveCardCommand"
+                        CommandParameter="{Binding}"
+                        Content="Zapisz Kartę"
+                        FontSize="25"
+                        Style="{StaticResource CreateCardButton}" />
+                </Grid>
+
+            </Grid>
+        </ControlTemplate>
+
+        <ControlTemplate x:Key="FullScreenLayout">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock
+                    Margin="0,0,0,25"
+                    FontSize="25"
+                    Text="Wydrukuj Kartę" />
+
+                <Image
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Margin="5"
+                    RenderOptions.BitmapScalingMode="HighQuality"
+                    Source="{Binding Card, Converter={StaticResource ImageSourceConverter}}"
+                    Stretch="Uniform" />
+
+                <Grid
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Margin="0,-50,0,0"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
+
+                    <Button
+                        Grid.Row="1"
+                        Width="450"
+                        Height="155"
+                        Margin="0,25,0,0"
+                        extenstions:HomeButtonExtensions.IconPath="{StaticResource Printer_Icon}"
+                        mvx:Bi.nd="Command PrintCardCommand"
+                        CommandParameter="{Binding Card}"
+                        Content="Drukuj"
+                        FontSize="30"
+                        Style="{StaticResource CreateCardButton}" />
+
+                    <Button
+                        Grid.Row="2"
+                        Width="450"
+                        Height="155"
+                        Margin="0,50,0,0"
+                        extenstions:HomeButtonExtensions.IconPath="{StaticResource Save_Icon}"
+                        mvx:Bi.nd="Command SaveCardCommand"
+                        CommandParameter="{Binding}"
+                        Content="Zapisz Kartę"
+                        FontSize="30"
+                        Style="{StaticResource CreateCardButton}" />
+                </Grid>
+
+            </Grid>
+        </ControlTemplate>
+
     </UserControl.Resources>
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto" />
-            <RowDefinition />
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition />
-            <ColumnDefinition />
-        </Grid.ColumnDefinitions>
 
-        <TextBlock Margin="0,0,0,25" Text="Wydrukuj Kartę" />
+    <UserControl.Style>
 
-        <Image
-            Grid.Row="1"
-            Grid.Column="0"
-            Margin="5"
-            RenderOptions.BitmapScalingMode="HighQuality"
-            Source="{Binding Card, Converter={StaticResource ImageSourceConverter}}"
-            Stretch="Uniform" />
+        <Style TargetType="UserControl">
+            <!--<Setter Property="Template" Value="{StaticResource FullScreenLayout}" />-->
+            <Setter Property="Template" Value="{StaticResource NormalLayout}" />
 
-        <Grid
-            Grid.Row="1"
-            Grid.Column="1"
-            Margin="0,-50,0,0"
-            HorizontalAlignment="Center"
-            VerticalAlignment="Center">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="auto" />
-                <RowDefinition Height="auto" />
-                <RowDefinition Height="auto" />
-            </Grid.RowDefinitions>
+            <!--  DATA TRIGGERS  -->
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding ActualWidth, RelativeSource={RelativeSource Self}, Converter={StaticResource BreakpointConverter}, ConverterParameter=1600}" Value="False">
+                    <Setter Property="Template" Value="{StaticResource FullScreenLayout}" />
+                </DataTrigger>
+            </Style.Triggers>
 
-            <Button
-                Grid.Row="1"
-                Margin="0,25,0,0"
-                HorizontalAlignment="Right"
-                extenstions:HomeButtonExtensions.IconPath="{StaticResource Printer_Icon}"
-                mvx:Bi.nd="Command PrintCardCommand"
-                CommandParameter="{Binding Card}"
-                Content="Drukuj"
-                Style="{StaticResource CreateCardButton}" />
+        </Style>
 
-            <Button
-                Grid.Row="2"
-                Margin="0,50,0,0"
-                HorizontalAlignment="Right"
-                extenstions:HomeButtonExtensions.IconPath="{StaticResource Save_Icon}"
-                mvx:Bi.nd="Command SaveCardCommand"
-                CommandParameter="{Binding}"
-                Content="Zapisz Kartę"
-                Style="{StaticResource CreateCardButton}" />
-        </Grid>
+    </UserControl.Style>
 
-    </Grid>
 </views:MvxWpfView>

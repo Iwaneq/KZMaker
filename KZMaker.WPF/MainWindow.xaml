@@ -12,7 +12,8 @@
     MinWidth="865"
     MinHeight="475"
     AllowsTransparency="True"
+    BorderThickness="7"
     FontFamily="/Fonts/#Rubik"
-    ResizeMode="NoResize"
+    ResizeMode="CanResizeWithGrip"
     WindowStyle="None"
     mc:Ignorable="d" />

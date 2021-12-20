@@ -19,143 +19,309 @@
     Foreground="{DynamicResource FontBrush1}"
     mc:Ignorable="d">
     <UserControl.Resources>
+        <!--  CONVERTERS  -->
         <converters:CurrentViewModelConverter x:Key="ViewModelConverter" />
-    </UserControl.Resources>
-    <Grid Background="{DynamicResource PrimaryBrush2}">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="auto" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
 
-        <Grid
-            Grid.RowSpan="2"
-            Width="150"
-            Background="{DynamicResource PrimaryBrush1}">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="auto" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="auto" />
-                <RowDefinition Height="auto" />
-            </Grid.RowDefinitions>
 
-            <Image
-                Grid.Row="0"
-                Grid.Column="0"
-                Width="38"
-                Height="38"
-                Margin="5,20,0,0"
-                VerticalAlignment="Top"
-                Source="/Resources/fse.png" />
+        <!--  LAYOUTS  -->
 
-            <TextBlock
-                Grid.Row="0"
-                Grid.Column="1"
-                Margin="10,20,0,0"
-                Text="KartaZbiórki Maker"
-                TextWrapping="WrapWithOverflow" />
-
-            <Grid
-                Grid.Row="1"
-                Grid.ColumnSpan="2"
-                Margin="0,20,0,0">
+        <ControlTemplate x:Key="NormalLayout" TargetType="UserControl">
+            <Grid Background="{DynamicResource PrimaryBrush2}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
 
-                <RadioButton
+                <Grid
+                    Grid.RowSpan="2"
+                    Width="150"
+                    Background="{DynamicResource PrimaryBrush1}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
+
+                    <Image
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Width="38"
+                        Height="38"
+                        Margin="5,20,0,0"
+                        VerticalAlignment="Top"
+                        Source="/Resources/fse.png" />
+
+                    <TextBlock
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        Margin="10,20,0,0"
+                        Text="KartaZbiórki Maker"
+                        TextWrapping="WrapWithOverflow" />
+
+                    <Grid
+                        Grid.Row="1"
+                        Grid.ColumnSpan="2"
+                        Margin="0,20,0,0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                        </Grid.RowDefinitions>
+
+                        <RadioButton
+                            Grid.Row="0"
+                            extensions:RadioButtonIconExtension.IconPath="{StaticResource Home_Icon}"
+                            mvx:Bi.nd="Command NavigateCommand"
+                            CommandParameter="{x:Static navigation:ViewModelType.Home}"
+                            Content="Start"
+                            IsChecked="{Binding Navigator.CurrentViewModel, Converter={StaticResource ViewModelConverter}, ConverterParameter={x:Type viewmodels:HomeViewModel}}"
+                            Style="{StaticResource NavButton}" />
+                        <RadioButton
+                            Grid.Row="1"
+                            extensions:RadioButtonIconExtension.IconPath="{StaticResource Document_Icon}"
+                            mvx:Bi.nd="Command NavigateCommand"
+                            CommandParameter="{x:Static navigation:ViewModelType.CreateCard}"
+                            Content="Stwórz Kartę"
+                            IsChecked="{Binding Navigator.CurrentViewModel, Converter={StaticResource ViewModelConverter}, ConverterParameter={x:Type viewmodels:CreateCardViewModel}}"
+                            Style="{StaticResource NavButton}" />
+                        <RadioButton
+                            Grid.Row="2"
+                            extensions:RadioButtonIconExtension.IconPath="{StaticResource Folder_Icon}"
+                            mvx:Bi.nd="Command NavigateCommand"
+                            CommandParameter="{x:Static navigation:ViewModelType.CardList}"
+                            Content="Lista Kart"
+                            IsChecked="{Binding Navigator.CurrentViewModel, Converter={StaticResource ViewModelConverter}, ConverterParameter={x:Type viewmodels:CardListViewModel}}"
+                            Style="{StaticResource NavButton}" />
+                        <RadioButton
+                            Grid.Row="3"
+                            extensions:RadioButtonIconExtension.IconPath="{StaticResource Printer_Icon}"
+                            mvx:Bi.nd="Command NavigateCommand"
+                            CommandParameter="{x:Static navigation:ViewModelType.SaveCard}"
+                            Content="Karta"
+                            IsChecked="{Binding Navigator.CurrentViewModel, Converter={StaticResource ViewModelConverter}, ConverterParameter={x:Type viewmodels:SaveCardViewModel}}"
+                            Style="{StaticResource NavButton}" />
+                        <RadioButton
+                            Grid.Row="4"
+                            extensions:RadioButtonIconExtension.IconPath="{StaticResource Settings_Icon}"
+                            mvx:Bi.nd="Command NavigateCommand"
+                            CommandParameter="{x:Static navigation:ViewModelType.Settings}"
+                            Content="Ustawienia"
+                            IsChecked="{Binding Navigator.CurrentViewModel, Converter={StaticResource ViewModelConverter}, ConverterParameter={x:Type viewmodels:SettingsViewModel}}"
+                            Style="{StaticResource NavButton}" />
+
+                    </Grid>
+
+                </Grid>
+
+                <StackPanel
                     Grid.Row="0"
-                    extensions:RadioButtonIconExtension.IconPath="{StaticResource Home_Icon}"
-                    mvx:Bi.nd="Command NavigateCommand"
-                    CommandParameter="{x:Static navigation:ViewModelType.Home}"
-                    Content="Start"
-                    IsChecked="{Binding Navigator.CurrentViewModel, Converter={StaticResource ViewModelConverter}, ConverterParameter={x:Type viewmodels:HomeViewModel}}"
-                    Style="{StaticResource NavButton}" />
-                <RadioButton
+                    Grid.Column="1"
+                    Height="25"
+                    Background="{DynamicResource SecondaryBrush1}"
+                    FlowDirection="RightToLeft"
+                    MouseLeftButtonDown="Grid_MouseLeftButtonDown"
+                    Orientation="Horizontal">
+
+                    <Button
+                        Name="closeButton"
+                        Margin="8,0,15,0"
+                        Click="closeButton_Click"
+                        Content="{StaticResource Close_Icon}"
+                        Style="{StaticResource ChromeButton}" />
+
+                    <Button
+                        Name="minimizeButton"
+                        Click="minimizeButton_Click"
+                        Content="{StaticResource Minimize_Icon}"
+                        Style="{StaticResource ChromeButton}" />
+
+                </StackPanel>
+
+                <ContentControl
                     Grid.Row="1"
-                    extensions:RadioButtonIconExtension.IconPath="{StaticResource Document_Icon}"
-                    mvx:Bi.nd="Command NavigateCommand"
-                    CommandParameter="{x:Static navigation:ViewModelType.CreateCard}"
-                    Content="Stwórz Kartę"
-                    IsChecked="{Binding Navigator.CurrentViewModel, Converter={StaticResource ViewModelConverter}, ConverterParameter={x:Type viewmodels:CreateCardViewModel}}"
-                    Style="{StaticResource NavButton}" />
-                <RadioButton
-                    Grid.Row="2"
-                    extensions:RadioButtonIconExtension.IconPath="{StaticResource Folder_Icon}"
-                    mvx:Bi.nd="Command NavigateCommand"
-                    CommandParameter="{x:Static navigation:ViewModelType.CardList}"
-                    Content="Lista Kart"
-                    IsChecked="{Binding Navigator.CurrentViewModel, Converter={StaticResource ViewModelConverter}, ConverterParameter={x:Type viewmodels:CardListViewModel}}"
-                    Style="{StaticResource NavButton}" />
-                <RadioButton
-                    Grid.Row="3"
-                    extensions:RadioButtonIconExtension.IconPath="{StaticResource Printer_Icon}"
-                    mvx:Bi.nd="Command NavigateCommand"
-                    CommandParameter="{x:Static navigation:ViewModelType.SaveCard}"
-                    Content="Karta"
-                    IsChecked="{Binding Navigator.CurrentViewModel, Converter={StaticResource ViewModelConverter}, ConverterParameter={x:Type viewmodels:SaveCardViewModel}}"
-                    Style="{StaticResource NavButton}" />
-                <RadioButton
-                    Grid.Row="4"
-                    extensions:RadioButtonIconExtension.IconPath="{StaticResource Settings_Icon}"
-                    mvx:Bi.nd="Command NavigateCommand"
-                    CommandParameter="{x:Static navigation:ViewModelType.Settings}"
-                    Content="Ustawienia"
-                    IsChecked="{Binding Navigator.CurrentViewModel, Converter={StaticResource ViewModelConverter}, ConverterParameter={x:Type viewmodels:SettingsViewModel}}"
-                    Style="{StaticResource NavButton}" />
+                    Grid.Column="1"
+                    Margin="10"
+                    Content="{Binding Navigator.CurrentViewModel}" />
+
+                <progress:NotificationView
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Width="350"
+                    Height="90"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Bottom"
+                    DataContext="{Binding NotificationViewModel}"
+                    FontSize="15" />
 
             </Grid>
+        </ControlTemplate>
 
-        </Grid>
+        <ControlTemplate x:Key="FullScreenLayout">
+            <Grid Background="{DynamicResource PrimaryBrush2}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
 
-        <StackPanel
-            Grid.Row="0"
-            Grid.Column="1"
-            Height="25"
-            Background="{DynamicResource SecondaryBrush1}"
-            FlowDirection="RightToLeft"
-            MouseLeftButtonDown="Grid_MouseLeftButtonDown"
-            Orientation="Horizontal">
+                <Grid
+                    Grid.RowSpan="2"
+                    Width="150"
+                    Background="{DynamicResource PrimaryBrush1}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
 
-            <Button
-                Name="closeButton"
-                Margin="8,0,15,0"
-                Click="closeButton_Click"
-                Content="{StaticResource Close_Icon}"
-                Style="{StaticResource ChromeButton}" />
+                    <Image
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Width="38"
+                        Height="38"
+                        Margin="5,20,0,0"
+                        VerticalAlignment="Top"
+                        Source="/Resources/fse.png" />
 
-            <Button
-                Name="minimizeButton"
-                Click="minimizeButton_Click"
-                Content="{StaticResource Minimize_Icon}"
-                Style="{StaticResource ChromeButton}" />
+                    <TextBlock
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        Margin="10,20,0,0"
+                        Text="KartaZbiórki Maker"
+                        TextWrapping="WrapWithOverflow" />
 
-        </StackPanel>
+                    <Grid
+                        Grid.Row="1"
+                        Grid.ColumnSpan="2"
+                        Margin="0,20,0,0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                        </Grid.RowDefinitions>
 
-        <ContentControl
-            Grid.Row="1"
-            Grid.Column="1"
-            Margin="10"
-            Content="{Binding Navigator.CurrentViewModel}" />
+                        <RadioButton
+                            Grid.Row="0"
+                            extensions:RadioButtonIconExtension.IconPath="{StaticResource Home_Icon}"
+                            mvx:Bi.nd="Command NavigateCommand"
+                            CommandParameter="{x:Static navigation:ViewModelType.Home}"
+                            Content="Start"
+                            IsChecked="{Binding Navigator.CurrentViewModel, Converter={StaticResource ViewModelConverter}, ConverterParameter={x:Type viewmodels:HomeViewModel}}"
+                            Style="{StaticResource NavButton}" />
+                        <RadioButton
+                            Grid.Row="1"
+                            extensions:RadioButtonIconExtension.IconPath="{StaticResource Document_Icon}"
+                            mvx:Bi.nd="Command NavigateCommand"
+                            CommandParameter="{x:Static navigation:ViewModelType.CreateCard}"
+                            Content="Stwórz Kartę"
+                            IsChecked="{Binding Navigator.CurrentViewModel, Converter={StaticResource ViewModelConverter}, ConverterParameter={x:Type viewmodels:CreateCardViewModel}}"
+                            Style="{StaticResource NavButton}" />
+                        <RadioButton
+                            Grid.Row="2"
+                            extensions:RadioButtonIconExtension.IconPath="{StaticResource Folder_Icon}"
+                            mvx:Bi.nd="Command NavigateCommand"
+                            CommandParameter="{x:Static navigation:ViewModelType.CardList}"
+                            Content="Lista Kart"
+                            IsChecked="{Binding Navigator.CurrentViewModel, Converter={StaticResource ViewModelConverter}, ConverterParameter={x:Type viewmodels:CardListViewModel}}"
+                            Style="{StaticResource NavButton}" />
+                        <RadioButton
+                            Grid.Row="3"
+                            extensions:RadioButtonIconExtension.IconPath="{StaticResource Printer_Icon}"
+                            mvx:Bi.nd="Command NavigateCommand"
+                            CommandParameter="{x:Static navigation:ViewModelType.SaveCard}"
+                            Content="Karta"
+                            IsChecked="{Binding Navigator.CurrentViewModel, Converter={StaticResource ViewModelConverter}, ConverterParameter={x:Type viewmodels:SaveCardViewModel}}"
+                            Style="{StaticResource NavButton}" />
+                        <RadioButton
+                            Grid.Row="4"
+                            extensions:RadioButtonIconExtension.IconPath="{StaticResource Settings_Icon}"
+                            mvx:Bi.nd="Command NavigateCommand"
+                            CommandParameter="{x:Static navigation:ViewModelType.Settings}"
+                            Content="Ustawienia"
+                            IsChecked="{Binding Navigator.CurrentViewModel, Converter={StaticResource ViewModelConverter}, ConverterParameter={x:Type viewmodels:SettingsViewModel}}"
+                            Style="{StaticResource NavButton}" />
 
-        <progress:NotificationView
-            Grid.Row="1"
-            Grid.Column="1"
-            Width="350"
-            Height="90"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Bottom"
-            DataContext="{Binding NotificationViewModel}"
-            FontSize="15" />
+                    </Grid>
 
-    </Grid>
+                </Grid>
+
+                <StackPanel
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    Height="25"
+                    Background="{DynamicResource SecondaryBrush1}"
+                    FlowDirection="RightToLeft"
+                    MouseLeftButtonDown="Grid_MouseLeftButtonDown"
+                    Orientation="Horizontal">
+
+                    <Button
+                        Name="closeButton"
+                        Margin="8,0,15,0"
+                        Click="closeButton_Click"
+                        Content="{StaticResource Close_Icon}"
+                        Style="{StaticResource ChromeButton}" />
+
+                    <Button
+                        Name="minimizeButton"
+                        Click="minimizeButton_Click"
+                        Content="{StaticResource Minimize_Icon}"
+                        Style="{StaticResource ChromeButton}" />
+
+                </StackPanel>
+
+                <ContentControl
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Margin="40"
+                    Content="{Binding Navigator.CurrentViewModel}" />
+
+                <progress:NotificationView
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Width="350"
+                    Height="90"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Bottom"
+                    DataContext="{Binding NotificationViewModel}"
+                    FontSize="15" />
+
+            </Grid>
+        </ControlTemplate>
+
+    </UserControl.Resources>
+
+    <UserControl.Style>
+
+        <Style TargetType="UserControl">
+            <!--<Setter Property="Template" Value="{StaticResource FullScreenLayout}" />-->
+            <Setter Property="Template" Value="{StaticResource NormalLayout}" />
+
+            <!--  DATA TRIGGERS  -->
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding ActualWidth, RelativeSource={RelativeSource Self}, Converter={StaticResource BreakpointConverter}, ConverterParameter=1600}" Value="False">
+                    <Setter Property="Template" Value="{StaticResource FullScreenLayout}" />
+                </DataTrigger>
+            </Style.Triggers>
+
+        </Style>
+
+    </UserControl.Style>
+
 </views:MvxWpfView>

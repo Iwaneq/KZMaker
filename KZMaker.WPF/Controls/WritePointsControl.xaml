@@ -12,55 +12,176 @@
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d">
-    <Border Background="{DynamicResource SecondaryBrush2}" CornerRadius="5">
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition />
-                <ColumnDefinition Width="auto" />
-            </Grid.ColumnDefinitions>
+    <UserControl.Resources>
 
-            <ScrollViewer VerticalScrollBarVisibility="Auto">
-                <ListView
-                    Background="Transparent"
-                    BorderThickness="0"
-                    ItemsSource="{Binding Points}"
-                    SelectedItem="{Binding SelectedItem}">
-                    <ListBox.ItemTemplate>
-                        <DataTemplate DataType="{x:Type models:Point}">
-                            <StackPanel Orientation="Horizontal">
-                                <TextBox Margin="1,4" Text="{Binding DisplayTime, UpdateSourceTrigger=LostFocus}" />
-                                <TextBox Margin="1,4" Text="{Binding Title, UpdateSourceTrigger=PropertyChanged}" />
-                                <TextBox Margin="1,4" Text="{Binding ZastepMember, UpdateSourceTrigger=PropertyChanged}" />
-                            </StackPanel>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListView>
-            </ScrollViewer>
+        <!--  LAYOUTS  -->
 
-            <Button
-                Grid.Column="1"
-                Width="25"
-                Height="25"
-                Margin="5,5"
-                Padding="5"
-                VerticalAlignment="Top"
-                mvx:Bi.nd="Command AddNewItemCommand"
-                Background="{DynamicResource SecondaryBrush1}"
-                Content="{StaticResource Plus_Icon}"
-                Style="{StaticResource ChromeButton}" />
-            <Button
-                Grid.Column="1"
-                Width="25"
-                Height="25"
-                Margin="0,38,0,0"
-                Padding="5"
-                VerticalAlignment="Top"
-                mvx:Bi.nd="Command DeleteSelectedItemCommand"
-                Background="{DynamicResource SecondaryBrush1}"
-                Content="{StaticResource Minimize_Icon}"
-                Style="{StaticResource ChromeButton}" />
+        <ControlTemplate x:Key="NormalLayout">
+            <Border Background="{DynamicResource SecondaryBrush2}" CornerRadius="5">
+                <Grid VerticalAlignment="Stretch">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="auto" />
+                    </Grid.ColumnDefinitions>
 
-        </Grid>
-    </Border>
+                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                        <ListView
+                            Background="Transparent"
+                            BorderThickness="0"
+                            ItemsSource="{Binding Points}"
+                            SelectedItem="{Binding SelectedItem}">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate DataType="{x:Type models:Point}">
+                                    <Grid HorizontalAlignment="Stretch">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="auto" />
+                                            <ColumnDefinition Width="3*" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBox
+                                            Grid.Column="0"
+                                            Margin="1,4"
+                                            Text="{Binding DisplayTime, UpdateSourceTrigger=LostFocus}" />
+                                        <TextBox
+                                            Grid.Column="1"
+                                            Margin="1,4"
+                                            Text="{Binding Title, UpdateSourceTrigger=PropertyChanged}" />
+                                        <TextBox
+                                            Grid.Column="2"
+                                            Margin="1,4"
+                                            Text="{Binding ZastepMember, UpdateSourceTrigger=PropertyChanged}" />
+
+                                    </Grid>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                            <ListView.ItemContainerStyle>
+                                <Style TargetType="ListViewItem">
+                                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                </Style>
+                            </ListView.ItemContainerStyle>
+                        </ListView>
+                    </ScrollViewer>
+
+                    <Button
+                        Grid.Column="1"
+                        Width="25"
+                        Height="25"
+                        Margin="5,5"
+                        Padding="5"
+                        VerticalAlignment="Top"
+                        mvx:Bi.nd="Command AddNewItemCommand"
+                        Background="{DynamicResource SecondaryBrush1}"
+                        Content="{StaticResource Plus_Icon}"
+                        Style="{StaticResource ChromeButton}" />
+                    <Button
+                        Grid.Column="1"
+                        Width="25"
+                        Height="25"
+                        Margin="0,38,0,0"
+                        Padding="5"
+                        VerticalAlignment="Top"
+                        mvx:Bi.nd="Command DeleteSelectedItemCommand"
+                        Background="{DynamicResource SecondaryBrush1}"
+                        Content="{StaticResource Minimize_Icon}"
+                        Style="{StaticResource ChromeButton}" />
+
+                </Grid>
+            </Border>
+        </ControlTemplate>
+
+        <ControlTemplate x:Key="FullScreenLayout">
+            <Border Background="{DynamicResource SecondaryBrush2}" CornerRadius="5">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                        <ListView
+                            Padding="5"
+                            HorizontalAlignment="Stretch"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            ItemsSource="{Binding Points}"
+                            SelectedItem="{Binding SelectedItem}">
+                            <ListView.ItemTemplate>
+                                <DataTemplate DataType="{x:Type models:Point}">
+                                    <Grid HorizontalAlignment="Stretch">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="auto" />
+                                            <ColumnDefinition Width="3*" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBox
+                                            Grid.Column="0"
+                                            Margin="1,4"
+                                            Text="{Binding DisplayTime, UpdateSourceTrigger=LostFocus}" />
+                                        <TextBox
+                                            Grid.Column="1"
+                                            Margin="1,4"
+                                            Text="{Binding Title, UpdateSourceTrigger=PropertyChanged}" />
+                                        <TextBox
+                                            Grid.Column="2"
+                                            Margin="1,4"
+                                            Text="{Binding ZastepMember, UpdateSourceTrigger=PropertyChanged}" />
+
+                                    </Grid>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                            <ListView.ItemContainerStyle>
+                                <Style TargetType="ListViewItem">
+                                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                </Style>
+                            </ListView.ItemContainerStyle>
+                        </ListView>
+                    </ScrollViewer>
+
+                    <Button
+                        Grid.Column="1"
+                        Width="45"
+                        Height="45"
+                        Margin="5,5"
+                        Padding="5"
+                        VerticalAlignment="Top"
+                        mvx:Bi.nd="Command AddNewItemCommand"
+                        Background="{DynamicResource SecondaryBrush1}"
+                        Content="{StaticResource Plus_Icon}"
+                        Style="{StaticResource ChromeButton}" />
+                    <Button
+                        Grid.Column="1"
+                        Width="45"
+                        Height="45"
+                        Margin="0,60,0,0"
+                        Padding="5"
+                        VerticalAlignment="Top"
+                        mvx:Bi.nd="Command DeleteSelectedItemCommand"
+                        Background="{DynamicResource SecondaryBrush1}"
+                        Content="{StaticResource Minimize_Icon}"
+                        Style="{StaticResource ChromeButton}" />
+
+                </Grid>
+            </Border>
+        </ControlTemplate>
+
+    </UserControl.Resources>
+
+
+    <UserControl.Style>
+
+        <Style TargetType="UserControl">
+            <!--<Setter Property="Template" Value="{StaticResource FullScreenLayout}" />-->
+            <Setter Property="Template" Value="{StaticResource NormalLayout}" />
+
+            <!--  DATA TRIGGERS  -->
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding ActualWidth, RelativeSource={RelativeSource Self}, Converter={StaticResource BreakpointConverter}, ConverterParameter=1600}" Value="False">
+                    <Setter Property="Template" Value="{StaticResource FullScreenLayout}" />
+                </DataTrigger>
+            </Style.Triggers>
+
+        </Style>
+
+    </UserControl.Style>
 
 </views:MvxWpfView>

@@ -42,4 +42,19 @@
             mvx:Bi.nd="Command CheckForUpdateCommand"
             Content="Sprawdź aktualizacje" />
     </Grid>
+
+    <UserControl.Style>
+
+        <Style TargetType="UserControl">
+
+            <!--  DATA TRIGGERS  -->
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding ActualWidth, RelativeSource={RelativeSource Self}, Converter={StaticResource BreakpointConverter}, ConverterParameter=1600}" Value="False">
+                    <Setter Property="FontSize" Value="25" />
+                </DataTrigger>
+            </Style.Triggers>
+
+        </Style>
+
+    </UserControl.Style>
 </views:MvxWpfView>

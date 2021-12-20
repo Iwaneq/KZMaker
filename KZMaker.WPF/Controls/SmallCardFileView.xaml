@@ -8,7 +8,6 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="50"
     d:DesignWidth="400"
-    FontSize="15"
     Foreground="{DynamicResource FontBrush1}"
     mc:Ignorable="d">
     <Border
@@ -35,7 +34,7 @@
                 <RowDefinition />
             </Grid.RowDefinitions>
 
-            <TextBlock FontSize="12" Text="{Binding Date, StringFormat=d, FallbackValue=10/10/1010}" />
+            <TextBlock Text="{Binding Date, StringFormat=d, FallbackValue=10/10/1010}" />
 
             <TextBlock
                 Grid.Row="1"
