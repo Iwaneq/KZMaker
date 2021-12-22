@@ -1,5 +1,6 @@
 ﻿using KZMaker.Core.Exceptions;
 using KZMaker.Core.Models;
+using KZMaker.Core.Services.CardProcessing.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -12,22 +13,27 @@ namespace KZMaker.Core.Services
 {
     public class SaveCardService : ISaveCardService
     {
+        private readonly ISaveCardHelper _saveHelper;
+
+        public SaveCardService(ISaveCardHelper helper)
+        {
+            _saveHelper = helper;
+        }
 
         public void SaveCard(Bitmap card, string fileName, string savingPath)
         {
-            if (string.IsNullOrEmpty(fileName))
-            {
-                throw new NotGeneratedCardException("Karta nie została wygenerowana.");
-            }
+            _saveHelper.CheckFileName(fileName);
 
-            CheckIfDirectoryExists(savingPath);
+            _saveHelper.CheckIfDirectoryExists(savingPath);
 
             card.Save(Path.Combine(savingPath, $"{fileName}.png"));
         }
 
+        
+
         public void SaveDraft(string zastep, DateTime date, string place, List<Models.Point> points, List<RequiredItem> requiredItems, string fileName, string savingPath)
         {
-            CheckIfDirectoryExists(savingPath);
+            _saveHelper.CheckIfDirectoryExists(savingPath);
 
             //Text file will look like this:
             //zastep^date^place^pointTime$pointTitle$zastepMember*pointTime$pointTitle$zastepMember^item*item
@@ -37,35 +43,15 @@ namespace KZMaker.Core.Services
             lines += date + "^";
             lines += place + "^";
 
-            if (points.Count > 0)
-            {
-                foreach (Models.Point point in points)
-                {
-                    lines += $"{point.DisplayTime}${point.Title}${point.ZastepMember}*";
-                }
-                lines = lines.Substring(0, lines.Length - 1); 
-            }
+            _saveHelper.AddPointsToDraft(ref lines, points);
 
             lines += "^";
 
-            if (requiredItems.Count > 0)
-            {
-                foreach (RequiredItem item in requiredItems)
-                {
-                    lines += $"{item.Item}*";
-                }
-                lines = lines.Substring(0, lines.Length - 1); 
-            }
+            _saveHelper.AddRequiredItemsToDraft(ref lines, requiredItems);
 
             File.WriteAllText(savingPath + $"\\{fileName}.card", lines);
         }
 
-        private void CheckIfDirectoryExists(string savingPath)
-        {
-            if (!Directory.Exists(savingPath))
-            {
-                Directory.CreateDirectory(savingPath);
-            }
-        }
+        
     }
 }

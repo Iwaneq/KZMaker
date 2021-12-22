@@ -43,6 +43,8 @@ namespace KZMaker.WPF.Services
                 case "Green":
                     ChangeTheme(new Uri("Resources/Themes/GreenTheme.xaml", UriKind.Relative));
                     break;
+                default:
+                    throw new NotImplementedException($"Application cannot set/find theme: {AppSettings.Default.Theme}");
             }
         }
     }

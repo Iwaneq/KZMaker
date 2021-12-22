@@ -48,7 +48,11 @@ namespace KZMaker.WPF.Services
         public string GetFile(string ext, string startDirectory)
         {
             VistaOpenFileDialog fileDialog = SetupBasicFileDialog(ext);
-            fileDialog.InitialDirectory = startDirectory;
+
+            if (Directory.Exists(startDirectory))
+            {
+                fileDialog.InitialDirectory = startDirectory;
+            }
 
             if(fileDialog.ShowDialog() == true)
             {

@@ -20,6 +20,8 @@ using MvvmCross.Plugin;
 using KZMaker.Core.ResourceManagement;
 using KZMaker.Core.Services.Interfaces;
 using KZMaker.Core.State;
+using KZMaker.Core.Services.CardProcessing.Interfaces;
+using KZMaker.Core.Services.CardProcessing;
 
 namespace KZMaker.Core
 {
@@ -84,6 +86,10 @@ namespace KZMaker.Core
                 new Navigator(
                     services.Resolve<DelegateViewModelFactory>()));
             services.RegisterSingleton<NotificationsStore>(new NotificationsStore());
+
+            services.RegisterType<ISaveCardHelper, SaveCardHelper>();
+            services.RegisterType<ILoadCardsHelper, LoadCardsHelper>();
+
 
             services.RegisterType<ICreateCardService, CreateCardService>();
             services.RegisterType<ISaveCardService, SaveCardService>();

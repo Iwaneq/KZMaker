@@ -1,5 +1,6 @@
 ﻿using KZMaker.Core.Commands;
 using KZMaker.Core.Models;
+using KZMaker.Core.Services.CardProcessing.Interfaces;
 using MvvmCross;
 using MvvmCross.ViewModels;
 using System;
@@ -13,8 +14,20 @@ namespace KZMaker.Core.Services
 {
     public class LoadCardsService : ILoadCardsService
     {
+        private readonly ILoadCardsHelper _helper;
+
+        public LoadCardsService(ILoadCardsHelper loadCardsHelper)
+        {
+            _helper = loadCardsHelper;
+        }
+
         public Card LoadCard(string filePath)
         {
+            if (!File.Exists(filePath))
+            {
+                throw new FileNotFoundException();
+            }
+
             Card card = new Card();
             string fileText = File.ReadAllText(filePath);
 
@@ -27,30 +40,10 @@ namespace KZMaker.Core.Services
             card.Place = cols[2];
 
             string[] points = cols[3].Split('*');
-            card.Points = new List<Point>();
-            if (points.Length > 0 && !string.IsNullOrEmpty(points[0]))
-            {
-                foreach (string point in points)
-                {
-                    string[] p = point.Split('$');
-                    card.Points.Add(new Point
-                    {
-                        DisplayTime = p[0],
-                        Title = p[1],
-                        ZastepMember = p[2]
-                    });
-                } 
-            }
+            _helper.AddPointsToCard(card, points);
 
             string[] items = cols[4].Split('*');
-            card.RequiredItems = new List<RequiredItem>();
-            if (items.Length > 0 && !string.IsNullOrEmpty(items[0]))
-            {
-                foreach (string item in items)
-                {
-                    card.RequiredItems.Add(new RequiredItem { Item = item });
-                } 
-            }
+            _helper.AddRequiredItemsToCard(card, items);
 
             return card;
         }

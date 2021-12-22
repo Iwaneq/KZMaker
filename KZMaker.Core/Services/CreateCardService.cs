@@ -1,4 +1,5 @@
 ﻿using KZMaker.Core.Models;
+using KZMaker.Core.Services.CardProcessing.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -11,6 +12,7 @@ namespace KZMaker.Core.Services
 {
     public class CreateCardService : ICreateCardService
     {
+        private readonly ICreateCardHelper _helper;
         private static Bitmap card;
         private static SolidBrush drawBrush = new SolidBrush(Color.Black);
         private static StringFormat drawFormat = new StringFormat();
@@ -21,9 +23,10 @@ namespace KZMaker.Core.Services
         static RectangleF placeRect = new RectangleF(580, 275, 1000, 50);
         static RectangleF requiredItemsRect = new RectangleF(80, 1045, 1000, 280);
 
-        public CreateCardService()
+        public CreateCardService(ICreateCardHelper helper)
         {
             card = new Bitmap(Path.Combine(Environment.CurrentDirectory, @"Resources\", "karta.png"));
+            _helper = helper;
         }
 
         public async Task<Bitmap> GenerateCard(string zastep, DateTime date, string place, List<Models.Point> points, List<RequiredItem> requiredItems)
@@ -43,26 +46,20 @@ namespace KZMaker.Core.Services
             return card;
         }
 
-        private static void DrawRequiredItems(List<RequiredItem> requiredItems)
+        private void DrawRequiredItems(List<RequiredItem> requiredItems)
         {
-            if(requiredItems.Count == 0)
-            {
-                return;
-            }
-
             Font requiredItemsFont = new Font("Arial", 30, FontStyle.Bold);
 
             string lines = "";
-            foreach(var item in requiredItems)
-            {
-                lines += $"{item.Item}, ";
-            }
-            lines = lines.Substring(0, lines.Length - 2);
 
+            _helper.AddRequiredItemsToCard(ref lines, requiredItems);
+            
             Graphics.FromImage(card).DrawString(lines, requiredItemsFont, drawBrush, requiredItemsRect);
         }
 
-        private static void DrawZastep(string zastep)
+        
+
+        private void DrawZastep(string zastep)
         {
             Font zastepFont = new Font("Arial", 38, FontStyle.Bold);
 
@@ -74,61 +71,23 @@ namespace KZMaker.Core.Services
             Graphics.FromImage(card).DrawString(zastep, zastepFont, drawBrush, zastepRect, drawFormat);
         }
 
-        private static void DrawDate(DateTime date)
+        private void DrawDate(DateTime date)
         {
             Font datumFont = new Font("Arial", 25, FontStyle.Bold);
 
-            string month = "";
-            switch (date.Month)
-            {
-                case 1:
-                    month = "Stycznia";
-                    break;
-                case 2:
-                    month = "Lutego";
-                    break;
-                case 3:
-                    month = "Marca";
-                    break;
-                case 4:
-                    month = "Kwietnia";
-                    break;
-                case 5:
-                    month = "Maja";
-                    break;
-                case 6:
-                    month = "Czerwca";
-                    break;
-                case 7:
-                    month = "Lipca";
-                    break;
-                case 8:
-                    month = "Sierpnia";
-                    break;
-                case 9:
-                    month = "Września";
-                    break;
-                case 10:
-                    month = "Października";
-                    break;
-                case 11:
-                    month = "Listopada";
-                    break;
-                case 12:
-                    month = "Grudnia";
-                    break;
-            }
+            string month = _helper.GetMonthString(date.Month);
+            
             Graphics.FromImage(card).DrawString($"{date.Day} {month} {date.Year}", datumFont, drawBrush, dateRect, drawFormat);
         }
 
-        private static void DrawPlace(string place)
+        private void DrawPlace(string place)
         {
             Font placeFont = new Font("Arial", 30, FontStyle.Bold);
 
             Graphics.FromImage(card).DrawString(place, placeFont, drawBrush, placeRect);
         }
 
-        private static void DrawPoints(List<Models.Point> points)
+        private void DrawPoints(List<Models.Point> points)
         {
             Font pointsFont = new Font("Arial", 20, FontStyle.Bold);
 
@@ -145,10 +104,10 @@ namespace KZMaker.Core.Services
             DrawPointTitle(pointsFont, pointRect, points);
 
             //Draw kto
-            DrawWho(pointsFont, whoRect, points);
+            DrawZastepMember(pointsFont, whoRect, points);
         }
 
-        private static void DrawWho(Font pointsFont, RectangleF whoRect, List<Models.Point> points)
+        private void DrawZastepMember(Font pointsFont, RectangleF whoRect, List<Models.Point> points)
         {
             foreach (Models.Point p in points)
             {
@@ -166,7 +125,7 @@ namespace KZMaker.Core.Services
             }
         }
 
-        private static void DrawTime(Font pointsFont, RectangleF timeRect, List<Models.Point> points)
+        private void DrawTime(Font pointsFont, RectangleF timeRect, List<Models.Point> points)
         {
             foreach (Models.Point p in points)
             {

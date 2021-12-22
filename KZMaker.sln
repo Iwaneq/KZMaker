@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KZMaker.Core", "KZMaker.Cor
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KZMaker.WPF", "KZMaker.WPF\KZMaker.WPF.csproj", "{0B945849-7269-4F66-BF4D-255AAA06B0D2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KZMaker.Tests", "KZMaker.Tests\KZMaker.Tests.csproj", "{118F93F4-8B20-4198-BFB6-31E887EB844B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -61,6 +63,26 @@ Global
 		{0B945849-7269-4F66-BF4D-255AAA06B0D2}.Release|x64.Build.0 = Release|x64
 		{0B945849-7269-4F66-BF4D-255AAA06B0D2}.Release|x86.ActiveCfg = Release|Any CPU
 		{0B945849-7269-4F66-BF4D-255AAA06B0D2}.Release|x86.Build.0 = Release|Any CPU
+		{118F93F4-8B20-4198-BFB6-31E887EB844B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{118F93F4-8B20-4198-BFB6-31E887EB844B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{118F93F4-8B20-4198-BFB6-31E887EB844B}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{118F93F4-8B20-4198-BFB6-31E887EB844B}.Debug|ARM.Build.0 = Debug|Any CPU
+		{118F93F4-8B20-4198-BFB6-31E887EB844B}.Debug|ARM64.ActiveCfg = Debug|Any CPU
+		{118F93F4-8B20-4198-BFB6-31E887EB844B}.Debug|ARM64.Build.0 = Debug|Any CPU
+		{118F93F4-8B20-4198-BFB6-31E887EB844B}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{118F93F4-8B20-4198-BFB6-31E887EB844B}.Debug|x64.Build.0 = Debug|Any CPU
+		{118F93F4-8B20-4198-BFB6-31E887EB844B}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{118F93F4-8B20-4198-BFB6-31E887EB844B}.Debug|x86.Build.0 = Debug|Any CPU
+		{118F93F4-8B20-4198-BFB6-31E887EB844B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{118F93F4-8B20-4198-BFB6-31E887EB844B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{118F93F4-8B20-4198-BFB6-31E887EB844B}.Release|ARM.ActiveCfg = Release|Any CPU
+		{118F93F4-8B20-4198-BFB6-31E887EB844B}.Release|ARM.Build.0 = Release|Any CPU
+		{118F93F4-8B20-4198-BFB6-31E887EB844B}.Release|ARM64.ActiveCfg = Release|Any CPU
+		{118F93F4-8B20-4198-BFB6-31E887EB844B}.Release|ARM64.Build.0 = Release|Any CPU
+		{118F93F4-8B20-4198-BFB6-31E887EB844B}.Release|x64.ActiveCfg = Release|Any CPU
+		{118F93F4-8B20-4198-BFB6-31E887EB844B}.Release|x64.Build.0 = Release|Any CPU
+		{118F93F4-8B20-4198-BFB6-31E887EB844B}.Release|x86.ActiveCfg = Release|Any CPU
+		{118F93F4-8B20-4198-BFB6-31E887EB844B}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
