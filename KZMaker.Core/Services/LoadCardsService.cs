@@ -1,6 +1,7 @@
 ﻿using KZMaker.Core.Commands;
 using KZMaker.Core.Models;
 using KZMaker.Core.Services.CardProcessing.Interfaces;
+using KZMaker.Core.Utils.Interfaces;
 using MvvmCross;
 using MvvmCross.ViewModels;
 using System;
@@ -15,68 +16,49 @@ namespace KZMaker.Core.Services
     public class LoadCardsService : ILoadCardsService
     {
         private readonly ILoadCardsHelper _helper;
+        private readonly IFile _fileSystem;
+        private readonly IDirectory _directorySystem;
 
-        public LoadCardsService(ILoadCardsHelper loadCardsHelper)
+        public LoadCardsService(ILoadCardsHelper loadCardsHelper, IFile fileSystem, IDirectory directorySystem)
         {
             _helper = loadCardsHelper;
+            _fileSystem = fileSystem;
+            _directorySystem = directorySystem;
         }
 
         public Card LoadCard(string filePath)
         {
-            if (!File.Exists(filePath))
+            if (!_fileSystem.Exists(filePath))
             {
                 throw new FileNotFoundException();
             }
 
-            Card card = new Card();
-            string fileText = File.ReadAllText(filePath);
+            string fileText = _fileSystem.ReadAllText(filePath);
 
-            //Text file will look like this:
-            //zastep^date^place^pointTime$pointTitle$zastepMember*pointTime$pointTitle$zastepMember^item*item
-
-            string[] cols = fileText.Split('^');
-            card.Zastep = cols[0];
-            card.Date = DateTime.Parse(cols[1]);
-            card.Place = cols[2];
-
-            string[] points = cols[3].Split('*');
-            _helper.AddPointsToCard(card, points);
-
-            string[] items = cols[4].Split('*');
-            _helper.AddRequiredItemsToCard(card, items);
+            Card card = _helper.ConvertStringToCard(fileText);
 
             return card;
         }
 
-        public CardFile LoadCardFile(string filePath)
+        public List<CardFile> LoadCards(string folder)
         {
-            throw new NotImplementedException();
-        }
-
-        public MvxObservableCollection<CardFile> LoadCardsFiltered(string folder, Func<List<CardFile>, List<CardFile>> filterFiles)
-        {
-            List<CardFile> output = LoadCards(folder).OrderByDescending(a => a.Date).ToList();
-
-            output = filterFiles(output);
-            return new MvxObservableCollection<CardFile>(output);
-        }
-
-        public MvxObservableCollection<CardFile> LoadCards(string folder)
-        {
-            if (!Directory.Exists(folder))
+            if (!_directorySystem.Exists(folder))
             {
-                Directory.CreateDirectory(folder);
+                throw new DirectoryNotFoundException();
             }
-            MvxObservableCollection<CardFile> output = new MvxObservableCollection<CardFile>();
 
-            foreach(var file in Directory.GetFiles(folder))
+            List<CardFile> output = new List<CardFile>();
+
+            var files = _directorySystem.GetFiles(folder);
+
+            foreach (var file in files)
             {
                 if (file.EndsWith(".card"))
                 {
                     //Convert file to CardFile
-                    output.Add(new CardFile(Mvx.IoCProvider.GetSingleton<LoadCardCommand>())
+                    output.Add(new CardFile()
                     {
-                        Date = File.GetLastAccessTime(file),
+                        Date = _fileSystem.GetLastAccessTime(file),
                         FileName = Path.GetFileNameWithoutExtension(file),
                         Path = file
                     });

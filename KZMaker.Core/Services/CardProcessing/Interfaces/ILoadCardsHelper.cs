@@ -11,5 +11,6 @@ namespace KZMaker.Core.Services.CardProcessing.Interfaces
     {
         void AddRequiredItemsToCard(Card card, string[] items);
         void AddPointsToCard(Card card, string[] points);
+        Card ConvertStringToCard(string fileText);
     }
 }

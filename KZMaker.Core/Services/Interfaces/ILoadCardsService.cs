@@ -10,9 +10,7 @@ namespace KZMaker.Core.Services
 {
     public interface ILoadCardsService
     {
-        MvxObservableCollection<CardFile> LoadCards(string folder);
-        MvxObservableCollection<CardFile> LoadCardsFiltered(string folder, Func<List<CardFile>, List<CardFile>> filterFiles);
-        CardFile LoadCardFile(string filePath);
+        List<CardFile> LoadCards(string folder);
         Card LoadCard(string filePath);
     }
 }

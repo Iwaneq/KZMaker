@@ -62,7 +62,7 @@ namespace KZMaker.Core.Commands
 
             try
             {
-                bitmap = await _createCardService.GenerateCard(_viewModel.Zastep,
+                bitmap = await _createCardService.CreateCard(_viewModel.Zastep,
                         _viewModel.Date,
                         _viewModel.Place,
                         _viewModel.Points.ToList(),

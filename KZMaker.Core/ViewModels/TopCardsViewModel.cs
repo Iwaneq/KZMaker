@@ -33,7 +33,8 @@ namespace KZMaker.Core.ViewModels
 
         public void UpdateList()
         {
-            CardFiles = _loadCardsService.LoadCardsFiltered(_defaultCardsFolder, cards => cards.Take(5).ToList());
+            var list = _loadCardsService.LoadCards(_defaultCardsFolder).Take(5).ToList();
+            CardFiles = new MvxObservableCollection<CardFile>(list);
         }
     }
 }

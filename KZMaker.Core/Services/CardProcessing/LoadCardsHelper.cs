@@ -1,4 +1,5 @@
-﻿using KZMaker.Core.Models;
+﻿using KZMaker.Core.Commands;
+using KZMaker.Core.Models;
 using KZMaker.Core.Services.CardProcessing.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -36,6 +37,27 @@ namespace KZMaker.Core.Services.CardProcessing
                     ZastepMember = p[2]
                 });
             }
+        }
+
+        public Card ConvertStringToCard(string fileText)
+        {
+            Card card = new Card();
+
+            //Text file will look like this:
+            //zastep^date^place^pointTime$pointTitle$zastepMember*pointTime$pointTitle$zastepMember^item*item
+
+            string[] cols = fileText.Split('^');
+            card.Zastep = cols[0];
+            card.Date = DateTime.Parse(cols[1]);
+            card.Place = cols[2];
+
+            string[] points = cols[3].Split('*');
+            AddPointsToCard(card, points);
+
+            string[] items = cols[4].Split('*');
+            AddRequiredItemsToCard(card, items);
+
+            return card;
         }
     }
 

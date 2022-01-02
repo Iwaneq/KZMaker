@@ -1,6 +1,7 @@
 ﻿using KZMaker.Core.Exceptions;
 using KZMaker.Core.Models;
 using KZMaker.Core.Services.CardProcessing.Interfaces;
+using KZMaker.Core.Utils.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -12,6 +13,13 @@ namespace KZMaker.Core.Services.CardProcessing
 {
     public class SaveCardHelper : ISaveCardHelper
     {
+        private readonly IDirectory _directorySystem;
+
+        public SaveCardHelper(IDirectory directorySystem)
+        {
+            _directorySystem = directorySystem;
+        }
+
         public void AddPointsToDraft(ref string lines, List<Point> points)
         {
             if (points.Count > 0)
@@ -46,9 +54,9 @@ namespace KZMaker.Core.Services.CardProcessing
 
         public void CheckIfDirectoryExists(string savingPath)
         {
-            if (!Directory.Exists(savingPath))
+            if (!_directorySystem.Exists(savingPath))
             {
-                Directory.CreateDirectory(savingPath);
+                _directorySystem.CreateDirectory(savingPath);
             }
         }
     }

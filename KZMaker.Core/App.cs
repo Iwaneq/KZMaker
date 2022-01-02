@@ -22,6 +22,8 @@ using KZMaker.Core.Services.Interfaces;
 using KZMaker.Core.State;
 using KZMaker.Core.Services.CardProcessing.Interfaces;
 using KZMaker.Core.Services.CardProcessing;
+using KZMaker.Core.Utils.Interfaces;
+using KZMaker.Core.Utils;
 
 namespace KZMaker.Core
 {
@@ -48,6 +50,9 @@ namespace KZMaker.Core
         public override void Initialize()
         {
             var services = Mvx.IoCProvider;
+
+            services.RegisterType<IFile, FileSystem>();
+            services.RegisterType<IDirectory, DirectorySystem>();
 
             //CreateViewModels
             services.RegisterSingleton<CreateViewModel<HomeViewModel>>(() => 
@@ -90,7 +95,7 @@ namespace KZMaker.Core
             services.RegisterType<ISaveCardHelper, SaveCardHelper>();
             services.RegisterType<ILoadCardsHelper, LoadCardsHelper>();
 
-
+            services.RegisterType<ICardGenerator, CardGenerator>();
             services.RegisterType<ICreateCardService, CreateCardService>();
             services.RegisterType<ISaveCardService, SaveCardService>();
             services.RegisterType<ILoadCardsService, LoadCardsService>();

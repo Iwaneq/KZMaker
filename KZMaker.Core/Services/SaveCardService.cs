@@ -1,6 +1,7 @@
 ﻿using KZMaker.Core.Exceptions;
 using KZMaker.Core.Models;
 using KZMaker.Core.Services.CardProcessing.Interfaces;
+using KZMaker.Core.Utils.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -14,10 +15,12 @@ namespace KZMaker.Core.Services
     public class SaveCardService : ISaveCardService
     {
         private readonly ISaveCardHelper _saveHelper;
+        private readonly IFile _fileSystem;
 
-        public SaveCardService(ISaveCardHelper helper)
+        public SaveCardService(ISaveCardHelper helper, IFile fileSystem)
         {
             _saveHelper = helper;
+            _fileSystem = fileSystem;
         }
 
         public void SaveCard(Bitmap card, string fileName, string savingPath)
@@ -49,7 +52,7 @@ namespace KZMaker.Core.Services
 
             _saveHelper.AddRequiredItemsToDraft(ref lines, requiredItems);
 
-            File.WriteAllText(savingPath + $"\\{fileName}.card", lines);
+            _fileSystem.WriteAllText(savingPath + $"\\{fileName}.card", lines);
         }
 
         

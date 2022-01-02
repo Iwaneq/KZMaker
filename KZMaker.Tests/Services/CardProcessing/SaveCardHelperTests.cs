@@ -2,6 +2,7 @@
 using KZMaker.Core.Models;
 using KZMaker.Core.Services;
 using KZMaker.Core.Services.CardProcessing;
+using KZMaker.Core.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +18,7 @@ namespace KZMaker.Tests.Services
         public void AddPointsToDraft_WithValidData_ShouldWork()
         {
             //Arrange
-            var helper = new SaveCardHelper();
+            var helper = new SaveCardHelper(new DirectorySystem());
             string lines = "";
 
             List<Point> expected = new List<Point>()
@@ -52,7 +53,7 @@ namespace KZMaker.Tests.Services
         public void AddPointsToDraft_WithNoPoints_ShouldReturnEmptyString()
         {
             //Arrange
-            var helper = new SaveCardHelper();
+            var helper = new SaveCardHelper(new DirectorySystem());
             string lines = "";
 
             List<Point> expected = new List<Point>();
@@ -68,7 +69,7 @@ namespace KZMaker.Tests.Services
         public void AddRequiredItemsToDraft_WithValidData_ShouldWork()
         {
             //Arrange
-            var helper = new SaveCardHelper();
+            var helper = new SaveCardHelper(new DirectorySystem());
             string lines = "";
 
             List<RequiredItem> expected = new List<RequiredItem>()
@@ -94,7 +95,7 @@ namespace KZMaker.Tests.Services
         public void AddRequiredItemsToDraft_WithNoItems_ShouldReturnEmptyString()
         {
             //Arrange
-            var helper = new SaveCardHelper();
+            var helper = new SaveCardHelper(new DirectorySystem());
             string lines = "";
 
             List<RequiredItem> expected = new List<RequiredItem>();
@@ -108,7 +109,7 @@ namespace KZMaker.Tests.Services
         [Fact]
         public void CheckFileName_WithEmptyFileName_ShouldThrowException()
         {
-            var helper = new SaveCardHelper();
+            var helper = new SaveCardHelper(new DirectorySystem());
             string fileName = "";
 
             Assert.Throws<NotGeneratedCardException>(() => helper.CheckFileName(fileName));

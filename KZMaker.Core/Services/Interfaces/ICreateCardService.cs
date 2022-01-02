@@ -10,6 +10,6 @@ namespace KZMaker.Core.Services
 {
     public interface ICreateCardService
     {
-        Task<Bitmap> GenerateCard(string zastep, DateTime date, string place, List<Models.Point> points, List<RequiredItem> requiredItems);
+        Task<Bitmap> CreateCard(string zastep, DateTime date, string place, List<Models.Point> points, List<RequiredItem> requiredItems);
     }
 }

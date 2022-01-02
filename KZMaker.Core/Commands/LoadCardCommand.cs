@@ -12,15 +12,15 @@ using System.Threading.Tasks;
 
 namespace KZMaker.Core.Commands
 {
-    public class LoadCardCommand : IMvxCommand<CardFile>
+    public class LoadCardCommand : ILoadCardCommand
     {
         private readonly ILoadCardsService _loadCardsService;
         private readonly CreateCardViewModel _createCardViewModel;
         private readonly INavigator _navigator;
         private readonly INotificationsService _notificationsService;
 
-        public LoadCardCommand(ILoadCardsService loadCardsService, 
-            CreateCardViewModel createCardViewModel, 
+        public LoadCardCommand(ILoadCardsService loadCardsService,
+            CreateCardViewModel createCardViewModel,
             INavigator navigator,
             INotificationsService notificationsService)
         {
