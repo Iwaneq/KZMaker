@@ -16,7 +16,6 @@ namespace KZMaker.Core.ViewModels
 {
     public class SaveCardViewModel : MvxViewModel
     {
-        private readonly ISaveCardService _saveCardService;
         private Bitmap _card;
 
         public Bitmap Card
@@ -45,23 +44,25 @@ namespace KZMaker.Core.ViewModels
         public ISaveCardCommand SaveCardCommand { get; set; }
         public IPrintCardCommand PrintCardCommand { get; set; }
 
-        public SaveCardViewModel(ISaveCardService saveCardService,
-            IPrintCardCommand printCardCommand)
+        public SaveCardViewModel(IPrintCardCommand printCardCommand)
         {
             Card = new Bitmap(Path.Combine(Environment.CurrentDirectory, @"Resources\", "karta.png"));
-
-            _saveCardService = saveCardService;
 
             PrintCardCommand = printCardCommand;
         }
 
         public void UpdateCard(Bitmap card, string fileName)
         {
+            if(card == null) return;
+
             Card = card;
             FileName = fileName;
         }
+
         public void ChangeCommand(ISaveCardCommand command)
         {
+            if (command == null) return;
+
             SaveCardCommand = command;
         }
     }

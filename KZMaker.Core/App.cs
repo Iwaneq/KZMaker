@@ -24,6 +24,9 @@ using KZMaker.Core.Services.CardProcessing.Interfaces;
 using KZMaker.Core.Services.CardProcessing;
 using KZMaker.Core.Utils.Interfaces;
 using KZMaker.Core.Utils;
+using KZMaker.Core.ViewModels.Settings;
+using KZMaker.Core.ViewModels.Helpers.Interfaces;
+using KZMaker.Core.ViewModels.Helpers;
 
 namespace KZMaker.Core
 {
@@ -54,7 +57,8 @@ namespace KZMaker.Core
             services.RegisterType<IFile, FileSystem>();
             services.RegisterType<IDirectory, DirectorySystem>();
 
-            //CreateViewModels
+
+            //CreateViewModels of Main ViewModels
             services.RegisterSingleton<CreateViewModel<HomeViewModel>>(() => 
             {
                 return new HomeViewModel(
@@ -79,6 +83,7 @@ namespace KZMaker.Core
                 return services.GetSingleton<SettingsViewModel>();
             });
 
+
             services.RegisterSingleton<DelegateViewModelFactory>(
                 new DelegateViewModelFactory(
                     services.Resolve<CreateViewModel<HomeViewModel>>(),
@@ -87,13 +92,17 @@ namespace KZMaker.Core
                     services.Resolve<CreateViewModel<CardListViewModel>>(),
                     services.Resolve<CreateViewModel<SettingsViewModel>>()));
 
+
             services.RegisterSingleton<INavigator>(
                 new Navigator(
                     services.Resolve<DelegateViewModelFactory>()));
             services.RegisterSingleton<NotificationsStore>(new NotificationsStore());
 
+
+            services.RegisterType<ICreateCardHelper, CreateCardHelper>();
             services.RegisterType<ISaveCardHelper, SaveCardHelper>();
             services.RegisterType<ILoadCardsHelper, LoadCardsHelper>();
+
 
             services.RegisterType<ICardGenerator, CardGenerator>();
             services.RegisterType<ICreateCardService, CreateCardService>();
@@ -102,14 +111,22 @@ namespace KZMaker.Core
             services.RegisterType<ISettingsService, SettingsService>();
             services.RegisterType<INotificationsService, NotificationsService>();
 
+
             services.RegisterType<SaveCardCommand>();
             services.RegisterType<SaveDraftCommand>();
+
 
             services.RegisterSingleton<LoadCardCommand>(() =>
             {
                 return services.IoCConstruct<LoadCardCommand>();
             });
 
+
+            //ViewModels Helpers
+            services.RegisterType<ISettingsViewModelChildNavigationHelper, SettingsViewModelChildNavigationHelper>();
+
+
+            //ViewModels Singletons
             services.RegisterSingleton<CreateCardViewModel>(() =>
             {
                 return services.IoCConstruct<CreateCardViewModel>();
@@ -126,6 +143,7 @@ namespace KZMaker.Core
             {
                 return services.IoCConstruct<SettingsViewModel>();
             });
+
 
             //Checking AppSettings
             services.Resolve<IResourcesService>().CheckTheme();

@@ -25,11 +25,17 @@ namespace KZMaker.Core.ResourceManagement
         public void UpdateSettings(Settings settings)
         {
             //Update saving path
-            AppSettings.Default.SavingPath = settings.SavingPath;
+            if (!string.IsNullOrEmpty(settings.SavingPath))
+            {
+                AppSettings.Default.SavingPath = settings.SavingPath; 
+            }
 
             //Update resources
-            AppSettings.Default.Theme = settings.ThemeColor;
-            _resourcesService.CheckTheme();
+            if (!string.IsNullOrEmpty(settings.ThemeColor))
+            {
+                AppSettings.Default.Theme = settings.ThemeColor;
+                _resourcesService.CheckTheme(); 
+            }
 
             //Update file saving mode
             AppSettings.Default.IsSavingManually = settings.IsSavingManually;

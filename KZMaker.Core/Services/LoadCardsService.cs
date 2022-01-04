@@ -1,6 +1,7 @@
 ﻿using KZMaker.Core.Commands;
 using KZMaker.Core.Models;
 using KZMaker.Core.Services.CardProcessing.Interfaces;
+using KZMaker.Core.Services.Interfaces;
 using KZMaker.Core.Utils.Interfaces;
 using MvvmCross;
 using MvvmCross.ViewModels;
@@ -18,12 +19,14 @@ namespace KZMaker.Core.Services
         private readonly ILoadCardsHelper _helper;
         private readonly IFile _fileSystem;
         private readonly IDirectory _directorySystem;
+        private readonly INotificationsService _notificationsService;
 
-        public LoadCardsService(ILoadCardsHelper loadCardsHelper, IFile fileSystem, IDirectory directorySystem)
+        public LoadCardsService(ILoadCardsHelper loadCardsHelper, IFile fileSystem, IDirectory directorySystem, INotificationsService service)
         {
             _helper = loadCardsHelper;
             _fileSystem = fileSystem;
             _directorySystem = directorySystem;
+            _notificationsService = service;
         }
 
         public Card LoadCard(string filePath)
@@ -35,7 +38,17 @@ namespace KZMaker.Core.Services
 
             string fileText = _fileSystem.ReadAllText(filePath);
 
-            Card card = _helper.ConvertStringToCard(fileText);
+            Card card;
+
+            try
+            {
+                card = _helper.ConvertStringToCard(fileText);
+            }
+            catch (Exception ex)
+            {
+                _notificationsService.UpdateMessage($"Błąd: {ex.Message}", true);
+                return null;
+            }
 
             return card;
         }

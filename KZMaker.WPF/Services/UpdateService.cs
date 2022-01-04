@@ -21,7 +21,7 @@ namespace KZMaker.WPF.Services
         {
             if (System.Diagnostics.Debugger.IsAttached) 
             {
-                await Task.Delay(1500);
+                await Task.Delay(500);
                 _messageBoxService.Message("Nie masz żadnych aktualizacji do pobrania.", "Aktualizacja");
                 return;
             } 

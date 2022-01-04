@@ -15,7 +15,7 @@ namespace KZMaker.Tests.Services
     public class CreateCardServiceTests
     {
         [Fact]
-        public void CreateCard_WithValidData_ShouldCallMethodsOnceAndWork()
+        public async Task CreateCard_WithValidData_ShouldCallMethodsOnceAndWork()
         {
             using(var mock = AutoMock.GetLoose())
             {
@@ -43,9 +43,13 @@ namespace KZMaker.Tests.Services
                     }
                 };
 
+                mock.Mock<ICardGenerator>()
+                    .Setup(x => x.ReturnCard())
+                    .Returns(new System.Drawing.Bitmap(1, 1));
+
                 var service = mock.Create<CreateCardService>();
 
-                var card = service.CreateCard(zastep, date, place, points, requiredItems);
+                var card = await service.CreateCard(zastep, date, place, points, requiredItems);
 
                 mock.Mock<ICardGenerator>()
                     .Verify(x => x.CleanCard(), Times.Once);
@@ -74,7 +78,7 @@ namespace KZMaker.Tests.Services
         /// Everything should work. Methods with invalid (null or empty) parameters shouldn't be called, rest should work.
         /// </summary>
         [Fact]
-        public void CreateCard_WithInvalidData_ShouldNotCallMethodsWithInvalidParameters()
+        public async Task CreateCard_WithInvalidData_ShouldNotCallMethodsWithInvalidParameters()
         {
             using (var mock = AutoMock.GetLoose())
             {
@@ -88,9 +92,13 @@ namespace KZMaker.Tests.Services
 
                 List<RequiredItem> requiredItems = new List<RequiredItem>();
 
+                mock.Mock<ICardGenerator>()
+                    .Setup(x => x.ReturnCard())
+                    .Returns(new System.Drawing.Bitmap(1, 1));
+
                 var service = mock.Create<CreateCardService>();
 
-                var card = service.CreateCard(zastep, date, place, points, requiredItems);
+                var card = await service.CreateCard(zastep, date, place, points, requiredItems);
 
                 mock.Mock<ICardGenerator>()
                     .Verify(x => x.CleanCard(), Times.Exactly(1));

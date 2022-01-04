@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace KZMaker.Core.Navigation
 {
-    public delegate TViewModel CreateViewModel<TViewModel>() where TViewModel : MvxViewModel;
+    public delegate MvxViewModel CreateViewModel<TViewModel>() where TViewModel : MvxViewModel;
 
     public enum ViewModelType
     {

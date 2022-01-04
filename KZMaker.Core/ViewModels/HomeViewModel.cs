@@ -21,5 +21,6 @@ namespace KZMaker.Core.ViewModels
             TopCardsViewModel = new TopCardsViewModel(loadCardsService);
             LoadCardCommand = loadCardCommand;
         }
+
     }
 }

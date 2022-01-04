@@ -4,6 +4,7 @@ using KZMaker.Core.Models;
 using KZMaker.Core.ResourceManagement;
 using KZMaker.Core.Services;
 using KZMaker.Core.Services.Interfaces;
+using KZMaker.Core.ViewModels.Helpers.Interfaces;
 using KZMaker.Core.ViewModels.Progress;
 using KZMaker.Core.ViewModels.Settings;
 using MvvmCross.Commands;
@@ -18,6 +19,8 @@ namespace KZMaker.Core.ViewModels
 {
     public class SettingsViewModel : MvxViewModel
     {
+        private readonly ISettingsViewModelChildNavigationHelper _childNavigationHelper;
+
         private readonly GeneralSettingsViewModel _generalSettingsViewModel;
         private readonly SavingSettingsViewModel _savingSettingsViewModel;
         private readonly UpdatesSettingsViewModel _updatesSettingsViewModel;
@@ -61,10 +64,12 @@ namespace KZMaker.Core.ViewModels
         }
 
 
-        public SettingsViewModel(ISettingsService settingsService, IUpdateService updateService, INotificationsService notificationsService, IMessageBoxService messageBoxService)
+        public SettingsViewModel(ISettingsService settingsService, IUpdateService updateService, INotificationsService notificationsService, IMessageBoxService messageBoxService, ISettingsViewModelChildNavigationHelper childNavigationHelper)
         {
+            _childNavigationHelper = childNavigationHelper;
+
             _generalSettingsViewModel = new GeneralSettingsViewModel();
-            _savingSettingsViewModel = new SavingSettingsViewModel(messageBoxService);
+            _savingSettingsViewModel = new SavingSettingsViewModel(messageBoxService, notificationsService);
             _updatesSettingsViewModel = new UpdatesSettingsViewModel(updateService);
             _infoSettingsViewModel = new InfoSettingsViewModel(updateService);
 
@@ -78,74 +83,32 @@ namespace KZMaker.Core.ViewModels
 
             //Set CurrentViewModel (with Settings Title/Child's Name)
             CurrentViewModel = _childViewModels[0];
-            UpdateTitle(0);
+            ChildName = _childNavigationHelper.GetTitle(0);
 
             NextViewModelCommand = new MvxCommand(NextViewModel);
             PreviousViewModelCommand = new MvxCommand(PreviousViewModel);
 
             SaveSettingsCommand = new SaveSettingsCommand(settingsService, this, notificationsService);
+            _childNavigationHelper = childNavigationHelper;
         }
 
         private void NextViewModel()
         {
-            int viewModelsCount = _childViewModels.Count();
-            int currIndex = _childViewModels.FindIndex(x => x == CurrentViewModel);
+            CurrentViewModel = _childNavigationHelper.NextViewModel(CurrentViewModel, _childViewModels);
 
-            //If CurrentViewModel is last in list
-            if (CurrentViewModel == _childViewModels[viewModelsCount - 1])
-            {
-                int newIndex = 0;
-
-                CurrentViewModel = _childViewModels[newIndex];
-                UpdateTitle(newIndex);
-            }
-            else
-            {
-                int newIndex = currIndex + 1;
-
-                CurrentViewModel = _childViewModels[newIndex];
-                UpdateTitle(newIndex);
-            }
+            ChildName = _childNavigationHelper.GetTitle(GetCurrentIndex());
         }
 
         private void PreviousViewModel()
         {
-            int viewModelsCount = _childViewModels.Count();
-            int currIndex = _childViewModels.FindIndex(x => x == CurrentViewModel);
+            CurrentViewModel = _childNavigationHelper.PreviousViewModel(CurrentViewModel, _childViewModels);
 
-            //If CurrentViewModel is first in list
-            if (CurrentViewModel == _childViewModels[0])
-            {
-                int newIndex = viewModelsCount - 1;
-
-                CurrentViewModel = _childViewModels[newIndex];
-                UpdateTitle(newIndex);
-            }
-            else
-            {
-                int newIndex = currIndex - 1;
-                CurrentViewModel = _childViewModels[newIndex];
-                UpdateTitle(newIndex);
-            }
+            ChildName = _childNavigationHelper.GetTitle(GetCurrentIndex());
         }
 
-        private void UpdateTitle(int currIndex)
+        private int GetCurrentIndex()
         {
-            switch (currIndex)
-            {
-                case 0:
-                    ChildName = "Ogólne";
-                    break;
-                case 1:
-                    ChildName = "Zapis";
-                    break;
-                case 2:
-                    ChildName = "Aktualizacje";
-                    break;
-                case 3:
-                    ChildName = "Informacje";
-                    break;
-            }
+            return _childViewModels.FindIndex(x => x == CurrentViewModel);
         }
     }
 }

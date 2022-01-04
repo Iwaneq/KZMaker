@@ -1,5 +1,6 @@
 ﻿using KZMaker.Core.Exceptions;
 using KZMaker.Core.Services;
+using KZMaker.Core.Services.Interfaces;
 using MvvmCross.Commands;
 using MvvmCross.ViewModels;
 using System;
@@ -13,6 +14,7 @@ namespace KZMaker.Core.ViewModels.Settings
     public class SavingSettingsViewModel : MvxViewModel
     {
         private readonly IMessageBoxService _messageBoxService;
+        private readonly INotificationsService _notificationsService;
 
         private string _savingPath = AppSettings.Default.SavingPath;
         public string SavingPath
@@ -41,12 +43,13 @@ namespace KZMaker.Core.ViewModels.Settings
         public IMvxCommand GetSavingPathCommand { get; set; }
 
 
-        public SavingSettingsViewModel(IMessageBoxService messageBoxService)
+        public SavingSettingsViewModel(IMessageBoxService messageBoxService, INotificationsService notificationsService)
         {
             _messageBoxService = messageBoxService;
 
             GetSavingPathCommand = new MvxCommand(GetSavingPath);
             IsSavingManually = AppSettings.Default.IsSavingManually;
+            _notificationsService = notificationsService;
         }
 
 
@@ -65,7 +68,7 @@ namespace KZMaker.Core.ViewModels.Settings
             }
             catch (GetPathFailedException)
             {
-                SavingPath = "Błąd przy wczytaniu ścieżki";
+                _notificationsService.UpdateMessage("Błąd przy wczytaniu ścieżki", true);
             }
         }
     }

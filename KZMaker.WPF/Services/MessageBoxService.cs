@@ -1,5 +1,6 @@
 ﻿using KZMaker.Core.Exceptions;
 using KZMaker.Core.Services;
+using KZMaker.Core.Utils.Interfaces;
 using Microsoft.Win32;
 using Ookii.Dialogs.Wpf;
 using System;
@@ -14,11 +15,18 @@ namespace KZMaker.WPF.Services
 {
     public class MessageBoxService : IMessageBoxService
     {
+        private readonly IDirectory _directorySystem;
+
+        public MessageBoxService(IDirectory directorySystem)
+        {
+            _directorySystem = directorySystem;
+        }
+
         public string GetSavingPath(string startDirectory)
         {
-            if (!Directory.Exists(startDirectory))
+            if (!_directorySystem.Exists(startDirectory))
             {
-                Directory.CreateDirectory(startDirectory);
+                _directorySystem.CreateDirectory(startDirectory);
             }
 
             VistaFolderBrowserDialog folderBrowser = new VistaFolderBrowserDialog();
@@ -49,7 +57,7 @@ namespace KZMaker.WPF.Services
         {
             VistaOpenFileDialog fileDialog = SetupBasicFileDialog(ext);
 
-            if (Directory.Exists(startDirectory))
+            if (_directorySystem.Exists(startDirectory))
             {
                 fileDialog.InitialDirectory = startDirectory;
             }

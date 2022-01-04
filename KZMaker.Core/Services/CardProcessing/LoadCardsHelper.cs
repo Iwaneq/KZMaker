@@ -1,8 +1,10 @@
 ﻿using KZMaker.Core.Commands;
+using KZMaker.Core.Exceptions;
 using KZMaker.Core.Models;
 using KZMaker.Core.Services.CardProcessing.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -47,8 +49,25 @@ namespace KZMaker.Core.Services.CardProcessing
             //zastep^date^place^pointTime$pointTitle$zastepMember*pointTime$pointTitle$zastepMember^item*item
 
             string[] cols = fileText.Split('^');
+
+            if(cols.Length != 5)
+            {
+                throw new LoadFileFailedException("Couldn't load invalid file");
+            }
+
             card.Zastep = cols[0];
-            card.Date = DateTime.Parse(cols[1]);
+
+            //Trying to parse String to DateTime
+            DateTime date;
+            if (DateTime.TryParse(cols[1], out date))
+            {
+                card.Date = date; 
+            }
+            else
+            {
+                throw new LoadFileFailedException("Date in file string is invalid");
+            }
+
             card.Place = cols[2];
 
             string[] points = cols[3].Split('*');
