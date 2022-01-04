@@ -2,6 +2,8 @@
 using KZMaker.Core.Commands;
 using KZMaker.Core.ResourceManagement;
 using KZMaker.Core.Services;
+using KZMaker.Core.Utils;
+using KZMaker.Core.Utils.Interfaces;
 using KZMaker.Core.ViewModels;
 using KZMaker.WPF.Commands;
 using KZMaker.WPF.Services;
@@ -28,6 +30,9 @@ namespace KZMaker.WPF
 
             services.RegisterType<IPrintCardCommand, Commands.PrintCardCommand>();
             services.RegisterType<ILoadBrowsedCardCommand, LoadBrowsedCardCommand>();
+
+            services.RegisterType<IFile, FileSystem>();
+            services.RegisterType<IDirectory, DirectorySystem>();
 
             services.RegisterType<IMessageBoxService, MessageBoxService>();
             services.RegisterType<IPrintService, PrintService>();

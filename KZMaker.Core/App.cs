@@ -54,10 +54,6 @@ namespace KZMaker.Core
         {
             var services = Mvx.IoCProvider;
 
-            services.RegisterType<IFile, FileSystem>();
-            services.RegisterType<IDirectory, DirectorySystem>();
-
-
             //CreateViewModels of Main ViewModels
             services.RegisterSingleton<CreateViewModel<HomeViewModel>>(() => 
             {

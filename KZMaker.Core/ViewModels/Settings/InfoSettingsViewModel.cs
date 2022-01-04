@@ -30,12 +30,17 @@ namespace KZMaker.Core.ViewModels.Settings
         public IMvxCommand OpenRepoCommand { get; set; }
         public IMvxCommand OpenFacebookCommand { get; set; }
         public IMvxCommand OpenWebsiteCommand { get; set; }
+        public IMvxCommand OpenFormCommand { get; set; }
+        public IMvxCommand OpenBugFormCommand { get; set; }
+
 
         public InfoSettingsViewModel(IUpdateService updateService)
         {
             OpenRepoCommand = new MvxCommand(() => GoToSite("https://github.com/Iwaneq/KZMaker"));
-            OpenFacebookCommand = new MvxCommand(() => GoToSite("https://www.facebook.com/profile.php?id=100014244395441"));
             OpenWebsiteCommand = new MvxCommand(() => GoToSite("https://kzmaker.netlify.app"));
+            OpenFormCommand = new MvxCommand(() => GoToSite("https://forms.gle/Dbs1iRXAqrr7KSXr5"));
+            OpenBugFormCommand = new MvxCommand(() => GoToSite("https://forms.gle/ZpeY4tJY2Zn1516Z9"));
+
 
             _updateService = updateService;
 
