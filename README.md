@@ -2,9 +2,10 @@
 * [Introduction](#introduction)
 * [Technologies](#technologies)
 * [Launch](#launch)
+* [What's new in KZMaker?](#updates)
 * [Project's future](#future)
 * [Sources](#sources)
-
+  
 # Introduction
 ### What KZMaker is?
 KZMaker is my first bigger product, which allows user to create scout documents (Karty Zbiórki) faster and simplier, than on paper. 
@@ -57,6 +58,39 @@ You can also visit [Project's website](https://kzmaker.netlify.app) and download
 After you downloaded release package, you need to open Setup.exe. Then the installation will run itself, creating KZMaker icon on your desktop.
 
 ![image](https://user-images.githubusercontent.com/27814917/143598094-c451d8b9-2424-4b8a-8750-7775dd512de5.png)
+
+# Updates
+### What's new in KZMaker 2.1.0?
+<h4 align="center">Loading screen!</h4>
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/27814917/148186654-5dd55d33-7740-4a50-b015-d2a29eadd817.png">
+</p>
+KZMaker now have a loading screen. While loading, application is checking for new updates (you can turn that option off in settings).
+
+---
+
+<h4 align="center">New notifications system!</h4>
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/27814917/148187093-18b9de0f-caab-499f-b777-f2d6e1d02f17.png"> 
+</p>
+Notifications system has been refactored. Now it's simpler and clearer.
+
+---
+
+<h4 align="center">New settings page!</h4>
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/27814917/148188104-f33540c4-57c3-486e-985f-6cab99a98f60.gif">
+</p>
+Because of increasing number of new settings, I decided to divide settings into four smaller Views. In new settings page you can also see more info about application (like version, author) and even give me a feedback or report a bug!
+
+---
+
+<h4 align="center">Resizing option!</h4>
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/27814917/148189118-3db4d4b1-fd2e-4390-9d0c-29fd27fe1aef.gif">
+</p>
+Now, you can resize and dock KZM window! :3
+
 
 # Future
 ### General plans
